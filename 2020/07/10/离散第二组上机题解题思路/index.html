@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="拓扑排序,图论," />
+  <meta name="keywords" content="图论,拓扑排序," />
 
 
 
@@ -86,25 +86,25 @@
 <meta property="og:site_name" content="Railroad Guerrilla">
 <meta property="og:description" content="拓扑排序引入对于一种执行的依赖关系：  要执行B，先执行A  我们可以使用一条边 $A\to B$ 表示。即想要执行B，必须先把所有指向A的点执行了，当 B的入度为0时 ，B才可以被执行。 例如，现在有边 $A\to B, B\to C, D \to B$ ，表示想要执行B，先要执行 A,D​ ， 想要执行 C ，先要执行B  那么执行的顺序为 $A,D,B,C$ ，或者 $D,A,B,C$  对">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E9%80%9A%E8%B7%AF-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/images/%E6%AC%A7%E6%8B%89%E9%80%9A%E8%B7%AF-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/images/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E9%80%9A%E8%B7%AF-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E6%AC%A7%E6%8B%89%E9%80%9A%E8%B7%AF-2.png">
 <meta property="article:published_time" content="2020-07-10T00:04:30.000Z">
-<meta property="article:modified_time" content="2020-07-10T03:57:03.109Z">
+<meta property="article:modified_time" content="2020-07-10T04:08:47.926Z">
 <meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
-<meta property="article:tag" content="拓扑排序">
 <meta property="article:tag" content="图论">
+<meta property="article:tag" content="拓扑排序">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/10/images/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF.png">
 
 
 
@@ -352,7 +352,7 @@
 </blockquote>
 <p>我们可以使用一条边 $A\to B$ 表示。即想要执行B，必须先把所有指向A的点执行了，当 <strong>B的入度为0时</strong> ，B才可以被执行。</p>
 <p>例如，现在有边 $A\to B, B\to C, D \to B$ ，表示想要执行B，先要执行 A,D​ ， 想要执行 C ，先要执行B</p>
-<p><img src="../images/离散第二组上机题解题思路.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/离散第二组上机题解题思路.png" alt></p>
 <p>那么执行的顺序为 $A,D,B,C$ ，或者 $D,A,B,C$ </p>
 <p>对这种执行先后顺序的处理，我们称为拓扑排序。</p>
 <h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><p>容易看出，只有当一个点的入度为0时，它才没有依赖的点，那么它就是可执行的。</p>
@@ -366,7 +366,7 @@
 <p>当stack为空，表示入度为0的点没有了，没有可以执行的点，算法结束</p>
 </blockquote>
 <p>如此一来，如果图中没有剩下的点，那么我们就可以得到一个合法的拓扑排序。如果图中还有点，说明图内存在环（如下图），无法生成拓扑排序。</p>
-<p><img src="../images/离散第二组上机题解题思路-2.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/离散第二组上机题解题思路-2.png" alt></p>
 <h3 id="字典序最小的拓扑排序"><a href="#字典序最小的拓扑排序" class="headerlink" title="字典序最小的拓扑排序"></a>字典序最小的拓扑排序</h3><p>可以使用小根堆（或者叫做优先队列 priority_queue）代替stack。它每次会将储存的元素中最小的元素取出，因此我们能保证每次从入度为0的点集中取出的元素字典序最小</p>
 <h4 id="第一题解题代码及思路（该题要满足字典序最小）"><a href="#第一题解题代码及思路（该题要满足字典序最小）" class="headerlink" title="第一题解题代码及思路（该题要满足字典序最小）"></a>第一题解题代码及思路（该题要满足字典序最小）</h4><p>模版题，题意见文件</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt; &gt; Q;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Edge[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> in[MAXN];</span><br><span class="line"><span class="keyword">int</span> cnt_ans = <span class="number">0</span>, ans[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Add_Edge</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Edge[u].push_back(v);<span class="comment">//在以u为起点的点集中加入终点v</span></span><br><span class="line">    in[v]++;<span class="comment">//v的入度++</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">TOP_SORT</span><span class="params">(<span class="keyword">int</span> tot_siz)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  	<span class="comment">//tot_siz记录图中还有多少点没有处理</span></span><br><span class="line">  	<span class="comment">//Q.size()表示当前可执行点集的大小</span></span><br><span class="line">    <span class="keyword">while</span>(Q.size() &amp;&amp; tot_siz)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u = Q.top();<span class="comment">//取出堆顶元素</span></span><br><span class="line">        Q.pop();<span class="comment">//将堆顶元素删除</span></span><br><span class="line">        ans[++cnt_ans] = u;<span class="comment">//将它记录到结果中</span></span><br><span class="line">        tot_siz--;<span class="comment">//此时图中需要处理的点少了一个</span></span><br><span class="line">      	<span class="comment">//下面开始遍历它所指向的点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i !=  Edge[u].size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> v = Edge[u][i];<span class="comment">//v代表边的终点</span></span><br><span class="line">            in[v]--;<span class="comment">//入度--</span></span><br><span class="line">            <span class="keyword">if</span>(in[v] == <span class="number">0</span>)Q.push(v);<span class="comment">//入度为0代表它可执行，加入堆中</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tot_siz == <span class="number">0</span>;</span><br><span class="line">  	<span class="comment">//如果剩余的点==0，那么就代表存在拓扑序列</span></span><br><span class="line">  	<span class="comment">//反之则不存在</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("In.txt", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">      	<span class="keyword">int</span> u, v;</span><br><span class="line">      	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v);</span><br><span class="line">        Add_Edge(u, v);<span class="comment">//将边加入图中</span></span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">if</span>(in[i] == <span class="number">0</span>)Q.push(i);<span class="comment">//先将入度为0的点加入堆中</span></span><br><span class="line">    <span class="keyword">if</span>(TOP_SORT(n))<span class="comment">//执行拓扑排序，如果存在拓扑序列，则输出结果</span></span><br><span class="line">      	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)<span class="built_in">printf</span>(<span class="string">"%d "</span>, ans[i]);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">"impossible"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -398,11 +398,11 @@
 <p><strong>处理欧拉回路</strong></p>
 <p>​    对于一张存在欧拉回路的图，它一定可以拆分成若干个简单环的叠加</p>
 <p>​    例如</p>
-<p>​    <img src="../images/欧拉回路-1.png" style="zoom: 25%;" /></p>
+<p>​    <img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉回路-1.png" style="zoom: 25%;"></p>
 <p>可以拆分成</p>
-<p><img src="../images/欧拉回路-2.png" style="zoom: 67%;" /></p>
-<p><img src="../images/欧拉回路-3.png" style="zoom:67%;" /></p>
-<p><img src="../images/欧拉回路-4.png" style="zoom:67%;" /></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉回路-2.png" style="zoom: 67%;"></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/images/欧拉回路-3.png" style="zoom:67%;"></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉回路-4.png" style="zoom:67%;"></p>
 <p>这样的三个环</p>
 <p>证明：存在欧拉回路的图一定是多个简单环的叠加</p>
 <p>设 $edge(u,v)$ 不在任一简单环中</p>
@@ -413,16 +413,16 @@
 <p>我们每次从一个点出发，走过一个环（不一定是简单环），回到当前点，将走过的边从图中删除，则对于每一个走过的点，删除的度数均为偶数。剩下的图不一定联通，但是对于每一个联通块，它仍然是一个存在欧拉回路的连通图。</p>
 <p>因此，我们遍历已经走过的点，若它们还有未经过的边，则对它们所在的子图进行处理，处理出一个简单环的路径，并把它们加入欧拉路径中</p>
 <p><strong>以上图为例</strong></p>
-<p><img src="../images/欧拉回路-1.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉回路-1.png" alt></p>
 <p>我们先走出</p>
-<p><img src="../images/欧拉回路-2.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/images/欧拉回路-2.png" alt></p>
 <p>这样一个环，以 a 为起点，则当前环的欧拉路径为</p>
 <blockquote>
 <p>a b c f i h g d a</p>
 </blockquote>
 <p>在这个环上，b，d，f，h均存在没有走过的边</p>
 <p>假设我们再以 $b$ 为起点走过</p>
-<p><img src="../images/欧拉回路-3.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉回路-3.png" alt></p>
 <p>路径为 b e d b，并用它代替原本路径中的 b</p>
 <p>得到</p>
 <blockquote>
@@ -430,7 +430,7 @@
 </blockquote>
 <p>图虫还有 e，f，h存在未走过的边</p>
 <p>以e为起点走过</p>
-<p><img src="../images/欧拉回路-4.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉回路-4.png" alt></p>
 <p>得到路径 e f h e，替换原路径中的e，得到</p>
 <blockquote>
 <p>a b <strong>e f h e​</strong> d b c f i h g d a</p>
@@ -449,7 +449,7 @@
 </blockquote>
 <p>因此，我们找出路径之后，就可以对剩下的图进行欧拉回路的处理，得到一条欧拉路径</p>
 <p><strong>以下图为例</strong></p>
-<p><img src="../images/欧拉通路-1.png" style="zoom: 50%;" /></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉通路-1.png" style="zoom: 50%;"></p>
 <p>我们先找一条 a 到 的简单路径 a e d</p>
 <p>然后剩下的图为一个欧拉回路的图（画图软件画不出c e之间的重边，所以下面两个步骤没有图…）</p>
 <p>我们在 a e d 上找还存在边的点 e，然后走一个没有走过的环，走过 e c e，那么我们替换后的新路径</p>
@@ -461,7 +461,7 @@
 <p>a e c <strong>e b e</strong> d</p>
 </blockquote>
 <p>那么剩下来的图就是</p>
-<p><img src="../images/欧拉通路-2.png" alt=""></p>
+<p><img src="/2020/07/10/%E7%A6%BB%E6%95%A3%E7%AC%AC%E4%BA%8C%E7%BB%84%E4%B8%8A%E6%9C%BA%E9%A2%98%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/欧拉通路-2.png" alt></p>
 <p>我们找到 a ，走过最后剩下的环 a b d e a， 替换 a</p>
 <blockquote>
 <p><strong>a b d c a</strong> e c e b e d</p>
@@ -500,9 +500,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="tag"># 拓扑排序</a>
-          
             <a href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag"># 图论</a>
+          
+            <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="tag"># 拓扑排序</a>
           
         </div>
       
