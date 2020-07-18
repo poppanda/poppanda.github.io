@@ -336,7 +336,7 @@
 <h3 id="解法一-树形DP"><a href="#解法一-树形DP" class="headerlink" title="解法一:树形DP"></a>解法一:树形DP</h3><p>考虑传递平方和。</p>
 <p>将当前的点的值传递到下一个点，经过边长为 $w$ 。那么我们需要维护的值最终的值是平方和，记为</p>
 <p>$\sum\limits_{p\in Leaf} d_{now}[p]^2$，其中 $d[p]$ 是 $p$ 到当前节点的距离， $Leaf$ 是已经经过的叶子节点的集合。那么我们传递到下一个点时，维护的值就应该变为 </p>
-<p>$\sum\limits_{p\in Leaf} d_{son}[p]^2 = \sum\limits_{p\in Leaf} (d_{now}[p] + w)^2 = \sum\limits_{p\in Leaf}d_{now}[p]^2 + 2<em>w</em>\sum\limits_{p\in Leaf}d_{now}[p] + w^2\cdot |Leaf|$</p>
+<p>$\sum\limits_{p\in Leaf} d_{son}[p]^2 =\sum\limits_{p\in Leaf} (d_{now}[p] + w)^2 = \sum\limits_{p\in Leaf}d_{now}[p]^2 + 2\cdot w\cdot \sum\limits_{p\in Leaf}d_{now}[p] + w^2\cdot|Leaf|$</p>
 <p>也就是说，我们需要记录的值还有 $\sum\limits_{p\in Leaf} d_{now}[p]$ 和 $|Leaf|(Leaf的元素个数)$ ，DP时处理一下即可。</p>
 <p>注意在处理完叶子节点后要更新父节点的相关值。</p>
 <p>时间复杂度O(n)</p>
