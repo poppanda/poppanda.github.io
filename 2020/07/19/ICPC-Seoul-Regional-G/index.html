@@ -87,7 +87,7 @@
 <meta property="og:description" content="G Same Color题意x轴上有 $n \leq 10^5$ 个点，坐标在 $[0, 10^9]$ 之间，每个点有一种颜色。 现在把点分为 $A,B$ 两组，要求对于B组里的点而言，离它最近的一个A组的点必须和它是一个颜色的（如果有两个点都离它最近，那么其中一个和它颜色一致即可），求A组的点的个数最少是多少。 题解:动态规划+线段树显然：每一段点的颜色相同的区间上必有至少一个点被分到A组 首先">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-19T15:35:00.000Z">
-<meta property="article:modified_time" content="2020-07-19T15:37:09.860Z">
+<meta property="article:modified_time" content="2020-07-20T12:37:31.372Z">
 <meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
 <meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="线段树">
@@ -342,7 +342,7 @@
 <p>$dp[i]$ 表示第 $i$ 个点之前至少有多少个点被分配到了A组</p>
 <p>那么对于一个点 $i$ ，我们考虑两种状态</p>
 <p>1、它不是当前同一颜色区间的最后一个点，那么它后面的所有的在当前这个颜色区间的点 $j$ 都可以作为当前区间的最后一个点，</p>
-<p>$dp[j] = min(dp[j], dp[i] + 1)，j\in<a href="c_i为第i个点的颜色区间">i,R[c_i]</a>$</p>
+<p>$dp[j] = min(dp[j], dp[i] + 1)，j\in <a href="c_i为第i个点的颜色区间">i,R[c_i]</a>$</p>
 <p>2、它是当前同一颜色区间的最后一个点，那么在 $[x_i + 1, 2\cdot x_{R[c_i]} - x_i)$ 中都不能出现下一个颜色的A点，而在 $[2\cdot x_{R[c_i]} - x_i,2\cdot x_{L_{c_i + 1}}-x_i]$ 中必然出现下一个颜色的A点</p>
 <p>因此在区间合法的情况下（这个区间必须被包含在下一个颜色区间内）</p>
 <p>$dp[j] = min(dp[j],dp[i]+1),j\in [2\cdot x_{R[c_i]}-x_i,2\cdot x_{L_{c_i + 1}} - x_i]$</p>
@@ -479,7 +479,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -501,7 +501,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
