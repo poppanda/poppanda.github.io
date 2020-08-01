@@ -239,6 +239,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/01/%E7%A6%BB%E6%95%A3%E4%B8%8A%E6%9C%BA%E8%87%AA%E9%80%89%E5%8A%A8%E4%BD%9C%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/01/%E7%A6%BB%E6%95%A3%E4%B8%8A%E6%9C%BA%E8%87%AA%E9%80%89%E5%8A%A8%E4%BD%9C%E6%80%9D%E8%B7%AF/" itemprop="url">离散上机自选动作思路</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-01T21:11:36+08:00">
+                2020-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>输入集合A和B，输出A到B上的所有函数/单射函数/双射函数/满射函数。</p>
+<p>相当于求一个映射。</p>
+<p>考虑Dfs（深搜），A集合中的每一个点必定被映射到B集合上某一点，因此我们在Dfs中第i层状态代表A集合中第i个数字映射到B上的哪个数字，那么这颗Dfs数就有|A| 层，每一层的点代表当前状态下选择的是B集合中的哪个数字。</p>
+<p>对于单射，我们只需要对B中的数字的使用情况进行记录(mark)，已经使用过的就不能再使用了。</p>
+<p>对于双射，|A| = |B|必定成立，因此判断同上即可，B中的数字能且仅能使用一次（我还写了个没啥用的Judge函数，实际上没必要）</p>
+<p>对于满射，我们需要用Judge进行判断，在对B中的数字使用情况记录后进行统计，保证B中每个数字都被使用了（对应mark值不为0）</p>
+<p>以输出所有函数为例进行代码的解释</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1005</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取一个数字</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> A[MAXN], B[MAXN], refl[MAXN];</span><br><span class="line"><span class="keyword">int</span> mark[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d -&gt; %d "</span>, A[i], B[refl[i]]);</span><br><span class="line">        <span class="keyword">if</span>(i != n) <span class="built_in">printf</span>(<span class="string">"| "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  	<span class="comment">//当前搜索到第p层</span></span><br><span class="line">  	<span class="comment">//若p大于了理论最大层数，则输出</span></span><br><span class="line">    <span class="keyword">if</span>(p == n + <span class="number">1</span>) print();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        fore(i, <span class="number">1</span>, m)</span><br><span class="line">        <span class="comment">//对B集合中的每一个元素进行枚举，不会产生遗漏</span></span><br><span class="line">            &#123;</span><br><span class="line">         				<span class="comment">//记录对应的映射</span></span><br><span class="line">                refl[p] = i;</span><br><span class="line">          			<span class="comment">//搜索下一层</span></span><br><span class="line">                Dfs(p + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">"In.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    n = input(), m = input();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set A:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, n) A[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; A[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set B:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, m) B[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; B[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    Dfs(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四道题的通用代码（对应注释修改即可）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1005</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> A[MAXN], B[MAXN], refl[MAXN];</span><br><span class="line"><span class="keyword">int</span> mark[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Judge</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">1</span>, m) </span><br><span class="line">        <span class="keyword">if</span>(mark[i] == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// if(Judge() == false) return; // 要求满射/双射时开启</span></span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d -&gt; %d "</span>, A[i], B[refl[i]]);</span><br><span class="line">        <span class="keyword">if</span>(i != n) <span class="built_in">printf</span>(<span class="string">"| "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p == n + <span class="number">1</span>) print();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        fore(i, <span class="number">1</span>, m)</span><br><span class="line">            <span class="comment">// if(mark[i] == 0) //要求单射/双射时开启</span></span><br><span class="line">            &#123;</span><br><span class="line">                refl[p] = i;</span><br><span class="line">                <span class="comment">// mark[i]++; //要求单射/双射/满射时开启</span></span><br><span class="line">                Dfs(p + <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// mark[i]--; // 要求单射/双射/满射时开启</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">"In.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    n = input(), m = input();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set A:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, n) A[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; A[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set B:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, m) B[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; B[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// if(n &gt; m) &#123;printf("单射不存在"); return 0;&#125; //要求单射时开启</span></span><br><span class="line">    <span class="comment">// if(n &lt; m) &#123;printf("满射不存在"); return 0;&#125; //要求满射时开启</span></span><br><span class="line">    <span class="comment">// if(n != m) &#123;printf("双射不存在"); return 0;&#125; //要求双射时开启</span></span><br><span class="line">    Dfs(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/2020-%E5%A4%9A%E6%A0%A1-2-L/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1595,156 +1750,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/19/ICPC-Seoul-Regional-I/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/19/ICPC-Seoul-Regional-I/" itemprop="url">ICPC Seoul Regional-I</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-19T23:41:17+08:00">
-                2020-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC-Seoul-Regional/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC Seoul Regional</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="I-Thread-Knots"><a href="#I-Thread-Knots" class="headerlink" title="I Thread Knots"></a>I Thread Knots</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>在 $x$ 轴上存在 $n\leq 10^5$ 条线段，每条线段上有一个点，可以在线段上的整数点左右移动。</p>
-<p>线段满足：不存在一条线段被另一条完全覆盖 $(s_a\leq s_b \&amp;\&amp; e_b\leq e_a)$。</p>
-<p>求一种点分布方式，使得相邻点之间的最小距离最大。</p>
-<h3 id="题解-二分"><a href="#题解-二分" class="headerlink" title="题解:二分"></a>题解:二分</h3><p>二分一个答案，验证时尽量将点向左放</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pll pair<span class="meta-string">&lt;li, li&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> li MAXN = <span class="number">1e5</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> li <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); li o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+c - <span class="number">48</span>;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pll A[MAXN];</span><br><span class="line"></span><br><span class="line">li n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">OK</span><span class="params">(li d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    li pos = A[<span class="number">1</span>].first;</span><br><span class="line">    fore(i, <span class="number">2</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        li temp = pos + d;</span><br><span class="line">        <span class="keyword">if</span>(A[i].second &lt; temp) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        pos = max(A[i].first, temp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("In.txt", "r", stdin);</span></span><br><span class="line">    n = input();</span><br><span class="line">    li s, l;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        s = input(); l = input();</span><br><span class="line">        A[i].first = s;</span><br><span class="line">        A[i].second = s + l;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(A + <span class="number">1</span>, A + n + <span class="number">1</span>);</span><br><span class="line">    li L = <span class="number">0</span>, R = <span class="number">1e10</span>, mid;</span><br><span class="line">    <span class="keyword">while</span>(L + <span class="number">1</span>&lt; R)</span><br><span class="line">    &#123;</span><br><span class="line">        mid = (L + R) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(OK(mid)) L = mid;</span><br><span class="line">        <span class="keyword">else</span> R = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, L);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1795,7 +1800,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
