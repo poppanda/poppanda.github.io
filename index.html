@@ -239,6 +239,320 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-H/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-H/" itemprop="url">2020-多校-7-H</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-05T23:53:59+08:00">
+                2020-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E6%A0%A1-7/" itemprop="url" rel="index">
+                    <span itemprop="name">多校-7</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有21个元素，标号从0到20。现在给定 $n\leq 10^6$ 个组，每个组包含两个数字， $(b)_{10} = (b_0b_1b_2…b_{20})_2$ 其二进制代表是否需要第 $k$ 个元素和 $p$ 代表其贡献。多个组可同时选择当且仅当其需要的元素均不重复（即每个元素最多可以使用一次），同时选择多个组时贡献为 $\prod p_i$</p>
+<p>现有 $m\leq 10^6$ 个询问，每次询问包含一个数字 $(x)_{10} = (x_1x_2…x_{20})_2$ ，问使用完且仅使用当前组的元素可以得到多少种方案，将这些方案的贡献相加后$\mod 998244353$ 输出。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>显然要便利所有的 $2^{21}-1$ 种方案</p>
+<p>朴素的想法是bitmask，其复杂度为 $\sum_{i=0}^{2^{21}-1}\sum_{k\in i}1=\sum_{i=0}^{20}C_{20}^i2^i=3^{21}$</p>
+<p>显然不行（但是其实是有人计划通了的，果然人只要极端愤怒，就没有什么不可能的）</p>
+<h3 id="这里用到子集卷积"><a href="#这里用到子集卷积" class="headerlink" title="这里用到子集卷积"></a>这里用到子集卷积</h3><p>考虑bitmask过程中组合为 $i$ 的最终贡献为 $P_i=\sum_{k\in i}a_kb_{i-k}$（$a,b$ 为组合为 $k,i-k$ 的最终贡献）</p>
+<p>令多项式 $A(x) = \sum a_ix^i, B(x) = \sum b_ix^i$</p>
+<p>则有 $P(x) = \sum_ix^i\sum_{j\in i}a_kb_{i-k}$，满足 $k|(i-k)=i,|k|+|i-k|=|i|,|i|$ 为组合的元素数（集合大小）</p>
+<p>用子集卷积即可。为避免重复计算，应当将初始的 $b$ 分类，按照 $b$ 包含的最高位分类 $A_0,A_1,A_2…$ 依次卷积。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1</span> &lt;&lt; <span class="number">21</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> siz[MAXN + <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fwt</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A, <span class="keyword">int</span> type = <span class="number">1</span>, <span class="keyword">int</span> base = <span class="number">20</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = (<span class="number">1</span> &lt;&lt; base);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; i &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>, t = i &lt;&lt; <span class="number">1</span>; j &lt; len; j += t)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = j, K = j + i; k &lt; K; ++k)</span><br><span class="line">                A[k + i] = (A[k + i] + type * A[k]) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">Merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;B, <span class="keyword">int</span> base)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">1</span> &lt;&lt; base;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ret</span><span class="params">(len)</span></span>;</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; SA(base + 1, vector&lt;int&gt;(len, 0)), SB = SA, SC = SA;</span><br><span class="line">    Fore(i, <span class="number">0</span>, len)</span><br><span class="line">        SA[siz[i]][i] = A[i], SB[siz[i]][i] = B[i];</span><br><span class="line">    fore(i, <span class="number">0</span>, base)</span><br><span class="line">    &#123;</span><br><span class="line">        fwt(SA[i], <span class="number">1</span>, base);</span><br><span class="line">        fwt(SB[i], <span class="number">1</span>, base);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> S = <span class="number">0</span>; S &lt; len; S++)</span><br><span class="line">            fore(j, <span class="number">0</span>, i)</span><br><span class="line">                SC[i][S] = (SC[i][S] + <span class="number">1L</span>L * SA[j][S] * SB[i - j][S] % mod) % mod;</span><br><span class="line">        fwt(SC[i], <span class="number">-1</span>, base);</span><br><span class="line">    &#125;</span><br><span class="line">    Fore(S, <span class="number">0</span>, len) ret[S] = SC[siz[S]][S];</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PRO</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">1</span>, MAXN) siz[i] = siz[i - (i &amp; -i)] + <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;ret(MAXN + <span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">    ret[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    fore(i, <span class="number">0</span>, <span class="number">20</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(ret.begin(), ret.begin() + len);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; B = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(p.begin() + len, p.begin() + (len * <span class="number">2</span>));</span><br><span class="line">        A = Merge(A, B, i);</span><br><span class="line">        Fore(j, <span class="number">0</span>, len) ret[j + len] = A[j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">v</span><span class="params">(MAXN + <span class="number">5</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("H.in", "r", stdin);</span></span><br><span class="line">    <span class="comment">// freopen("Out.txt", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> n = input(), p, b;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        p = input(); b = input();</span><br><span class="line">        v[b] = (v[b] + p) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res = PRO(v);</span><br><span class="line">    <span class="keyword">int</span> m = input();</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q = input();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (res[q] + mod)%mod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-D/" itemprop="url">2020-多校-7-D</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-05T23:25:17+08:00">
+                2020-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E6%A0%A1-7/" itemprop="url" rel="index">
+                    <span itemprop="name">多校-7</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个区间 [0,t] ，每次随机取两个数字 $v_1, v_2$ （可以相等）， 给定 $a, c, m$ ，构造一个序列满足</p>
+<script type="math/tex; mode=display">X_0 = v_1+v_2, X_{i+1} = a\cdot X_i + c \mod m(i>=0)</script><p>问 $X_{v_1-v_2}$ 为偶数的概率有多大？</p>
+<p>其中 $1\leq t\leq \frac{m}{2}, m \leq 10^6, a, c\leq m$</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="计算概率"><a href="#计算概率" class="headerlink" title="计算概率"></a>计算概率</h3><p>首先，确定一个 $X_0 = v_1 + v_2$ ，对其而言随机选择到 $X_0$ 的概率为 $P_1 = \frac{min(2 * t - X_0, X_0) + 1}{(t+1)^2}$</p>
+<p>其次，$v_1-v_2$ 的最大值为 $v_m = min(2 \cdot t - X_0, X_0)$，</p>
+<p>则 $v_1 - v_2$ 为 $\{-v_m, -v_m + 2, -v_m + 4,…,v_m - 2, v_m\}$ 中等概率选择的某一个</p>
+<p>对于 $X_m$ 为偶数，则 $｜v_1 - v_2｜ = 0$ 的可能性为 $\frac{1}{(v_m + 1)/2}$ （分母取整）</p>
+<p>=其它值的可能性均为$\frac{2}{(v_m + 1)/2}$ （分母取整）</p>
+<p>而对于 $X_m$ 为奇数，则$｜v_1 - v_2｜$ 的取值的可能性均为$\frac{2}{(v_m + 1)/2}$</p>
+<p>对应的可能性乘以 $P_1$ 乘以在这些 $|v_1-v_2|$ 对应的 $X_{|v_1-v_2|}$ 的偶数的个数再累加即为最终的概率</p>
+<h3 id="计算奇偶的分布"><a href="#计算奇偶的分布" class="headerlink" title="计算奇偶的分布"></a>计算奇偶的分布</h3><p>我们实际上只需要计算 $X_0, X_2, … , X_{v_m}$ 的奇偶的个数即可，每一次步长均为2</p>
+<p>记 $nexnum[x][i]$ 为从 $x$ 出发走 $2^i$ 步到达的数字</p>
+<p>$cnt[x][i]$ 为从 $x$ 出发，一共经过包括 $x$ 在内的 $2^i$ 个数字的偶数的个数，即可利用倍增计算</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">1e6</span> + <span class="number">5</span>, LOGM = <span class="number">22</span>;</span><br><span class="line"><span class="keyword">inline</span> li __gcd(li a, li b)&#123;<span class="keyword">return</span> b == <span class="number">0</span> ? a : __gcd(b, a % b);&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Frac</span> &#123;</span></span><br><span class="line">    li a, b;</span><br><span class="line">    <span class="function">li <span class="title">sign</span><span class="params">(li x)</span> </span>&#123; <span class="keyword">return</span> (x &gt; <span class="number">0</span> ? <span class="number">1</span> : <span class="number">-1</span>); &#125;</span><br><span class="line">    inline Frac() : a(0), b(1) &#123;&#125;</span><br><span class="line">    inline Frac(li x) : a(x), b(1) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">Frac</span><span class="params">(li x, li y)</span> </span>&#123;</span><br><span class="line">        li m = __gcd(<span class="built_in">abs</span>(x), <span class="built_in">abs</span>(y));</span><br><span class="line">        a = x / m * sign(y);</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">0</span>)</span><br><span class="line">            b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            b = <span class="built_in">abs</span>(y / m);</span><br><span class="line">    &#125;</span><br><span class="line">    Frac <span class="keyword">operator</span>+(<span class="keyword">const</span> Frac &amp;f) &#123;</span><br><span class="line">        li m = __gcd(b, f.b);</span><br><span class="line">        <span class="keyword">return</span> Frac(f.b / m * a + b / m * f.a, b / m * f.b);</span><br><span class="line">    &#125;</span><br><span class="line">    Frac <span class="keyword">operator</span>*(<span class="keyword">const</span> Frac &amp;f) &#123;</span><br><span class="line">        li m1 = __gcd(<span class="built_in">abs</span>(a), f.b);</span><br><span class="line">        li m2 = __gcd(b, <span class="built_in">abs</span>(f.a));</span><br><span class="line">        <span class="keyword">return</span> Frac((a / m1) * (f.a / m2), (b / m2) * (f.b / m1));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">li t, a, c, m;</span><br><span class="line">li nexnum[MAXM][LOGM], ji[MAXM][LOGM];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PRO</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">0</span>, m)</span><br><span class="line">    &#123;</span><br><span class="line">        nexnum[i][<span class="number">0</span>] = (a * a * i + a * c + c) % m;</span><br><span class="line">        ji[i][<span class="number">0</span>] = i &amp; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Fore(j, <span class="number">1</span>, LOGM)</span><br><span class="line">    fore(i, <span class="number">0</span>, m)</span><br><span class="line">        &#123;</span><br><span class="line">            nexnum[i][j] = nexnum[nexnum[i][j - <span class="number">1</span>]][j - <span class="number">1</span>];</span><br><span class="line">            ji[i][j] = ji[i][j - <span class="number">1</span>] + ji[nexnum[i][j - <span class="number">1</span>]][j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld%lld"</span>, &amp;t, &amp;a, &amp;c, &amp;m);</span><br><span class="line">        PRO();</span><br><span class="line">        Frac res;</span><br><span class="line">        <span class="keyword">for</span>(li sum = <span class="number">0</span>; sum &lt;= <span class="number">2</span> * t; sum++)</span><br><span class="line">        &#123;</span><br><span class="line">            li mina = <span class="number">0</span>, maxa = (min(<span class="number">2</span>*t - sum, sum) + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            li res_ji, all = (maxa &lt;&lt; <span class="number">1</span>) + ((sum &amp; <span class="number">1</span>) == <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span>(sum &amp; <span class="number">1</span>)</span><br><span class="line">                res_ji = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                res_ji = sum&amp;<span class="number">1</span>;</span><br><span class="line">            li start_num = (sum &amp; <span class="number">1</span>) ? (a * sum + c)%m : nexnum[sum][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LOGM &amp;&amp; maxa; i++)</span><br><span class="line">                <span class="keyword">if</span>(maxa &amp; (<span class="number">1</span> &lt;&lt; i))</span><br><span class="line">                &#123;</span><br><span class="line">                    maxa ^= (<span class="number">1</span> &lt;&lt; i);</span><br><span class="line">                    res_ji += ji[start_num][i] * <span class="number">2</span>;</span><br><span class="line">                    start_num = nexnum[start_num][i];</span><br><span class="line">                &#125;</span><br><span class="line">            Frac posi = Frac(min(<span class="number">2</span>*t - sum, sum) + <span class="number">1</span>, (t + <span class="number">1</span>) * (t + <span class="number">1</span>)) * Frac(res_ji, all);</span><br><span class="line">            res = res + posi;</span><br><span class="line">        &#125;</span><br><span class="line">        res.a = res.b - res.a;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld/%lld\n"</span>, res.a, res.b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/01/%E7%A6%BB%E6%95%A3%E4%B8%8A%E6%9C%BA%E8%87%AA%E9%80%89%E5%8A%A8%E4%BD%9C%E6%80%9D%E8%B7%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1450,311 +1764,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/ICPC-Seoul-Regional-A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/20/ICPC-Seoul-Regional-A/" itemprop="url">ICPC Seoul Regional-A</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-20T20:40:29+08:00">
-                2020-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC-Seoul-Regional/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC Seoul Regional</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="A-Fire-on-Field"><a href="#A-Fire-on-Field" class="headerlink" title="A - Fire on Field"></a>A - Fire on Field</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>数列 $a[0]=1, a[1]=1$, $a[i]$ 在满足 $a[i]-a[i-k]!=a[i-k]-a[i-2*k]$ 的情况下取最小正整数, 问 $a[n]$, $n\leq 1000$.</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>暴力枚举, 本地跑发现最多运行 $2\times 10^6$ 次.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/19/ICPC-Seoul-Regional-K/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/19/ICPC-Seoul-Regional-K/" itemprop="url">ICPC Seoul Regional-K</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-19T23:42:26+08:00">
-                2020-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC-Seoul-Regional/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC Seoul Regional</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="K-Washer"><a href="#K-Washer" class="headerlink" title="K Washer"></a>K Washer</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定三维平面里的 $n\in[1,100]$ 个点 $\{(r_i, g_i, b_i)\},r,g,b\in[0,1000]$ ，每次处理一些点时会产生 $r = \frac{\sum_{i = 1}^n r_i}{n},g = \frac{\sum_{i = 1}^n g_i}{n},b=\frac{\sum_{i = 1}^n b_i}{n}$ ，最终产生一个代价 $c = \sum\limits_{i = 1}^n(r_i - r)^2 + (g_i - g)^2 + (b_i - b)^2$ ，现在给定 $k\in[1,2]$ 次处理机会，将所有点处理完，求最小代价。</p>
-<h3 id="题解-计算几何"><a href="#题解-计算几何" class="headerlink" title="题解:计算几何"></a>题解:计算几何</h3><p>抄了一波AK题解。</p>
-<p>每次处理的代价实际上就是点集的方差，其实就是将点集划分，使得方差最小。</p>
-<p>k=1时无需讨论。</p>
-<p>k=2时，显然点与重心离得越近越好，因此如果将划分后的每个点集处理出凸包，那么两个凸包必定是不相交的。</p>
-<p>同时，必然存在一个平面，与两个凸包分别相切（此处的相切是指最多有一根直线相交），且将两个凸包分隔在两侧。</p>
-<p>考虑枚举三个点构成这个平面，点集划分后，再将三个点分别分配到两个点集中（因为在相切的平面上，所以可能属于任何一边），然后处理出最小的结果，复杂度O(n^4)。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tuple&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> P tuple<span class="meta-string">&lt;li, li, li&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> o; <span class="keyword">char</span> c = getchar();</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>) + (o &lt;&lt; <span class="number">3</span>) + c - <span class="number">48</span>;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, k;</span><br><span class="line"><span class="built_in">vector</span>&lt;P&gt; coord;</span><br><span class="line"></span><br><span class="line">P <span class="keyword">operator</span> - (P a, P b)</span><br><span class="line">&#123;</span><br><span class="line">    li ax, ay, az; tie(ax, ay, az) = a;</span><br><span class="line">    li bx, by, bz; tie(bx, by, bz) = b;</span><br><span class="line">    <span class="keyword">return</span> P(ax - bx, ay - by, az - bz);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P <span class="keyword">operator</span> * (P a, P b)</span><br><span class="line">&#123;</span><br><span class="line">    li ax, ay, az; tie(ax, ay, az) = a;</span><br><span class="line">    li bx, by, bz; tie(bx, by, bz) = b;</span><br><span class="line">    li cx = ay * bz - az * by;</span><br><span class="line">    li cy = az * bx - ax * bz;</span><br><span class="line">    li cz = ax * by - ay * bx;</span><br><span class="line">    <span class="keyword">return</span> P(cx, cy, cz);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">li <span class="keyword">operator</span> ^(P a, P b)</span><br><span class="line">&#123;</span><br><span class="line">    li ax, ay, az; tie(ax, ay, az) = a;</span><br><span class="line">    li bx, by, bz; tie(bx, by, bz) = b;</span><br><span class="line">    <span class="keyword">return</span> ax * bx + ay * by + az * bz;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Val</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;P&gt; &amp;V)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    li R, G, B, V2, r, g, b;</span><br><span class="line">    R = G = B = V2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> p : V)</span><br><span class="line">    &#123;</span><br><span class="line">        tie(r, g, b) = p;</span><br><span class="line">        R += r;</span><br><span class="line">        G += g;</span><br><span class="line">        B += b;</span><br><span class="line">        V2 += r * r + g * g + b * b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> V2 - (R * R + G * G + B * B) / (<span class="keyword">double</span>)V.size();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">tryfor</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    P Plane = (coord[y] - coord[x]) * (coord[z] - coord[x]);<span class="comment">//处理出平面的法向量，用于划分点集</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;P&gt; p1, p2;</span><br><span class="line">    Fore(i, <span class="number">0</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i == x || i == y || i == z)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>( (Plane ^ (coord[i] - coord[x])) &gt; <span class="number">0</span>) p1.push_back(coord[i]);</span><br><span class="line">        <span class="keyword">else</span> p2.push_back(coord[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">double</span> ans = <span class="number">1e18</span>;</span><br><span class="line">    Fore(xp, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">    Fore(yp, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">    Fore(zp, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">    <span class="comment">//分配组成平面的三个点</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(xp == yp &amp;&amp; yp == zp) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(xp) p1.push_back(coord[x]); <span class="keyword">else</span> p2.push_back(coord[x]);</span><br><span class="line">        <span class="keyword">if</span>(yp) p1.push_back(coord[y]); <span class="keyword">else</span> p2.push_back(coord[y]);</span><br><span class="line">        <span class="keyword">if</span>(zp) p1.push_back(coord[z]); <span class="keyword">else</span> p2.push_back(coord[z]);</span><br><span class="line">        ans = min(ans, Val(p1) + Val(p2));</span><br><span class="line">        <span class="keyword">if</span>(xp) p1.pop_back(); <span class="keyword">else</span> p2.pop_back();</span><br><span class="line">        <span class="keyword">if</span>(yp) p1.pop_back(); <span class="keyword">else</span> p2.pop_back();</span><br><span class="line">        <span class="keyword">if</span>(zp) p1.pop_back(); <span class="keyword">else</span> p2.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n &lt;= k) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(k == <span class="number">1</span>) <span class="keyword">return</span> Val(coord);</span><br><span class="line">    <span class="keyword">double</span> ans = <span class="number">1e18</span>;</span><br><span class="line">    Fore(i, <span class="number">0</span>, n)</span><br><span class="line">        Fore(j, <span class="number">0</span>, i)</span><br><span class="line">            Fore(k, <span class="number">0</span>, j)</span><br><span class="line">      			<span class="comment">//枚举组成平面的三个点</span></span><br><span class="line">                ans = min(ans, tryfor(i, j, k));</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n = input();k = input();</span><br><span class="line">    Fore(i, <span class="number">0</span>, n)</span><br><span class="line">        coord.emplace_back(input(), input(), input());</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.6lf"</span>, solve());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -1800,7 +1814,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1811,7 +1825,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1822,7 +1836,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
