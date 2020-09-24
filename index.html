@@ -239,6 +239,330 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/" itemprop="url">点分治题集</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-24T13:21:57+08:00">
+                2020-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%83%E4%B9%A0%E9%A2%98%E9%9B%86/" itemprop="url" rel="index">
+                    <span itemprop="name">练习题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="模版题"><a href="#模版题" class="headerlink" title="模版题"></a>模版题</h2><ul>
+<li><p>洛谷 P3806 [模板]点分治1</p>
+</li>
+<li><p>洛谷 P4178 Tree</p>
+</li>
+<li><p>洛谷 P2634 [国家集训队]聪聪可可</p>
+</li>
+<li><p>洛谷 P4149 [IOI2011]Race‘</p>
+</li>
+</ul>
+<h1 id="洛谷-P2664-树上游戏"><a href="#洛谷-P2664-树上游戏" class="headerlink" title="[洛谷 P2664] 树上游戏"></a><a href="https://www.luogu.com.cn/problem/P2664" target="_blank" rel="noopener">[洛谷 P2664] 树上游戏</a></h1><h3 id="点分治-容斥"><a href="#点分治-容斥" class="headerlink" title="点分治+容斥"></a>点分治+容斥</h3><p>点分治后正向和反向分别DP一次（一个方向的DP仅能统计当前子树到之前遍历过的子树的贡献）<br>然后删除重复统计的部分</p>
+<p>统计过程中一个点的能在当前分治过程中产生新的贡献当且仅当当前点到当前树根的路径上没有与当前点同色的点，而它能够产生的贡献就是其它子树中到达树根的路径上没有当前颜色的点的数量</p>
+<h1 id="WC2010-重建计划"><a href="#WC2010-重建计划" class="headerlink" title="[WC2010] 重建计划"></a><a href="https://www.luogu.com.cn/problem/P4292" target="_blank" rel="noopener">[WC2010] 重建计划</a></h1><h3 id="点分治-二分"><a href="#点分治-二分" class="headerlink" title="点分治+二分"></a>点分治+二分</h3><p>对于二分答案，将每个点的权值减去当前的答案</p>
+<p>若存在满足当前答案的方案，那么存在一条路径，使得新的权值之和不小于0</p>
+<p>使用单调队列维护路径长度在 $[L,U]$，方法类似于滑动窗口维护某一段区间的最大值</p>
+<h1 id="HDU4812-D-Tree"><a href="#HDU4812-D-Tree" class="headerlink" title="[HDU4812] D Tree"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4812" target="_blank" rel="noopener">[HDU4812] D Tree</a></h1><h3 id="点分治-数学逆元"><a href="#点分治-数学逆元" class="headerlink" title="点分治+数学逆元"></a>点分治+数学逆元</h3><p>由于模数不大，可以记录从树根到每一个节点 $p$ 的乘积的值 $v_p$（不能在DP过程中记录，在每一棵子树DP结束后记录）<br>当我们在某一个子树中跑DP时，对于单个点 $u$ 的统计相当于询问之前走过的记录中是否存在一个在其它子树中的点 $v$ 使得 $v_u \cdot v_v \cdot v_{root}^{-1}=K$(树根的值被统计了两次)<br>在当前子树跑完之后我们将其中的值 $v_p$ 再合并到记录中</p>
+<p>对于询问，相当于在记录中寻找 $v_v = K \cdot v_u^{-1}\cdot v_{root}$，可预处理</p>
+<h1 id="SPOJ1825-Free-tour-II"><a href="#SPOJ1825-Free-tour-II" class="headerlink" title="[SPOJ1825] Free tour II"></a><a href="https://www.spoj.com/problems/FTOUR2/" target="_blank" rel="noopener">[SPOJ1825] Free tour II</a></h1><p>基本同上，记录的值变为走过k个拥挤点的最大贡献</p>
+<h1 id="HDU5977-Garden-of-Eden"><a href="#HDU5977-Garden-of-Eden" class="headerlink" title="[HDU5977] Garden of Eden"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5977" target="_blank" rel="noopener">[HDU5977] Garden of Eden</a></h1><p>k的值很小，在点分治过程中记录对应每一个点经过苹果种类的二进制状态</p>
+<p>在统计时值得注意的一点是，对于一个状态 $sta$ 而言，我们统计的是所有满足 $sta|t=(11…1)_2$ 的 $t$ 状态对应的值之和，为了统计方便，我们应该在每次DP完合并时将状态 $sta$ 的值统计到其每一个子集上去，使用 $bitmask$ 即可，对于每一个状态 $sta$ ，时间复杂度上界为 $O(2^k)$ 。</p>
+<p>对于单次DP，其最大的状态数有 $2^k$ 个，时间复杂度最大为 $O(3^k)$ ，这种情况下它对应的子树的点数应该不小于 $2^k$ 。均摊下来每一层分治的最坏复杂度上界为 $O(n\cdot \frac{3^k}{2^k}) = O(n\cdot \frac{3}{2}^k)$ ，最终复杂度为 $O(n\cdot logn\cdot \frac{3}{2}^k)$ ，但是实际情况下界非常松。</p>
+<h3 id="下列题目处理十分类似"><a href="#下列题目处理十分类似" class="headerlink" title="下列题目处理十分类似"></a>下列题目处理十分类似</h3><ul>
+<li><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5909" target="_blank" rel="noopener">[HDU5909]Tree Cutting</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3727" target="_blank" rel="noopener">[Luogu3727]曼哈顿计划E</a></li>
+<li><a href="https://loj.ac/problem/2259" target="_blank" rel="noopener">[FJOI2014]最短路径树问题</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/06/2020-%E5%A4%9A%E6%A0%A1-7-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/06/2020-%E5%A4%9A%E6%A0%A1-7-I/" itemprop="url">2020-多校-7-I</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-06T11:11:15+08:00">
+                2020-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E6%A0%A1-7/" itemprop="url" rel="index">
+                    <span itemprop="name">多校-7</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>构造包含 $[1,n]\leq 10^5$ 序列，使得最长上升序列长度为 $x$ ，最长下降序列长度为 $y$ ，满足字典序最小</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>无解的情况：</p>
+<p>$x\cdot y &lt; n$ 或 $x+y &gt; n + 1$</p>
+<p>有解：</p>
+<p>试图让上升序列尽量靠前且字典序更小。</p>
+<p>将序列分为 $x$ 块，每一块满足前一块的元素均小于后一块的元素，且前一块的元素个数不大于后一块，每一块的元素降序排列。</p>
+<p>也就是尽量将元素往后填充，直到当前元素块构成了最长下降序列。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("In.txt", "r", stdin);</span></span><br><span class="line">    <span class="comment">// freopen("Out.txt", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> T, n, x, y;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;x, &amp;y);</span><br><span class="line">        <span class="keyword">if</span>(x + y &gt; n + <span class="number">1</span>|| <span class="number">1L</span>L * x * y &lt; n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"NO"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"YES"</span>);</span><br><span class="line">        fore(i, <span class="number">1</span>, n) p[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rem = n - x, cnt = (y == <span class="number">1</span>) ? <span class="number">0</span> : rem / (y - <span class="number">1</span>), more = (y == <span class="number">1</span>) ? <span class="number">0</span> : ((rem % (y - <span class="number">1</span>)) != <span class="number">0</span>);</span><br><span class="line">        fore(i, <span class="number">1</span>, cnt)</span><br><span class="line">            p[n - i * y + <span class="number">1</span>] = n - (i - <span class="number">1</span>) * y;</span><br><span class="line">        <span class="keyword">if</span>(more)</span><br><span class="line">            p[n - cnt * y - (rem % (y - <span class="number">1</span>))] = n - cnt * y;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(!p[i])p[i] = i, i++;</span><br><span class="line">        <span class="keyword">while</span>(i &lt;= n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!p[i]) p[i] = p[i - <span class="number">1</span>] - <span class="number">1</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        Fore(j, <span class="number">1</span>, n) <span class="built_in">printf</span>(<span class="string">"%d "</span>, p[j]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, p[n]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-H/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1463,307 +1787,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/ICPC-Seoul-Regional-E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/20/ICPC-Seoul-Regional-E/" itemprop="url">ICPC Seoul Regional-E</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-20T20:42:36+08:00">
-                2020-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC-Seoul-Regional/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC Seoul Regional</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="E-Network-Vulnerability"><a href="#E-Network-Vulnerability" class="headerlink" title="E - Network Vulnerability"></a>E - Network Vulnerability</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给出 $n$ 个区间, $n\leq 2000$, 每个区间代表一个顶点, 如果两个区间相交, 它们代表的顶点之间就连一条无向边. 定义 $c(i)$ 为移除 $i$ 个点后最大的联通块数. 试输出 $c(0), c(1), \cdots, c(n-1)$.</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>首先有个无关的事情. 就是由区间生成的图并没有什么特殊性质, 主要是可以给你 $O(n)$ 的数据来表示 $O(n^2)$ 条边. $CF$ 出过由一个树推导出这个区间的<a href="https://codeforces.com/contest/1278/problem/E" target="_blank" rel="noopener">题</a>.</p>
-<p>我这题基本是看代码揣测做题人的意图, 所以后面附上他的加了注释的代码.</p>
-<p>离散化, 对区间按左端点排序. 定义 $dp[i][j][k]$ 为利用前 $i$ 个区间, 形成 $j$ 个联通块, 整体右端点为 $k$ 时, 最多能剩几个区间.</p>
-<p>转移的时候就是枚举前面的区间右端点与当前区间的位置关系, 这个比较自然,, 可以直接看代码.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">2048</span>;</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line">pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; interval[MAXN];</span><br><span class="line"><span class="keyword">int</span> dp[MAXN][MAXN];</span><br><span class="line"><span class="keyword">int</span> dpR[MAXN];  <span class="comment">// dp[*][R]</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; RP;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;interval[i].first, &amp;interval[i].second);</span><br><span class="line">        RP.push_back(interval[i].second);</span><br><span class="line">    &#125;</span><br><span class="line">    RP.push_back((<span class="keyword">int</span>)<span class="number">-1e9</span> - <span class="number">1</span>);</span><br><span class="line">    RP.push_back((<span class="keyword">int</span>)<span class="number">-1e9</span>);</span><br><span class="line">    sort(RP.<span class="built_in">begin</span>(), RP.<span class="built_in">end</span>());</span><br><span class="line">    RP.resize(unique(RP.<span class="built_in">begin</span>(), RP.<span class="built_in">end</span>()) - RP.<span class="built_in">begin</span>());</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        interval[i].first =</span><br><span class="line">            lower_bound(RP.<span class="built_in">begin</span>(), RP.<span class="built_in">end</span>(), interval[i].first) - RP.<span class="built_in">begin</span>();</span><br><span class="line">        interval[i].second =</span><br><span class="line">            lower_bound(RP.<span class="built_in">begin</span>(), RP.<span class="built_in">end</span>(), interval[i].second) - RP.<span class="built_in">begin</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//只以右端点为基准离散化, 左端点移动到下一个右端点不影响区间之间相交与否</span></span><br><span class="line"></span><br><span class="line">    sort(interval, interval + N);</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0xaf</span>, <span class="keyword">sizeof</span> dp);  <span class="comment">//负无穷</span></span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> maxcomp = <span class="number">0</span>;  <span class="comment">//当前最大联通块数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> L = interval[i].first, R = interval[i].second;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= maxcomp + <span class="number">1</span>; ++j) dpR[j] = dp[j][R];</span><br><span class="line">        <span class="comment">//dp[j][R]: 当联通块数为 j, 整体右端点为 R 时, 最多能包含的区间数</span></span><br><span class="line">        <span class="comment">//dpR[] 数组只起一个暂存 dp[][R] 最大值的作用</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= maxcomp; ++j) &#123;</span><br><span class="line">            <span class="keyword">int</span> val = dpR[j + <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; L; ++k) val = <span class="built_in">max</span>(val, dp[j][k] + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//枚举区间不相交的情况, 联通块数++, 区间数++</span></span><br><span class="line">            dpR[j + <span class="number">1</span>] = val;</span><br><span class="line"></span><br><span class="line">            val = dpR[j];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = L; k &lt; R; ++k) val = <span class="built_in">max</span>(val, dp[j][k] + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//枚举区间相交的情况, 联通块数不变, 区间数++</span></span><br><span class="line">            dpR[j] = val;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = R; k &lt; (<span class="keyword">int</span>)RP.<span class="built_in">size</span>(); ++k) dp[j][k] += <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//更新右端点更大的情况. 当前区间被前面某个区间包括, 连通块数不变,</span></span><br><span class="line">            <span class="comment">//区间数++</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dpR[maxcomp + <span class="number">1</span>] &gt; <span class="number">0</span>) ++maxcomp;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= maxcomp; ++j) dp[j][R] = <span class="built_in">max</span>(dp[j][R], dpR[j]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(N + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= N; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; (<span class="keyword">int</span>)RP.<span class="built_in">size</span>(); ++j) res[i] = <span class="built_in">max</span>(res[i], dp[i][j]);</span><br><span class="line">    <span class="comment">// res[i]: i 个联通块最多包含的区间数</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">/*  for (int i = 0; i &lt;= N; i++) printf("%d ", res[i]);</span></span><br><span class="line"><span class="comment">    printf("\n"); */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= N - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> comp = N - i;</span><br><span class="line">        <span class="comment">//剩余 comp 个区间</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = comp; j &gt;= <span class="number">1</span>; --j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (res[j] &gt;= comp) &#123;</span><br><span class="line">            <span class="comment">//如果 j 个联通块能包含不少于 comp 个区间, 那么也可以包含 comp 个区间</span></span><br><span class="line">            <span class="comment">//即移除每个联通块的最后一个区间(已排序)</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d "</span>, j);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/ICPC-Seoul-Regional-D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/20/ICPC-Seoul-Regional-D/" itemprop="url">ICPC Seoul Regional-D</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-20T20:41:10+08:00">
-                2020-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC-Seoul-Regional/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC Seoul Regional</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="D-Ladder-Game"><a href="#D-Ladder-Game" class="headerlink" title="D - Ladder Game"></a>D - Ladder Game</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>有 $n-1$ 个梯子拼在一起, 每个梯子有最多 $L$ 个阶梯. 不会有相邻的两个梯子在同一水平线上都有阶梯. 想象有 $n$ 个珠子编号 $1-n$ 沿着 $n$ 条竖线下落, 遇到一个阶梯时就沿着阶梯移动到另一条竖线(类似伽尔顿板). 最后得到的珠子从左往右是一个排列 $\pi$. 现在要移除尽可能多的阶梯, 使得最后得到的排列不变, 输出最后保留的阶梯. $n\leq 50, L\leq 1000$.</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>按高度排序, 每个阶梯的作用相当于交换两个相邻的珠子(称作置换$(a_i,a_{i+1})$). 给珠子编号后, 我们模拟这个过程, 如果发现当前交换的两个珠子形成逆序, 即 $a_i &gt; a_{i+1}$, 就找到前面是哪一步发生了置换 $(a_{i+1},a_i)$, 把这一步和当前步删掉, 重复此过程, 就完了. 下面说明正确性.</p>
-<p>首先置换 $(a_{i+1},a_i)$ 是存在的, 因为我们总是交换两个相邻的数字, 要存在 $a_i &gt; a_{i+1}$, 必然有置换 $(a_{i+1},a_i)$. 那么, 为什么这样不会改变最后的排列呢, 看图~.</p>
-<p>然后考虑这样操作后为什么保留的阶梯数是最少的. 经过这一系列操作, 就不存在置换 $(a_i,a_{i+1}),a_i&gt;a_{i+1}$, 即每次置换都会使得全局逆序数加一; 同时, 不存在更少的操作数来达到这个逆序数. 所以此时保留的阶梯是最少的.</p>
-<p><img src="/2020/07/20/ICPC-Seoul-Regional-D/D.png" alt></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1814,7 +1837,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1825,7 +1848,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1836,7 +1859,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

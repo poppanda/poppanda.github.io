@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="点分治,二分,SPFA,容斥,数论," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="模版题 洛谷 P3806 [模板]点分治1  洛谷 P4178 Tree  洛谷 P2634 [国家集训队]聪聪可可  洛谷 P4149 [IOI2011]Race‘   [洛谷 P2664] 树上游戏点分治+容斥点分治后正向和反向分别DP一次（一个方向的DP仅能统计当前子树到之前遍历过的子树的贡献）然后删除重复统计的部分 统计过程中一个点的能在当前分治过程中产生新的贡献当且仅当当前点到当前树根的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点分治题集">
+<meta property="og:url" content="http://yoursite.com/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="模版题 洛谷 P3806 [模板]点分治1  洛谷 P4178 Tree  洛谷 P2634 [国家集训队]聪聪可可  洛谷 P4149 [IOI2011]Race‘   [洛谷 P2664] 树上游戏点分治+容斥点分治后正向和反向分别DP一次（一个方向的DP仅能统计当前子树到之前遍历过的子树的贡献）然后删除重复统计的部分 统计过程中一个点的能在当前分治过程中产生新的贡献当且仅当当前点到当前树根的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-24T05:21:57.000Z">
+<meta property="article:modified_time" content="2020-09-24T13:15:43.008Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta property="article:tag" content="点分治">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="SPFA">
+<meta property="article:tag" content="容斥">
+<meta property="article:tag" content="数论">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/24/点分治题集/"/>
+
+
+
+
+
+  <title>点分治题集 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">点分治题集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-24T13:21:57+08:00">
+                2020-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%83%E4%B9%A0%E9%A2%98%E9%9B%86/" itemprop="url" rel="index">
+                    <span itemprop="name">练习题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="模版题"><a href="#模版题" class="headerlink" title="模版题"></a>模版题</h2><ul>
+<li><p>洛谷 P3806 [模板]点分治1</p>
+</li>
+<li><p>洛谷 P4178 Tree</p>
+</li>
+<li><p>洛谷 P2634 [国家集训队]聪聪可可</p>
+</li>
+<li><p>洛谷 P4149 [IOI2011]Race‘</p>
+</li>
+</ul>
+<h1 id="洛谷-P2664-树上游戏"><a href="#洛谷-P2664-树上游戏" class="headerlink" title="[洛谷 P2664] 树上游戏"></a><a href="https://www.luogu.com.cn/problem/P2664" target="_blank" rel="noopener">[洛谷 P2664] 树上游戏</a></h1><h3 id="点分治-容斥"><a href="#点分治-容斥" class="headerlink" title="点分治+容斥"></a>点分治+容斥</h3><p>点分治后正向和反向分别DP一次（一个方向的DP仅能统计当前子树到之前遍历过的子树的贡献）<br>然后删除重复统计的部分</p>
+<p>统计过程中一个点的能在当前分治过程中产生新的贡献当且仅当当前点到当前树根的路径上没有与当前点同色的点，而它能够产生的贡献就是其它子树中到达树根的路径上没有当前颜色的点的数量</p>
+<h1 id="WC2010-重建计划"><a href="#WC2010-重建计划" class="headerlink" title="[WC2010] 重建计划"></a><a href="https://www.luogu.com.cn/problem/P4292" target="_blank" rel="noopener">[WC2010] 重建计划</a></h1><h3 id="点分治-二分"><a href="#点分治-二分" class="headerlink" title="点分治+二分"></a>点分治+二分</h3><p>对于二分答案，将每个点的权值减去当前的答案</p>
+<p>若存在满足当前答案的方案，那么存在一条路径，使得新的权值之和不小于0</p>
+<p>使用单调队列维护路径长度在 $[L,U]$，方法类似于滑动窗口维护某一段区间的最大值</p>
+<h1 id="HDU4812-D-Tree"><a href="#HDU4812-D-Tree" class="headerlink" title="[HDU4812] D Tree"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4812" target="_blank" rel="noopener">[HDU4812] D Tree</a></h1><h3 id="点分治-数学逆元"><a href="#点分治-数学逆元" class="headerlink" title="点分治+数学逆元"></a>点分治+数学逆元</h3><p>由于模数不大，可以记录从树根到每一个节点 $p$ 的乘积的值 $v_p$（不能在DP过程中记录，在每一棵子树DP结束后记录）<br>当我们在某一个子树中跑DP时，对于单个点 $u$ 的统计相当于询问之前走过的记录中是否存在一个在其它子树中的点 $v$ 使得 $v_u \cdot v_v \cdot v_{root}^{-1}=K$(树根的值被统计了两次)<br>在当前子树跑完之后我们将其中的值 $v_p$ 再合并到记录中</p>
+<p>对于询问，相当于在记录中寻找 $v_v = K \cdot v_u^{-1}\cdot v_{root}$，可预处理</p>
+<h1 id="SPOJ1825-Free-tour-II"><a href="#SPOJ1825-Free-tour-II" class="headerlink" title="[SPOJ1825] Free tour II"></a><a href="https://www.spoj.com/problems/FTOUR2/" target="_blank" rel="noopener">[SPOJ1825] Free tour II</a></h1><p>基本同上，记录的值变为走过k个拥挤点的最大贡献</p>
+<h1 id="HDU5977-Garden-of-Eden"><a href="#HDU5977-Garden-of-Eden" class="headerlink" title="[HDU5977] Garden of Eden"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5977" target="_blank" rel="noopener">[HDU5977] Garden of Eden</a></h1><p>k的值很小，在点分治过程中记录对应每一个点经过苹果种类的二进制状态</p>
+<p>在统计时值得注意的一点是，对于一个状态 $sta$ 而言，我们统计的是所有满足 $sta|t=(11…1)_2$ 的 $t$ 状态对应的值之和，为了统计方便，我们应该在每次DP完合并时将状态 $sta$ 的值统计到其每一个子集上去，使用 $bitmask$ 即可，对于每一个状态 $sta$ ，时间复杂度上界为 $O(2^k)$ 。</p>
+<p>对于单次DP，其最大的状态数有 $2^k$ 个，时间复杂度最大为 $O(3^k)$ ，这种情况下它对应的子树的点数应该不小于 $2^k$ 。均摊下来每一层分治的最坏复杂度上界为 $O(n\cdot \frac{3^k}{2^k}) = O(n\cdot \frac{3}{2}^k)$ ，最终复杂度为 $O(n\cdot logn\cdot \frac{3}{2}^k)$ ，但是实际情况下界非常松。</p>
+<h3 id="下列题目处理十分类似"><a href="#下列题目处理十分类似" class="headerlink" title="下列题目处理十分类似"></a>下列题目处理十分类似</h3><ul>
+<li><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5909" target="_blank" rel="noopener">[HDU5909]Tree Cutting</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3727" target="_blank" rel="noopener">[Luogu3727]曼哈顿计划E</a></li>
+<li><a href="https://loj.ac/problem/2259" target="_blank" rel="noopener">[FJOI2014]最短路径树问题</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB/" rel="tag"># 点分治</a>
+          
+            <a href="/tags/%E4%BA%8C%E5%88%86/" rel="tag"># 二分</a>
+          
+            <a href="/tags/SPFA/" rel="tag"># SPFA</a>
+          
+            <a href="/tags/%E5%AE%B9%E6%96%A5/" rel="tag"># 容斥</a>
+          
+            <a href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag"># 数论</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/06/2020-%E5%A4%9A%E6%A0%A1-7-I/" rel="next" title="2020-多校-7-I">
+                <i class="fa fa-chevron-left"></i> 2020-多校-7-I
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模版题"><span class="nav-number">1.</span> <span class="nav-text">模版题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#洛谷-P2664-树上游戏"><span class="nav-number"></span> <span class="nav-text">[洛谷 P2664] 树上游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点分治-容斥"><span class="nav-number">0.1.</span> <span class="nav-text">点分治+容斥</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WC2010-重建计划"><span class="nav-number"></span> <span class="nav-text">[WC2010] 重建计划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点分治-二分"><span class="nav-number">0.1.</span> <span class="nav-text">点分治+二分</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDU4812-D-Tree"><span class="nav-number"></span> <span class="nav-text">[HDU4812] D Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点分治-数学逆元"><span class="nav-number">0.1.</span> <span class="nav-text">点分治+数学逆元</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPOJ1825-Free-tour-II"><span class="nav-number"></span> <span class="nav-text">[SPOJ1825] Free tour II</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDU5977-Garden-of-Eden"><span class="nav-number"></span> <span class="nav-text">[HDU5977] Garden of Eden</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下列题目处理十分类似"><span class="nav-number">0.1.</span> <span class="nav-text">下列题目处理十分类似</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
