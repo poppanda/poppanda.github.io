@@ -239,6 +239,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/13/SWERC2019-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/13/SWERC2019-20/" itemprop="url">SWERC2019-20</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-13T17:59:35+08:00">
+                2020-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DP/" itemprop="url" rel="index">
+                    <span itemprop="name">DP</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DP/%E6%A8%A1%E6%8B%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">模拟</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DP/%E6%A8%A1%E6%8B%9F/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">拓扑排序</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DP/%E6%A8%A1%E6%8B%9F/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/%E6%95%B0%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">数论</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DP/%E6%A8%A1%E6%8B%9F/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/%E6%95%B0%E8%AE%BA/Floyd%E5%88%A4%E7%8E%AF%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">Floyd判环法</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DP/%E6%A8%A1%E6%8B%9F/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/%E6%95%B0%E8%AE%BA/Floyd%E5%88%A4%E7%8E%AF%E6%B3%95/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="A-Environmental-Friendly-Travel"><a href="#A-Environmental-Friendly-Travel" class="headerlink" title="A.Environmental-Friendly Travel"></a><a href="https://codeforces.com/gym/102501/problem/A" target="_blank" rel="noopener">A.Environmental-Friendly Travel</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定一张二维平面上的图，图中有 $n\leq 1000$ 个点， 每个点最多连 100 条边，两点 $a, b$ 之间通行代价=单价$C_i$ $\times$ 距离 $dist(a, b)$（有许多不同种类的单价,dist为两点的欧几里得距离向上取整），问从起点到终点总距离不超过 $B \leq 100$ 的最小代价</p>
+<h3 id="题解-DP"><a href="#题解-DP" class="headerlink" title="题解:DP"></a>题解:DP</h3><p>关键点在于 $n\times B \leq 100000$ 以及边数的限制， 以 $dp[dis][cost]$ 为状态进行暴力转移即可</p>
+<h2 id="D-Gnalcats"><a href="#D-Gnalcats" class="headerlink" title="D.Gnalcats"></a><a href="https://codeforces.com/gym/102501/problem/D" target="_blank" rel="noopener">D.Gnalcats</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>对于一串序列，给定若干种方式，对序列中的头两个元素进行若干种操作，包括将两个元素组合成一个元素和将组合的元素拆分成两个元素。<br>问对于初始状态相同的两串序列，执行两段不超过 $10^4$ 次操作后， 两个结果序列是否相同</p>
+<h3 id="题解-模拟"><a href="#题解-模拟" class="headerlink" title="题解:模拟"></a>题解:模拟</h3><p>对于一串操作序列而言，所用到的元素最多就是1e4，且只对前两个元素进行操作，所以用栈实现十分可行。唯一的问题在于序列的组合和复制会在直接模拟中可以让操作规模指数增长。<br>要解决这个问题，要注意到一个性质，每一次组合都是将两个元素组合成一个元素，解组也是相同的，因此我们将组合映射成单个元素，用map记录组合的映射关系即可。</p>
+<h2 id="G-Swapping-Places"><a href="#G-Swapping-Places" class="headerlink" title="G.Swapping Places"></a><a href="https://codeforces.com/gym/102501/problem/G" target="_blank" rel="noopener">G.Swapping Places</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给定一个字符串队列（长度&lt;1e5），队列元素不超过200个，给定若干个关系对 $A B$，代表相邻的 $A B$ 的位置可以交换，输出在交换位置后，最小字典序的队列。</p>
+<h3 id="题解-拓扑排序"><a href="#题解-拓扑排序" class="headerlink" title="题解:拓扑排序"></a>题解:拓扑排序</h3><p>考虑一种贪心原则，字典序从小到大依次操作，对于每一个元素，都尽量向前移动（让字典序更小）。当前元素无法移动时，一定不存在操作让当前元素移动后结果字典序更小。<br>这个贪心原则的实现在于划定界限：确定一个元素所能够移动到的最远边界<br>考虑拓扑排序，对于每个元素，连一条边到它前方所有无法交换的元素的第一个，由前方的边连向它。这样，在输出拓扑序列时，它的位置一定在那些元素之后，这样就起到了限制的作用。至于可以交换的边，输出最小拓扑序的过程中会自动将它们排序。</p>
+<h2 id="Birdwatching"><a href="#Birdwatching" class="headerlink" title="Birdwatching"></a><a href="https://codeforces.com/gym/102501/problem/K" target="_blank" rel="noopener">Birdwatching</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>规定一个终点，对于其它的点，按字典序从小到大输出所有只有一条路径能够到达它的点。</p>
+<h3 id="题解-染色法"><a href="#题解-染色法" class="headerlink" title="题解:染色法"></a>题解:染色法</h3><p>反向建图，将终点作为分割点，把图化为若干子图。对与终点连接的每个点进行深搜并染色。显然满足条件的点只能被最多染上一种颜色，同时只能被一个点染色（有效入度为1）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1631,162 +1839,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/2020-%E5%A4%9A%E6%A0%A1-1-1006/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/24/2020-%E5%A4%9A%E6%A0%A1-1-1006/" itemprop="url">2020 多校-1 1006</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-24T11:08:35+08:00">
-                2020-07-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/2020-%E5%A4%9A%E6%A0%A1-1/" itemprop="url" rel="index">
-                    <span itemprop="name">2020 多校-1</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一张图，点数 $n &lt;= 10^5$ ， 边数 $m &lt;= 10^5$ ，对于每个点有一个点值 $A_u\in[0, 10^9]$。</p>
-<p>定义树上一个点的 mex 为与它相邻的所有点的权值中没有第一个未出现的自然数。</p>
-<p>现在定义两种操作:</p>
-<p>​    1 u x -把u点的权值更改为x</p>
-<p>​    2 u -求u点的mex</p>
-<h2 id="题解-分类讨论-树状数组"><a href="#题解-分类讨论-树状数组" class="headerlink" title="题解:分类讨论+树状数组"></a>题解:分类讨论+树状数组</h2><p>首先，一个点的mex最大为它的度数，因此我们对每一个点值需要记录与它相邻的权值小于等于其度数的点。</p>
-<p>其次，对于每个点，我们按照度数 $d_u$ 分类讨论，分类的依据即为度数 $d_u$ 是否大于 $\sqrt n$ 。</p>
-<p>对于 $d_u\leq \sqrt n$ ，我们只需要暴力求解即可</p>
-<p>对于 $d_u \geq \sqrt n$ ，我们采用树状数组对结果进行统计。由于边的总数 $\leq 10^5$ ，因此 $d_u \geq \sqrt n$ 的点不超过 $2\cdot \sqrt n$ 个。</p>
-<h3 id="树状数组统计mex"><a href="#树状数组统计mex" class="headerlink" title="树状数组统计mex"></a>树状数组统计mex</h3><p>对于一个组数字的mex一定有对于小于mex的数字全部出现过，因此在树状数组中记录每个数字是否出现过，最终的判断条件是前 $n$ 位的前缀和是否等于 $n$ </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lowbit(x) (x &amp; -x)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>, M = <span class="number">350</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Edge[MAXN], refB[MAXN];</span><br><span class="line"><span class="keyword">int</span> V[MAXN], d[MAXN], Tree[MAXN * M * <span class="number">2</span>], Appear[MAXN * M * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> *tree[MAXN], *appear[MAXN];</span><br><span class="line"><span class="keyword">bool</span> ana[M + <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> o; <span class="keyword">char</span> c = getchar();</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> pos, <span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = d[u];</span><br><span class="line">    pos++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = pos; i &lt;= n; i += lowbit(i))</span><br><span class="line">        tree[u][i] += a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = d[u], h = <span class="number">31</span> - __builtin_clz(n), sum = <span class="number">0</span>, pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = h; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(pos + (<span class="number">1</span> &lt;&lt; i) &lt;= n &amp;&amp; sum + tree[u][pos + (<span class="number">1</span> &lt;&lt; i)] == pos + (<span class="number">1</span> &lt;&lt; i))</span><br><span class="line">        &#123;</span><br><span class="line">            pos += (<span class="number">1</span> &lt;&lt; i);</span><br><span class="line">            sum += tree[u][pos];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> Q = input(), op, nv, u;</span><br><span class="line">    <span class="keyword">while</span>(Q--)</span><br><span class="line">    &#123;</span><br><span class="line">        op = input();</span><br><span class="line">        <span class="keyword">if</span>(op == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            u = input(); nv = input();</span><br><span class="line">            <span class="keyword">if</span>(nv != V[u])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> lasv = V[u];</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> v : refB[u])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(lasv &lt; d[v])</span><br><span class="line">                    &#123;</span><br><span class="line">                        appear[v][lasv]--;</span><br><span class="line">                        <span class="keyword">if</span>(!appear[v][lasv])</span><br><span class="line">                            Add(v, lasv, <span class="number">-1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(nv &lt; d[v])</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span>(appear[v][nv])appear[v][nv]++;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            appear[v][nv]++;</span><br><span class="line">                            Add(v, nv, <span class="number">1</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            V[u] = nv;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            u = input();</span><br><span class="line">            <span class="keyword">if</span>(d[u] &lt;= M)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">memset</span>(ana, <span class="number">0</span>, <span class="keyword">sizeof</span>(ana));</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> v : Edge[u])</span><br><span class="line">                    <span class="keyword">if</span>(V[v] &lt; d[u])</span><br><span class="line">                        ana[V[v]] = <span class="number">1</span>;</span><br><span class="line">                fore(i, <span class="number">0</span>, d[u])</span><br><span class="line">                    <span class="keyword">if</span>(ana[i] == <span class="number">0</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Query(u));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("finding-a-mex.in", "r", stdin);</span></span><br><span class="line">    <span class="comment">// freopen("Out.txt", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> T = input();</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> n = input(), m = input(), s, e;</span><br><span class="line">        fore(i, <span class="number">1</span>, n)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge[i].clear();</span><br><span class="line">            refB[i].clear();</span><br><span class="line">            d[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fore(i, <span class="number">1</span>, n) V[i] = input();</span><br><span class="line">        fore(i, <span class="number">1</span>, m)</span><br><span class="line">        &#123;</span><br><span class="line">            s = input(); e = input();</span><br><span class="line">            Edge[s].push_back(e);</span><br><span class="line">            Edge[e].push_back(s);</span><br><span class="line">            d[s]++; d[e]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> *trpos = Tree, *appos = Appear;</span><br><span class="line">        fore(u, <span class="number">1</span>, n)</span><br><span class="line">            <span class="keyword">if</span>(d[u] &gt; M)</span><br><span class="line">            &#123;</span><br><span class="line">                tree[u] = trpos;</span><br><span class="line">                appear[u] = appos;</span><br><span class="line">                trpos += d[u] + <span class="number">1</span>;</span><br><span class="line">                appos += d[u] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> v : Edge[u])</span><br><span class="line">                &#123;</span><br><span class="line">                    refB[v].push_back(u);</span><br><span class="line">                    <span class="keyword">int</span> nv = V[v];</span><br><span class="line">                    <span class="keyword">if</span>(nv &lt; d[u] &amp;&amp; appear[u][nv] == <span class="number">0</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        appear[u][nv] = <span class="number">1</span>;</span><br><span class="line">                        Add(u, nv, <span class="number">1</span>);</span><br><span class="line">                    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nv &lt; d[u]) appear[u][nv]++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        Solve();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> *s = Tree; s &lt;= trpos; s++) (*s) = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> *s = Appear; s &lt;= appos; s++) (*s) = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1837,7 +1889,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1848,7 +1900,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1859,7 +1911,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
