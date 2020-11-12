@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SAM,Manacher," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="洛谷3346[ZJOI2015]诸神眷顾的幻想乡题意给定一棵树 $(n\leq 10^5)$，每个点有一个字符（字符种类 $\leq 10$），问任意两点间有向路径连成的不同字符串有多少种（树的叶子节点数 $\leq 20$ ） 题解:广义后缀自动机+Dfs对于任意一个字符串而言，它必定满足是从一个叶子节点走向另一个叶子节点的子串，因此我们对每个叶子节点进行一次深搜，建立广义后缀自动机（共建立一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SAM题集">
+<meta property="og:url" content="http://yoursite.com/2020/10/27/SAM%E9%A2%98%E9%9B%86/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="洛谷3346[ZJOI2015]诸神眷顾的幻想乡题意给定一棵树 $(n\leq 10^5)$，每个点有一个字符（字符种类 $\leq 10$），问任意两点间有向路径连成的不同字符串有多少种（树的叶子节点数 $\leq 20$ ） 题解:广义后缀自动机+Dfs对于任意一个字符串而言，它必定满足是从一个叶子节点走向另一个叶子节点的子串，因此我们对每个叶子节点进行一次深搜，建立广义后缀自动机（共建立一个">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-27T07:00:50.000Z">
+<meta property="article:modified_time" content="2020-11-10T15:04:17.914Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta property="article:tag" content="SAM">
+<meta property="article:tag" content="Manacher">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/27/SAM题集/"/>
+
+
+
+
+
+  <title>SAM题集 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/SAM%E9%A2%98%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SAM题集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-27T15:00:50+08:00">
+                2020-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%83%E4%B9%A0%E9%A2%98%E9%9B%86/" itemprop="url" rel="index">
+                    <span itemprop="name">练习题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="洛谷3346-ZJOI2015-诸神眷顾的幻想乡"><a href="#洛谷3346-ZJOI2015-诸神眷顾的幻想乡" class="headerlink" title="洛谷3346[ZJOI2015]诸神眷顾的幻想乡"></a><a href="https://www.luogu.com.cn/problem/P3346" target="_blank" rel="noopener">洛谷3346[ZJOI2015]诸神眷顾的幻想乡</a></h2><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一棵树 $(n\leq 10^5)$，每个点有一个字符（字符种类 $\leq 10$），问任意两点间有向路径连成的不同字符串有多少种（树的叶子节点数 $\leq 20$ ）</p>
+<h2 id="题解-广义后缀自动机-Dfs"><a href="#题解-广义后缀自动机-Dfs" class="headerlink" title="题解:广义后缀自动机+Dfs"></a>题解:广义后缀自动机+Dfs</h2><p>对于任意一个字符串而言，它必定满足是从一个叶子节点走向另一个叶子节点的子串，因此我们对每个叶子节点进行一次深搜，建立广义后缀自动机（共建立一个），然后在后缀自动机上Dfs，就能统计出答案</p>
+<p>复杂度$O(n)$</p>
+<h2 id="洛谷3649-APIO2014-回文串"><a href="#洛谷3649-APIO2014-回文串" class="headerlink" title="洛谷3649 [APIO2014] 回文串"></a><a href="https://www.luogu.com.cn/problem/P3649" target="_blank" rel="noopener">洛谷3649 [APIO2014] 回文串</a></h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个由小写拉丁字母组成的字符串 $s(|s|\leq 300000)$。我们定义 $s$ 的一个子串的存在值为这个子串在 $s$ 中出现的次数乘以这个子串的长度。对于给你的这个字符串 $s$，求所有回文子串中的最大存在值。</p>
+<h3 id="题解-SAM-Manacher"><a href="#题解-SAM-Manacher" class="headerlink" title="题解 : SAM+Manacher"></a>题解 : SAM+Manacher</h3><p>由SAM可以轻易地得知每一个子串的出现次数，我们唯一需要知道的就是有哪些子串是回文串。</p>
+<p>在Manacher的执行过程中，我们可以将每一个本质不同的回文串处理出来（数量为O(n)）。事先将 $fail$ 树建立出来然后每次查询即可。</p>
+<p>复杂度 $O(n+nlogn)$</p>
+<h2 id="洛谷4022-CTSC2012-熟悉的文章"><a href="#洛谷4022-CTSC2012-熟悉的文章" class="headerlink" title="洛谷4022[CTSC2012] 熟悉的文章"></a><a href="https://www.luogu.com.cn/problem/P4022" target="_blank" rel="noopener">洛谷4022[CTSC2012] 熟悉的文章</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>有 $m + n$ 个01串，对那 $n$ 个01串，试图找到一种分割方式，使分割后的在 $m$ 个字符串的子串中出现过的子串的总长度不小于总长度的 90%，问分割后在 $m$ 个字符串中出现过的最短的子串是最长是多长</p>
+<h3 id="题解-广义SAM-单调队列"><a href="#题解-广义SAM-单调队列" class="headerlink" title="题解:广义SAM+单调队列"></a>题解:广义SAM+单调队列</h3><p>首先在SAM上找出对于 $n$ 个01串的每一个前缀在 $m$ 个01串中的最长公共后缀长度，然后就是求一种线段覆盖，使得覆盖长度不小于 90% 且最短的线段最长。</p>
+<p>二分答案，验证可行性时：</p>
+<p>考虑性质：每一个相邻的前缀其最长公共后缀长度 $mx_i$ 不会陡增（即 $mx_{i + 1} \leq mx_i + 1$</p>
+<p>维护不能覆盖的总长度，它是单调不减的，结合上述性质，可以用单调队列维护</p>
+<h2 id="洛谷4070-SDOI2016-生成魔咒"><a href="#洛谷4070-SDOI2016-生成魔咒" class="headerlink" title="洛谷4070[SDOI2016]生成魔咒"></a><a href="https://www.luogu.com.cn/problem/P4070" target="_blank" rel="noopener">洛谷4070[SDOI2016]生成魔咒</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给一个空字符串，每次在它后面加一个字符，问每次加入后形成的字符串有多少不同的子串。</p>
+<h3 id="题解-SAM"><a href="#题解-SAM" class="headerlink" title="题解:SAM"></a>题解:SAM</h3><p>模版题，用map存父子关系即可</p>
+<h2 id="洛谷4081-USACO17DEC-Standing-Out-From-the-Herd-P"><a href="#洛谷4081-USACO17DEC-Standing-Out-From-the-Herd-P" class="headerlink" title="洛谷4081[USACO17DEC]Standing Out From the Herd P"></a><a href="https://www.luogu.com.cn/problem/P4081" target="_blank" rel="noopener">洛谷4081[USACO17DEC]Standing Out From the Herd P</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>给定若干字符串，求每个字符串特有的本质不同的子串数量（即仅在本字符串中出现过，且相同子串仅统计一次）</p>
+<h3 id="题解-广义SAM-Trie"><a href="#题解-广义SAM-Trie" class="headerlink" title="题解:广义SAM+Trie"></a>题解:广义SAM+Trie</h3><p>首先在Trie上可以先把相同前缀处理掉，对于不同的前缀分别打上字符串编号的标记即可</p>
+<p>其次对Trie建广义后缀自动机，在对应节点上打上对应标记</p>
+<p>最后在SAM的fail树上拓扑一下，对于两个不同标记都能够到达的fail节点，取消其贡献，否则贡献为 $len[p] - len[fail[p]]$</p>
+<p>注意Trie和SAM标记的对应性</p>
+<p>（应该有更简单的统计方式，但是头有点昏，A了就先不管了）</p>
+<h2 id="洛谷4770-NOI2018-你的名字"><a href="#洛谷4770-NOI2018-你的名字" class="headerlink" title="洛谷4770[NOI2018]你的名字"></a><a href="https://www.luogu.com.cn/problem/P4770" target="_blank" rel="noopener">洛谷4770[NOI2018]你的名字</a></h2><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><p>给一个一个禁止串 $S_1…S_n$ 和若干可用串，问对每个可用串，其子串中未出现在禁止串的 $S_l…S_r$ 的个数有多少</p>
+<h3 id="题解-SAM-线段树合并"><a href="#题解-SAM-线段树合并" class="headerlink" title="题解:SAM+线段树合并"></a>题解:SAM+线段树合并</h3><p>其实暴力解法很好想，对禁止串建立SAM，把每个点在fail树上的点做上对应位置的标记，在fail树上暴力地把每一个点的标记向上合并。</p>
+<p>对于每个可用串，依次在SAM上跑匹配，每次查询fail树上某个点是否包含在某一段区间，相当于查询这个点的标记当中是否有标记在区间中的点。</p>
+<p>为了优化向上合并的时空复杂度，选择线段树合并。</p>
+<p><strong>Tips:</strong></p>
+<p>1、在可用串的匹配过程中，若查询的是长度为 $l$ 的后缀是否出现在区间[L,R]内，查询的实际上是 $[L+l-1, R]$</p>
+<p>2、fail树上向上跳对应的是下一个在禁止串中的最长公共子串，不是可用串和禁止串的下一个公共子串，因此不能直接在fail树上跳，而是要依次减少匹配长度，在匹配长度等于$len[fail[p]]$ 后才向上跳</p>
+<h2 id="洛谷5576-CmdOI2019-口头禅"><a href="#洛谷5576-CmdOI2019-口头禅" class="headerlink" title="洛谷5576[CmdOI2019]口头禅"></a><a href="https://www.luogu.com.cn/problem/P5576" target="_blank" rel="noopener">洛谷5576[CmdOI2019]口头禅</a></h2><h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>给定 $n\leq 2\times 10^4$ 个01串，总长度 $\leq 4\times 10^5$ ，对 $q\leq 10^5$ 次询问，每次回答区间 $[l, r]$ 的所有串的最长公共子串长度</p>
+<h3 id="题解-SAM-猫树分治"><a href="#题解-SAM-猫树分治" class="headerlink" title="题解:SAM+猫树分治"></a>题解:SAM+猫树分治</h3><p>首先想一个暴力的解法：对于每一个询问区间，我们用最短的串作为基准串，在其它串的SAM上匹配（没错，是它在其它串的SAM上匹配），对于基准串的每一位都记录一个当前能够匹配的最长公共后缀，不断更新，最后求最大值。</p>
+<p><strong>预处理:</strong> 在此基础上，我们其实可以以它为中心，向左向右分别匹配，然后记录在每一个串上基准串的每一个点能匹配的最长公共后缀，然后求一个前缀/后缀最小值，那么我们就能够得到以基准串 $mid$ 为中心，向左直到 $l$ 的区间匹配值 $slen[l,mid][i]$ ，表示 $mid$ 的第 $i$ 个字符在 $[l, mid]$ 区间可匹配到的最长公共子串；向右同理。对于每个串作为 $mid$ ，预处理复杂度 $O(n \times len[mid])$ 。</p>
+<p><strong>询问:</strong> 如此一来，所有包含 $mid$ 串的区间查询我们都可以快速用 $slen$ 合并 $slen[l, mid], slen[mid, r]$ 处理出来，每一次查询的复杂度是 $O(len[mid])$。</p>
+<p><strong>优化预处理:</strong> 对于查询的区间，本着不重不漏的目的，我们就可以进行分治了。</p>
+<p>对于区间 $[1, n]$ 我们取其中间点 $mid$ ，在该层分治只处理区间跨越 $mid$ 的询问，而询问在 $[1,mid)$ 和 $(mid, n]$ 的，我们放至下一层，如此一来每一层的复杂度约为 $O(n\times len[mid])$ ，这个 $len[mid]$ 复杂度看脸。</p>
+<p><strong>总询问:</strong> 总复杂度为 $O(n\times len[mid])$ ，同上，复杂度看脸。</p>
+<p><strong>优化 $len[mid]$:</strong> 对于每一次询问，我们显然希望 $len[mid]$ 越短越好，于是我们在选取 $mid$ 时，选择一个长度范围，本题中选择的是 $(2^{n-1}, 2^n]$ ，$n$ 的选择标准是恰好有最短的字符串的长度落在该区间。如此一来，每一层的复杂度可以降到 $O(2^n \times \frac{\sum len_i}{2^n}) = O(\sum len_i)$ （字符串长度恰好在 $(2^{n-1}, 2^n]$ 的串的个数不多于 $\frac{\sum len_i}{2^n}$ 个）。</p>
+<p><strong>最终复杂度:</strong> 反正爆不了。</p>
+<h2 id="洛谷6139-模版-广义后缀自动机-广义SAM"><a href="#洛谷6139-模版-广义后缀自动机-广义SAM" class="headerlink" title="洛谷6139[模版]广义后缀自动机(广义SAM)"></a><a href="https://www.luogu.com.cn/problem/P6139" target="_blank" rel="noopener">洛谷6139[模版]广义后缀自动机(广义SAM)</a></h2><h3 id="板题"><a href="#板题" class="headerlink" title="板题"></a>板题</h3><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="3346"><a href="#3346" class="headerlink" title="3346"></a>3346</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i&lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">3e6</span> + <span class="number">5</span>, MAXC = <span class="number">10</span>, MAXM = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM&#123;</span><br><span class="line">    <span class="keyword">int</span> ch[MAXN][MAXC], fail[MAXN], len[MAXN];</span><br><span class="line">    li cnt[MAXN];</span><br><span class="line">    <span class="keyword">int</span> root, tail;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        root = tail = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[root], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[root]));</span><br><span class="line">        fail[root] = <span class="number">-1</span>;</span><br><span class="line">        len[root] = <span class="number">0</span>;</span><br><span class="line">        cnt[root] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[tail], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[tail]));</span><br><span class="line">        fail[tail] = cnt[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ch[las][c])&#123;</span><br><span class="line">            <span class="keyword">int</span> p = las, q = ch[las][c];</span><br><span class="line">            <span class="keyword">if</span>(len[p] + <span class="number">1</span> == len[q]) <span class="keyword">return</span> ch[las][c];</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = nq;</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; ch[p][c] == q; p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> p = las, np = newnode(las);</span><br><span class="line">            <span class="keyword">for</span>(; (~p) &amp;&amp; (!ch[p][c]); p = fail[p])</span><br><span class="line">                ch[p][c] = np;</span><br><span class="line">            <span class="keyword">if</span>(!~p)fail[np] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">                <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>)fail[np] = q;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                    <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                    fail[nq] = fail[q];</span><br><span class="line">                    fail[np] = fail[q] = nq;</span><br><span class="line">                    <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                        ch[p][c] = nq;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ch[las][c];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">li <span class="title">Cal</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">        <span class="comment">// cout &lt;&lt; u &lt;&lt; endl;</span></span><br><span class="line">        <span class="keyword">if</span>(cnt[u]) <span class="keyword">return</span> cnt[u];</span><br><span class="line">        <span class="comment">// puts("SEARCH")</span></span><br><span class="line">        cnt[u] = <span class="number">1</span>;</span><br><span class="line">        Fore(i, <span class="number">0</span>, MAXC)</span><br><span class="line">            <span class="keyword">if</span>(ch[u][i])</span><br><span class="line">                <span class="comment">// cout &lt;&lt; u &lt;&lt; " " &lt;&lt; i &lt;&lt; endl,</span></span><br><span class="line">                cnt[u] += Cal(ch[u][i]);</span><br><span class="line">        <span class="keyword">return</span> cnt[u];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Edge[MAXM];</span><br><span class="line"><span class="keyword">int</span> A[MAXM], pos[MAXM];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span></span>&#123;</span><br><span class="line">    pos[u] = SAM::Extend(pos[f], A[u]);</span><br><span class="line">    <span class="comment">// cout &lt;&lt; u &lt;&lt; " " &lt;&lt; pos[f] &lt;&lt; " " &lt;&lt; SAM::ch[pos[f]][A[u]] &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v : Edge[u])</span><br><span class="line">        <span class="keyword">if</span>(v != f) Dfs(v, u);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> n, C, u, v;</span><br><span class="line">    </span><br><span class="line">    SAM::init();</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; C;</span><br><span class="line">    fore(i, <span class="number">1</span>, n) <span class="built_in">cin</span> &gt;&gt; A[i];</span><br><span class="line">    Fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        Edge[u].emplace_back(v);</span><br><span class="line">        Edge[v].emplace_back(u);</span><br><span class="line">    &#125;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">        <span class="keyword">if</span>(Edge[i].size() == <span class="number">1</span>)</span><br><span class="line">            Dfs(i, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; (SAM::Cal(pos[<span class="number">0</span>]) - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3649"><a href="#3649" class="headerlink" title="3649"></a>3649</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">3e5</span> + <span class="number">5</span>, MAXC = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ch[MAXN &lt;&lt; <span class="number">1</span>][MAXC], fail[MAXN &lt;&lt; <span class="number">1</span>][<span class="number">19</span>], cnt[MAXN &lt;&lt; <span class="number">1</span>], len[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">li res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM&#123;</span><br><span class="line">    <span class="keyword">int</span> las, root, tail, maxl;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        las = root = tail = <span class="number">0</span>;</span><br><span class="line">        len[root] = <span class="number">0</span>;</span><br><span class="line">        fail[root][<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> l)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        len[++tail] = len[l] + <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[tail], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[tail]));</span><br><span class="line">        cnt[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = las, np = newnode(p);</span><br><span class="line">        <span class="keyword">for</span>(; (~p) &amp;&amp; (!ch[p][c]); p = fail[p][<span class="number">0</span>])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!~p) fail[np][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>) fail[np][<span class="number">0</span>] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq][<span class="number">0</span>] = fail[q][<span class="number">0</span>];</span><br><span class="line">                fail[q][<span class="number">0</span>] = fail[np][<span class="number">0</span>] = nq;</span><br><span class="line">                <span class="keyword">while</span>((~p) &amp;&amp; (ch[p][c] == q))</span><br><span class="line">                    ch[p][c] = nq, p = fail[p][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cnt[np]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> las = np;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> C[MAXN], ST[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Cal</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= tail; i++)</span><br><span class="line">            C[len[i]]++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= maxl; i++)</span><br><span class="line">            C[i] += C[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i &gt; <span class="number">1</span>; i--)</span><br><span class="line">            ST[C[len[i]]--] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i &gt; <span class="number">1</span>; i--)</span><br><span class="line">            cnt[fail[ST[i]][<span class="number">0</span>]] += cnt[ST[i]];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> p = <span class="number">1</span>; p &lt;= tail; p++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">18</span>; i++)</span><br><span class="line">                fail[p][i] = fail[fail[p][i - <span class="number">1</span>]][i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> l)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">18</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">            <span class="keyword">if</span>((~fail[p][i]) &amp;&amp; len[fail[p][i]] &gt;= l)</span><br><span class="line">                p = fail[p][i];</span><br><span class="line">        <span class="keyword">return</span> cnt[p];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> pos[MAXN];</span><br><span class="line"><span class="keyword">char</span> s[MAXN], Ms[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> Mr[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    l = (l &gt;&gt; <span class="number">1</span>) + (l &amp; <span class="number">1</span>); r = (r &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> len = r - l + <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// cout &lt;&lt; l &lt;&lt; " " &lt;&lt; r &lt;&lt; " " &lt;&lt; len &lt;&lt; " "&lt;&lt; SAM::Query(pos[r - 1], len) &lt;&lt; endl;</span></span><br><span class="line">    res = max(res, <span class="number">1L</span>L * len * SAM::Query(pos[r - <span class="number">1</span>], len));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Manacher</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">    Ms[p++] = <span class="string">'$'</span>; Ms[p++] = <span class="string">'#'</span>;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">        Ms[p++] = s[i],</span><br><span class="line">        Ms[p++] = <span class="string">'#'</span>;</span><br><span class="line">    Ms[p] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> mx = <span class="number">0</span>, mid = <span class="number">0</span>;</span><br><span class="line">    len = len &lt;&lt; <span class="number">1</span> | <span class="number">1</span>;</span><br><span class="line">    Fore(i, <span class="number">0</span>, p)</span><br><span class="line">    &#123;</span><br><span class="line">        Mr[i] = mx &gt; i ? min(Mr[<span class="number">2</span> * mid - i], mx - i) : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(Ms[i + Mr[i]] == Ms[i - Mr[i]])</span><br><span class="line">            Query(i - Mr[i], i + Mr[i]),</span><br><span class="line">            Mr[i]++;</span><br><span class="line">        <span class="keyword">if</span>(i + Mr[i] &gt; mx)</span><br><span class="line">            mx = i + Mr[i],</span><br><span class="line">            mid = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SAM::init();</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>, s);</span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">    SAM::maxl = len;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">        pos[i] = SAM::Extend(s[i] - <span class="string">'a'</span>);</span><br><span class="line">    SAM::Cal();</span><br><span class="line">    Manacher();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4022"><a href="#4022" class="headerlink" title="4022"></a>4022</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b ;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ls (o &lt;&lt; 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rs (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> endl <span class="meta-string">'\n'</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pii pair<span class="meta-string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXC = <span class="number">2</span>, MAXT = <span class="number">12e5</span> + <span class="number">5</span>, inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM&#123;</span><br><span class="line">    <span class="keyword">int</span> rt, tail;</span><br><span class="line">    <span class="keyword">int</span> ch[MAXT &lt;&lt; <span class="number">1</span>][MAXC], fail[MAXT &lt;&lt; <span class="number">1</span>], len[MAXT &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        rt = tail = <span class="number">0</span>;</span><br><span class="line">        len[rt] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[rt], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[rt]));</span><br><span class="line">        fail[rt] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[tail], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[tail]));</span><br><span class="line">        fail[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = las, np = newnode(p);</span><br><span class="line">        <span class="keyword">for</span>(; (~p) &amp;&amp; (!ch[p][c]); p = fail[p])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!~p) fail[np] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[q] == (len[p] + <span class="number">1</span>)) fail[np] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = fail[np] = nq;</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ch[las][c];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mx[MAXT], dp[MAXT];</span><br><span class="line">    pii ST[MAXT];</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tail = <span class="number">0</span>, head = <span class="number">1</span>;</span><br><span class="line">        ST[++tail] = MP(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        fore(i, <span class="number">1</span>, len)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; l)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(head &lt;= tail &amp;&amp; ST[tail].se &gt; dp[i - l]) tail--;</span><br><span class="line">                ST[++tail] = MP(i - l , dp[i - l]);</span><br><span class="line">                <span class="keyword">if</span>(mx[i] &gt;= l)<span class="keyword">while</span>(head &lt;= tail &amp;&amp; ST[head].fi &lt; i - mx[i]) head++;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i] = dp[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(head &lt;= tail &amp;&amp; mx[i] &gt;= l) dp[i] = min(ST[head].se + max(<span class="number">0</span>, i - ST[head].fi - mx[i]), dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> len - dp[len];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Cal</span><span class="params">(<span class="built_in">string</span> s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> L = <span class="number">0</span>, R = <span class="number">0</span>, l=s.length(), rt = <span class="number">0</span>, nxt, nl = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; l; i++)&#123;</span><br><span class="line">            nxt = s[i] - <span class="string">'0'</span>;</span><br><span class="line">            <span class="keyword">while</span>(rt &amp;&amp; (!ch[rt][nxt])) rt = fail[rt], nl = len[rt];</span><br><span class="line">            <span class="keyword">if</span>(!ch[rt][nxt]) mx[i] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                mx[i + <span class="number">1</span>] = ++nl;</span><br><span class="line">                rt = ch[rt][nxt];</span><br><span class="line">                R = max(mx[i + <span class="number">1</span>], R);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">while</span>(L != R)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (L + R + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(check(mid, l) * <span class="number">10</span> &gt;= l * <span class="number">9</span>) L = mid;</span><br><span class="line">            <span class="keyword">else</span> R = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; L &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Trie&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt, T[MAXT][MAXC], pos[MAXT];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(<span class="built_in">string</span> &amp;s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.length(), rt = <span class="number">0</span>, nxt;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            nxt = s[i] - <span class="string">'0'</span>;</span><br><span class="line">            <span class="keyword">if</span>(!T[rt][nxt]) T[rt][nxt] = ++cnt;</span><br><span class="line">            rt = T[rt][nxt];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> u, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        pos[u] = SAM::Extend(pos[las], c);</span><br><span class="line">        Fore(i, <span class="number">0</span>, MAXC)</span><br><span class="line">            <span class="keyword">if</span>(T[u][i])</span><br><span class="line">                Dfs(u, T[u][i], i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Build</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rt = <span class="number">0</span>;</span><br><span class="line">        Fore(i, <span class="number">0</span>, MAXC)</span><br><span class="line">            <span class="keyword">if</span>(T[rt][i])</span><br><span class="line">                Dfs(rt, T[rt][i], i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    SAM::init();</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    fore(i, <span class="number">1</span>, m)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s,</span><br><span class="line">        Trie::Insert(s);</span><br><span class="line">    Trie::Build();</span><br><span class="line">    fore(i, <span class="number">1</span>, n)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">        SAM::Cal(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4070"><a href="#4070" class="headerlink" title="4070"></a>4070</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">li res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; ch[MAXN];</span><br><span class="line">    <span class="keyword">int</span> fail[MAXN], len[MAXN];</span><br><span class="line">    <span class="keyword">int</span> root = <span class="number">0</span>, tail = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        fail[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        len[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        fail[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = las, np = newnode(las);</span><br><span class="line">        <span class="keyword">for</span>(; (~p) &amp;&amp; !ch[p].count(c); p = fail[p])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!~p) fail[np] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[p] + <span class="number">1</span> == len[q])fail[np] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                ch[nq] = ch[q];</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p].count(c) &amp;&amp; ch[p][c] == q); p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = fail[np] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res += len[np] - len[fail[np]];</span><br><span class="line">        <span class="keyword">return</span> np;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, np, las = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    SAM::init();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;np);</span><br><span class="line">        las = SAM::Extend(las, np);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4081"><a href="#4081" class="headerlink" title="4081"></a>4081</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>, MAXC = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> res[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM&#123;</span><br><span class="line">    <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ch[MAXN &lt;&lt; <span class="number">1</span>][MAXC], fail[MAXN &lt;&lt; <span class="number">1</span>], len[MAXN &lt;&lt; <span class="number">1</span>], mk[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(ch[<span class="number">0</span>], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[<span class="number">0</span>]));</span><br><span class="line">        fail[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        len[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        mk[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        fail[tail] = mk[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[tail], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[tail]));</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c, <span class="keyword">int</span> nmk)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ch[las][c])&#123;</span><br><span class="line">            <span class="keyword">int</span> p = las, q = ch[las][c];</span><br><span class="line">            <span class="keyword">if</span>(len[p] + <span class="number">1</span> == len[q]) <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = nq;</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> p = las, np = newnode(las);</span><br><span class="line">            <span class="keyword">for</span>(; (~p) &amp;&amp; !ch[p][c]; p = fail[p])</span><br><span class="line">                ch[p][c] = np;</span><br><span class="line">            <span class="keyword">if</span>(!~p) fail[np] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">                <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>)fail[np] = q;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                    <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                    fail[nq] = fail[q];</span><br><span class="line">                    fail[np] = fail[q] = nq;</span><br><span class="line">                    <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                        ch[p][c] = nq;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> C[MAXN &lt;&lt; <span class="number">1</span>], ST[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">CAL</span><span class="params">(<span class="keyword">int</span> SIZ)</span></span>&#123;</span><br><span class="line">        fore(i, <span class="number">1</span>, tail) C[len[i]]++;</span><br><span class="line">        fore(i, <span class="number">1</span>, SIZ) C[i] += C[i - <span class="number">1</span>]; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i; i--)</span><br><span class="line">            ST[C[len[i]]--] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> np = ST[i];</span><br><span class="line">            <span class="keyword">if</span>(mk[np] &gt; <span class="number">0</span>)res[mk[np]] += len[np] - len[fail[np]];</span><br><span class="line">            <span class="keyword">if</span>(mk[fail[np]] == <span class="number">0</span>) mk[fail[np]] = mk[np];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(mk[fail[np]] == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(mk[fail[np]] != mk[np]) mk[fail[np]] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Trie&#123;</span><br><span class="line">    <span class="keyword">int</span> ch[MAXN][MAXC], mk[MAXN], pos[MAXN], tail = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> ni)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.length(), rt = <span class="number">0</span>, nxt;</span><br><span class="line">        Fore(i, <span class="number">0</span>, len)&#123;</span><br><span class="line">            nxt = s[i] - <span class="string">'a'</span>;</span><br><span class="line">            <span class="keyword">if</span>(ch[rt][nxt])</span><br><span class="line">                mk[ch[rt][nxt]] = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">else</span> mk[ch[rt][nxt] = ++tail] = ni;</span><br><span class="line">            rt = ch[rt][nxt];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Build</span><span class="params">()</span></span>&#123;</span><br><span class="line">        SAM::init();</span><br><span class="line">        <span class="keyword">int</span> las = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= tail; i++)&#123;</span><br><span class="line">            las = pos[i];</span><br><span class="line">            <span class="keyword">if</span>(mk[i])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(SAM::mk[las] == <span class="number">0</span>) SAM::mk[las] = mk[i];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(SAM::mk[las] == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(SAM::mk[las] != mk[i]) SAM::mk[las] = <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Fore(j, <span class="number">0</span>, MAXC)</span><br><span class="line">                <span class="keyword">if</span>(ch[i][j])</span><br><span class="line">                &#123;</span><br><span class="line">                    SAM::Extend(las, j, mk[ch[i][j]]);</span><br><span class="line">                    pos[ch[i][j]] = SAM::ch[las][j];</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s,</span><br><span class="line">        Trie::Insert(s, i);</span><br><span class="line">    Trie::Build();</span><br><span class="line">    SAM::CAL(Trie::tail);</span><br><span class="line">    fore(i, <span class="number">1</span>, n) <span class="built_in">cout</span> &lt;&lt; res[i] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4770"><a href="#4770" class="headerlink" title="4770"></a>4770</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mid ((l + r) &gt;&gt; 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> endl <span class="meta-string">'\n'</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">2e6</span> + <span class="number">5</span>, MAXC = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SGT&#123;</span><br><span class="line">    <span class="keyword">int</span> tail = <span class="number">0</span>, maxlen;</span><br><span class="line">    <span class="keyword">int</span> cnt[MAXN &lt;&lt; <span class="number">4</span>], ls[MAXN &lt;&lt; <span class="number">4</span>], rs[MAXN &lt;&lt; <span class="number">4</span>];</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> pos)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> np = ++tail;</span><br><span class="line">        ls[np] = rs[np] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(l != r)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pos &lt;= mid) ls[np] = newnode(l, mid, pos);</span><br><span class="line">            <span class="keyword">else</span> rs[np] = newnode(mid + <span class="number">1</span>, r, pos);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> np;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((!u) || (!v)) <span class="keyword">return</span> (u+v);</span><br><span class="line">        <span class="keyword">int</span> np = ++tail;</span><br><span class="line">        <span class="keyword">if</span>(l != r)&#123;</span><br><span class="line">            ls[np] = Merge(l, mid, ls[u], ls[v]);</span><br><span class="line">            rs[np] = Merge(mid + <span class="number">1</span>, r, rs[u], rs[v]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> np;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> L, R;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> o, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(L &lt;= l &amp;&amp; r &lt;= R)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// cout &lt;&lt; SGT::L &lt;&lt; " " &lt;&lt; SGT::R &lt;&lt; " " &lt;&lt; l &lt;&lt; " " &lt;&lt; r &lt;&lt; endl;</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">bool</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(L &lt;= mid &amp;&amp; l &lt;= R &amp;&amp; ls[o])res |= Query(ls[o], l, mid);</span><br><span class="line">        <span class="keyword">if</span>(res) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(L &lt;= r &amp;&amp; mid &lt; R &amp;&amp; rs[o])res |= Query(rs[o], mid + <span class="number">1</span>, r);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">QRY</span><span class="params">(<span class="keyword">int</span> add, <span class="keyword">int</span> o)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        L += add;</span><br><span class="line">        <span class="keyword">bool</span> res = Query(o, <span class="number">1</span>, maxlen);</span><br><span class="line">        L -= add;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM&#123;</span><br><span class="line">    <span class="keyword">int</span> root, tail, ch[MAXN &lt;&lt; <span class="number">1</span>][MAXC], fail[MAXN &lt;&lt; <span class="number">1</span>], len[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        root = tail = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[root], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[root]));</span><br><span class="line">        len[root] = <span class="number">0</span>;</span><br><span class="line">        fail[root] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        fail[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[tail], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[tail]));</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = las, np = newnode(las);</span><br><span class="line">        <span class="keyword">for</span>(; (~p) &amp;&amp; (!ch[p][c]); p = fail[p])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!~p) fail[np] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>) fail[np] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="comment">// cout &lt;&lt; "HAHA " &lt;&lt; nq &lt;&lt; " " &lt;&lt; len[nq] &lt;&lt; endl;</span></span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = fail[np] = nq;</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> np;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> pos[MAXN], node[MAXN], C[MAXN &lt;&lt; <span class="number">1</span>], ST[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> maxlen;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Build</span><span class="params">(<span class="built_in">string</span> &amp;s)</span></span>&#123;</span><br><span class="line">        SAM::init();</span><br><span class="line">        <span class="keyword">int</span> l = s.length(), las = <span class="number">0</span>;</span><br><span class="line">        SGT::maxlen = maxlen = l;</span><br><span class="line">        Fore(i, <span class="number">0</span>, l)</span><br><span class="line">            las = pos[i + <span class="number">1</span>] = Extend(las, s[i]-<span class="string">'a'</span>);</span><br><span class="line">        fore(i, <span class="number">1</span>, l)</span><br><span class="line">            node[pos[i]] = SGT::newnode(<span class="number">1</span>, maxlen, i);</span><br><span class="line">        fore(i, <span class="number">1</span>, tail)C[len[i]]++;</span><br><span class="line">        fore(i, <span class="number">1</span>, l) C[i] += C[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i; i--)ST[C[len[i]]--] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i; i--)</span><br><span class="line">            node[fail[ST[i]]] = SGT::Merge(<span class="number">1</span>, maxlen, node[fail[ST[i]]], node[ST[i]]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM2&#123;</span><br><span class="line">    <span class="keyword">int</span> root, tail, ch[MAXN &lt;&lt; <span class="number">1</span>][MAXC], fail[MAXN &lt;&lt; <span class="number">1</span>], len[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        root = tail = <span class="number">0</span>;</span><br><span class="line">        Fore(i, <span class="number">0</span>, MAXC)ch[root][i] = <span class="number">0</span>;</span><br><span class="line">        len[root] = <span class="number">0</span>;</span><br><span class="line">        fail[root] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        fail[tail] = <span class="number">0</span>;</span><br><span class="line">        Fore(i, <span class="number">0</span>, MAXC)ch[tail][i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = las, np = newnode(las);</span><br><span class="line">        <span class="keyword">for</span>(; (~p) &amp;&amp; (!ch[p][c]); p = fail[p])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!~p) fail[np] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>) fail[np] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = fail[np] = nq;</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> np;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Cal</span><span class="params">(<span class="built_in">string</span> &amp;s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = s.length();</span><br><span class="line">    SAM2::init();</span><br><span class="line">    <span class="keyword">int</span> las = <span class="number">0</span>, rt = <span class="number">0</span>, c, nl = <span class="number">0</span>;</span><br><span class="line">    li res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> SAM2;</span><br><span class="line">    Fore(i, <span class="number">0</span>, l)</span><br><span class="line">    &#123;</span><br><span class="line">        las = Extend(las, c = s[i] - <span class="string">'a'</span>);</span><br><span class="line">        <span class="keyword">while</span>(rt &amp;&amp; (!SAM::ch[rt][c])) rt = SAM::fail[rt], nl = SAM::len[rt];</span><br><span class="line">        <span class="keyword">if</span>(SAM::ch[rt][c]) rt = SAM::ch[rt][c], nl++;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            res += min(len[las] - len[fail[las]], i + <span class="number">1</span> - nl);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(rt &amp;&amp; !SGT::QRY(nl - <span class="number">1</span>, SAM::node[rt]))</span><br><span class="line">            <span class="keyword">if</span>(--nl == SAM::len[SAM::fail[rt]])rt = SAM::fail[rt];</span><br><span class="line">        res += min(len[las] - len[fail[las]], i + <span class="number">1</span> - nl);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    SAM::Build(s);</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    fore(i, <span class="number">1</span>, T)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s &gt;&gt; SGT::L &gt;&gt; SGT::R;</span><br><span class="line">        Cal(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5576"><a href="#5576" class="headerlink" title="5576"></a>5576</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pii pair<span class="meta-string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXL = <span class="number">4e5</span> + <span class="number">500</span>, MAXN = <span class="number">2e4</span> + <span class="number">500</span>, MAXQ = <span class="number">1e5</span> + <span class="number">500</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> _s[MAXL], *str[MAXN], *nstr = _s;</span><br><span class="line"><span class="keyword">int</span> Len[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tail, fail[MAXL &lt;&lt; <span class="number">1</span>], ch[MAXL &lt;&lt; <span class="number">1</span>][<span class="number">2</span>], len[MAXL &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span>&#123;</span><br><span class="line">    len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">    fail[tail] = <span class="number">0</span>;</span><br><span class="line">    ch[tail][<span class="number">0</span>] = ch[tail][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> tail;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SAM</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> root, las;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> np = newnode(las), p = las; las = np;</span><br><span class="line">        <span class="keyword">for</span>(; p &amp;&amp; (!ch[p][c]); p = fail[p])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!p) fail[np] = root;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>) fail[np] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = fail[np] = nq;</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[nq]));</span><br><span class="line">                <span class="keyword">for</span>(; p &amp;&amp; (ch[p][c] == q); p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Build</span><span class="params">(<span class="keyword">char</span> *S, <span class="keyword">int</span> nlen)</span></span>&#123;</span><br><span class="line">        las = root = newnode(<span class="number">0</span>);</span><br><span class="line">        Fore(i, <span class="number">0</span>, nlen)</span><br><span class="line">            Add(S[i] - <span class="string">'0'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;sam[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *slen[MAXN], _slen[MAXL &lt;&lt; <span class="number">3</span>], res[MAXQ], tp[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DATA</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> l, r, p;</span><br><span class="line">&#125;Q[MAXQ], QL[MAXQ], QR[MAXQ];</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span>&lt;pii, <span class="keyword">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Solve</span><span class="params">(<span class="keyword">int</span> sl, <span class="keyword">int</span> sr, <span class="keyword">int</span> ql, <span class="keyword">int</span> qr, <span class="keyword">int</span> lim)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ql &gt; qr)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        fore(i, sl, sr)</span><br><span class="line">            <span class="keyword">if</span>(Len[i] &lt;= lim) tp[++tot] = i;</span><br><span class="line">        <span class="keyword">if</span>(tot) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span> lim &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> st = tp[(tot + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>], *nlen = _slen;</span><br><span class="line">    fore(i, sl, sr)&#123;</span><br><span class="line">        slen[i] = nlen;</span><br><span class="line">        nlen += (Len[st] + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Fore(i, <span class="number">0</span>, Len[st])slen[st][i] = i + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = st - <span class="number">1</span>; i &gt;= sl; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> np = sam[i].root, nexp, mlen = <span class="number">0</span>;</span><br><span class="line">        Fore(j, <span class="number">0</span>, Len[st])&#123;</span><br><span class="line">            nexp = str[st][j] - <span class="string">'0'</span>;</span><br><span class="line">            <span class="keyword">while</span>((np != sam[i].root) &amp;&amp; (!ch[np][nexp]))</span><br><span class="line">                np = fail[np],</span><br><span class="line">                mlen = len[np];</span><br><span class="line">            <span class="keyword">if</span>(ch[np][nexp])&#123;</span><br><span class="line">                np = ch[np][nexp];</span><br><span class="line">                mlen++;</span><br><span class="line">            &#125;</span><br><span class="line">            slen[i][j] = min(slen[i + <span class="number">1</span>][j], mlen);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = st + <span class="number">1</span>; i &lt;= sr; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> np = sam[i].root, nexp, mlen = <span class="number">0</span>;</span><br><span class="line">        Fore(j, <span class="number">0</span>, Len[st])&#123;</span><br><span class="line">            nexp = str[st][j] - <span class="string">'0'</span>;</span><br><span class="line">            <span class="keyword">while</span>(np != sam[i].root &amp;&amp; !ch[np][nexp])</span><br><span class="line">                np = fail[np],</span><br><span class="line">                mlen = len[np];</span><br><span class="line">            <span class="keyword">if</span>(ch[np][nexp])&#123;</span><br><span class="line">                np = ch[np][nexp];</span><br><span class="line">                mlen++;</span><br><span class="line">            &#125;</span><br><span class="line">            slen[i][j] = min(slen[i - <span class="number">1</span>][j], mlen);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> tpl = <span class="number">0</span>, tpr = <span class="number">0</span>;</span><br><span class="line">    fore(i, ql, qr)</span><br><span class="line">        <span class="keyword">if</span>(Q[i].l &lt;= st &amp;&amp; Q[i].r &gt;= st)&#123;</span><br><span class="line">            pii np = MP(Q[i].l, Q[i].r);</span><br><span class="line">            <span class="keyword">if</span>(mp.count(np))</span><br><span class="line">            &#123;</span><br><span class="line">                res[Q[i].p] = mp[np];</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">            Fore(j, <span class="number">0</span>, Len[st])</span><br><span class="line">                ret = max(ret, min(slen[Q[i].l][j], slen[Q[i].r][j]));</span><br><span class="line">            res[Q[i].p] = ret;</span><br><span class="line">            mp[np] = ret;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(Q[i].l &gt; st) QR[++tpr] = Q[i];</span><br><span class="line">        <span class="keyword">else</span> QL[++tpl] = Q[i];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> l1 = ql, nq = ql - <span class="number">1</span>, l2, r1, r2;</span><br><span class="line">    fore(i, <span class="number">1</span>, tpl) Q[++nq] = QL[i];</span><br><span class="line">    r1 = nq;</span><br><span class="line">    l2 = nq + <span class="number">1</span>;</span><br><span class="line">    fore(i, <span class="number">1</span>, tpr) Q[++nq] = QR[i];</span><br><span class="line">    r2 = nq;</span><br><span class="line">    Solve(sl, st - <span class="number">1</span>, l1, r1, lim);</span><br><span class="line">    Solve(st + <span class="number">1</span>, sr, l2, r2, lim);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    tail = <span class="number">0</span>;</span><br><span class="line">    len[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    fore(i, <span class="number">1</span>, n)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>, str[i] = nstr);</span><br><span class="line">        Len[i] = <span class="built_in">strlen</span>(nstr);</span><br><span class="line">        sam[i].Build(str[i], Len[i]);</span><br><span class="line">        nstr += Len[i];</span><br><span class="line">    &#125;</span><br><span class="line">    fore(i, <span class="number">1</span>, m)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;Q[i].l, &amp;Q[i].r),</span><br><span class="line">        Q[i].p = i;</span><br><span class="line">    Solve(<span class="number">1</span>, n, <span class="number">1</span>, m, <span class="number">10</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, m)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6139"><a href="#6139" class="headerlink" title="6139"></a>6139</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXL = <span class="number">1e6</span> + <span class="number">5</span>, MAXC = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Trie&#123;</span><br><span class="line">    <span class="keyword">int</span> ch[MAXL][MAXC], tail = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(<span class="built_in">string</span> &amp;s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.length(), rt = <span class="number">0</span>, nex;</span><br><span class="line">        Fore(i, <span class="number">0</span>, len)&#123;</span><br><span class="line">            nex = s[i] - <span class="string">'a'</span>;</span><br><span class="line">            <span class="keyword">if</span>(!ch[rt][nex])ch[rt][nex] = ++tail;</span><br><span class="line">            rt = ch[rt][nex];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> SAM</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> maxl = <span class="number">0</span>, tail, fail[MAXL &lt;&lt; <span class="number">1</span>], ch[MAXL &lt;&lt; <span class="number">1</span>][MAXC], len[MAXL &lt;&lt; <span class="number">1</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        tail = <span class="number">0</span>;</span><br><span class="line">        fail[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        len[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[<span class="number">0</span>], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[<span class="number">0</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> las)</span></span>&#123;</span><br><span class="line">        len[++tail] = len[las] + <span class="number">1</span>;</span><br><span class="line">        fail[tail] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(ch[tail], <span class="number">0</span>, <span class="keyword">sizeof</span>(ch[tail]));</span><br><span class="line">        <span class="keyword">return</span> tail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Extend</span><span class="params">(<span class="keyword">int</span> las, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        maxl++;</span><br><span class="line">        <span class="keyword">int</span> p = las, np = newnode(las);</span><br><span class="line">        <span class="keyword">for</span>(; (~p) &amp;&amp; !ch[p][c]; p = fail[p])</span><br><span class="line">            ch[p][c] = np;</span><br><span class="line">        <span class="keyword">if</span>(!~p) fail[np] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> q = ch[p][c];</span><br><span class="line">            <span class="keyword">if</span>(len[q] == len[p] + <span class="number">1</span>) fail[np] = q;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> nq = newnode(p);</span><br><span class="line">                <span class="built_in">memcpy</span>(ch[nq], ch[q], <span class="keyword">sizeof</span>(ch[q]));</span><br><span class="line">                fail[nq] = fail[q];</span><br><span class="line">                fail[q] = fail[np] = nq;</span><br><span class="line">                <span class="keyword">for</span>(; (~p) &amp;&amp; ch[p][c] == q; p = fail[p])</span><br><span class="line">                    ch[p][c] = nq;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> np;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> C[MAXL], ST[MAXL &lt;&lt; <span class="number">1</span>], pos[MAXL];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Cal</span><span class="params">()</span></span>&#123;</span><br><span class="line">        SAM::init();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= Trie::tail; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> las = pos[i];</span><br><span class="line">            Fore(j, <span class="number">0</span>, MAXC)</span><br><span class="line">                <span class="keyword">if</span>(Trie::ch[i][j])</span><br><span class="line">                    pos[Trie::ch[i][j]] = Extend(las, j);</span><br><span class="line">        &#125;</span><br><span class="line">        li res = <span class="number">0</span>;</span><br><span class="line">        fore(i, <span class="number">1</span>, tail)C[len[i]]++;</span><br><span class="line">        fore(i, <span class="number">1</span>, maxl)</span><br><span class="line">            C[i] += C[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i; i--)</span><br><span class="line">            ST[C[len[i]]--] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = tail; i; i--)</span><br><span class="line">            res += len[ST[i]] - len[fail[ST[i]]];</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s,</span><br><span class="line">        Trie::Insert(s);</span><br><span class="line">    SAM::Cal();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SAM/" rel="tag"># SAM</a>
+          
+            <a href="/tags/Manacher/" rel="tag"># Manacher</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/15/AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E9%A2%98%E9%9B%86/" rel="next" title="AC自动机题集">
+                <i class="fa fa-chevron-left"></i> AC自动机题集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷3346-ZJOI2015-诸神眷顾的幻想乡"><span class="nav-number">1.</span> <span class="nav-text">洛谷3346[ZJOI2015]诸神眷顾的幻想乡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">2.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-广义后缀自动机-Dfs"><span class="nav-number">3.</span> <span class="nav-text">题解:广义后缀自动机+Dfs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷3649-APIO2014-回文串"><span class="nav-number">4.</span> <span class="nav-text">洛谷3649 [APIO2014] 回文串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-SAM-Manacher"><span class="nav-number">4.2.</span> <span class="nav-text">题解 : SAM+Manacher</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷4022-CTSC2012-熟悉的文章"><span class="nav-number">5.</span> <span class="nav-text">洛谷4022[CTSC2012] 熟悉的文章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-1"><span class="nav-number">5.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-广义SAM-单调队列"><span class="nav-number">5.2.</span> <span class="nav-text">题解:广义SAM+单调队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷4070-SDOI2016-生成魔咒"><span class="nav-number">6.</span> <span class="nav-text">洛谷4070[SDOI2016]生成魔咒</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-2"><span class="nav-number">6.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-SAM"><span class="nav-number">6.2.</span> <span class="nav-text">题解:SAM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷4081-USACO17DEC-Standing-Out-From-the-Herd-P"><span class="nav-number">7.</span> <span class="nav-text">洛谷4081[USACO17DEC]Standing Out From the Herd P</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-3"><span class="nav-number">7.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-广义SAM-Trie"><span class="nav-number">7.2.</span> <span class="nav-text">题解:广义SAM+Trie</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷4770-NOI2018-你的名字"><span class="nav-number">8.</span> <span class="nav-text">洛谷4770[NOI2018]你的名字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-4"><span class="nav-number">8.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-SAM-线段树合并"><span class="nav-number">8.2.</span> <span class="nav-text">题解:SAM+线段树合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷5576-CmdOI2019-口头禅"><span class="nav-number">9.</span> <span class="nav-text">洛谷5576[CmdOI2019]口头禅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-5"><span class="nav-number">9.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-SAM-猫树分治"><span class="nav-number">9.2.</span> <span class="nav-text">题解:SAM+猫树分治</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#洛谷6139-模版-广义后缀自动机-广义SAM"><span class="nav-number">10.</span> <span class="nav-text">洛谷6139[模版]广义后缀自动机(广义SAM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#板题"><span class="nav-number">10.1.</span> <span class="nav-text">板题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number"></span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3346"><span class="nav-number">1.</span> <span class="nav-text">3346</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3649"><span class="nav-number"></span> <span class="nav-text">3649</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4022"><span class="nav-number">1.</span> <span class="nav-text">4022</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4070"><span class="nav-number">2.</span> <span class="nav-text">4070</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4081"><span class="nav-number">3.</span> <span class="nav-text">4081</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4770"><span class="nav-number">3.1.</span> <span class="nav-text">4770</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5576"><span class="nav-number">3.2.</span> <span class="nav-text">5576</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6139"><span class="nav-number">3.3.</span> <span class="nav-text">6139</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
