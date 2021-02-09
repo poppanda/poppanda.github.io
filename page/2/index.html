@@ -239,6 +239,799 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/24/%E7%82%B9%E5%88%86%E6%B2%BB%E9%A2%98%E9%9B%86/" itemprop="url">点分治题集</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-24T13:21:57+08:00">
+                2020-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%83%E4%B9%A0%E9%A2%98%E9%9B%86/" itemprop="url" rel="index">
+                    <span itemprop="name">练习题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="模版题"><a href="#模版题" class="headerlink" title="模版题"></a>模版题</h2><ul>
+<li><p>洛谷 P3806 [模板]点分治1</p>
+</li>
+<li><p>洛谷 P4178 Tree</p>
+</li>
+<li><p>洛谷 P2634 [国家集训队]聪聪可可</p>
+</li>
+<li><p>洛谷 P4149 [IOI2011]Race‘</p>
+</li>
+</ul>
+<h1 id="洛谷-P2664-树上游戏"><a href="#洛谷-P2664-树上游戏" class="headerlink" title="[洛谷 P2664] 树上游戏"></a><a href="https://www.luogu.com.cn/problem/P2664" target="_blank" rel="noopener">[洛谷 P2664] 树上游戏</a></h1><h3 id="点分治-容斥"><a href="#点分治-容斥" class="headerlink" title="点分治+容斥"></a>点分治+容斥</h3><p>点分治后正向和反向分别DP一次（一个方向的DP仅能统计当前子树到之前遍历过的子树的贡献）<br>然后删除重复统计的部分</p>
+<p>统计过程中一个点的能在当前分治过程中产生新的贡献当且仅当当前点到当前树根的路径上没有与当前点同色的点，而它能够产生的贡献就是其它子树中到达树根的路径上没有当前颜色的点的数量</p>
+<h1 id="WC2010-重建计划"><a href="#WC2010-重建计划" class="headerlink" title="[WC2010] 重建计划"></a><a href="https://www.luogu.com.cn/problem/P4292" target="_blank" rel="noopener">[WC2010] 重建计划</a></h1><h3 id="点分治-二分"><a href="#点分治-二分" class="headerlink" title="点分治+二分"></a>点分治+二分</h3><p>对于二分答案，将每个点的权值减去当前的答案</p>
+<p>若存在满足当前答案的方案，那么存在一条路径，使得新的权值之和不小于0</p>
+<p>使用单调队列维护路径长度在 $[L,U]$，方法类似于滑动窗口维护某一段区间的最大值</p>
+<h1 id="HDU4812-D-Tree"><a href="#HDU4812-D-Tree" class="headerlink" title="[HDU4812] D Tree"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4812" target="_blank" rel="noopener">[HDU4812] D Tree</a></h1><h3 id="点分治-数学逆元"><a href="#点分治-数学逆元" class="headerlink" title="点分治+数学逆元"></a>点分治+数学逆元</h3><p>由于模数不大，可以记录从树根到每一个节点 $p$ 的乘积的值 $v_p$（不能在DP过程中记录，在每一棵子树DP结束后记录）<br>当我们在某一个子树中跑DP时，对于单个点 $u$ 的统计相当于询问之前走过的记录中是否存在一个在其它子树中的点 $v$ 使得 $v_u \cdot v_v \cdot v_{root}^{-1}=K$(树根的值被统计了两次)<br>在当前子树跑完之后我们将其中的值 $v_p$ 再合并到记录中</p>
+<p>对于询问，相当于在记录中寻找 $v_v = K \cdot v_u^{-1}\cdot v_{root}$，可预处理</p>
+<h1 id="SPOJ1825-Free-tour-II"><a href="#SPOJ1825-Free-tour-II" class="headerlink" title="[SPOJ1825] Free tour II"></a><a href="https://www.spoj.com/problems/FTOUR2/" target="_blank" rel="noopener">[SPOJ1825] Free tour II</a></h1><p>基本同上，记录的值变为走过k个拥挤点的最大贡献</p>
+<h1 id="HDU5977-Garden-of-Eden"><a href="#HDU5977-Garden-of-Eden" class="headerlink" title="[HDU5977] Garden of Eden"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5977" target="_blank" rel="noopener">[HDU5977] Garden of Eden</a></h1><p>k的值很小，在点分治过程中记录对应每一个点经过苹果种类的二进制状态</p>
+<p>在统计时值得注意的一点是，对于一个状态 $sta$ 而言，我们统计的是所有满足 $sta|t=(11…1)_2$ 的 $t$ 状态对应的值之和，为了统计方便，我们应该在每次DP完合并时将状态 $sta$ 的值统计到其每一个子集上去，使用 $bitmask$ 即可，对于每一个状态 $sta$ ，时间复杂度上界为 $O(2^k)$ 。</p>
+<p>对于单次DP，其最大的状态数有 $2^k$ 个，时间复杂度最大为 $O(3^k)$ ，这种情况下它对应的子树的点数应该不小于 $2^k$ 。均摊下来每一层分治的最坏复杂度上界为 $O(n\cdot \frac{3^k}{2^k}) = O(n\cdot \frac{3}{2}^k)$ ，最终复杂度为 $O(n\cdot logn\cdot \frac{3}{2}^k)$ ，但是实际情况下界非常松。</p>
+<h3 id="下列题目处理十分类似"><a href="#下列题目处理十分类似" class="headerlink" title="下列题目处理十分类似"></a>下列题目处理十分类似</h3><ul>
+<li><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5909" target="_blank" rel="noopener">[HDU5909]Tree Cutting</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3727" target="_blank" rel="noopener">[Luogu3727]曼哈顿计划E</a></li>
+<li><a href="https://loj.ac/problem/2259" target="_blank" rel="noopener">[FJOI2014]最短路径树问题</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/06/2020-%E5%A4%9A%E6%A0%A1-7-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/06/2020-%E5%A4%9A%E6%A0%A1-7-I/" itemprop="url">2020-多校-7-I</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-06T11:11:15+08:00">
+                2020-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E6%A0%A1-7/" itemprop="url" rel="index">
+                    <span itemprop="name">多校-7</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>构造包含 $[1,n]\leq 10^5$ 序列，使得最长上升序列长度为 $x$ ，最长下降序列长度为 $y$ ，满足字典序最小</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>无解的情况：</p>
+<p>$x\cdot y &lt; n$ 或 $x+y &gt; n + 1$</p>
+<p>有解：</p>
+<p>试图让上升序列尽量靠前且字典序更小。</p>
+<p>将序列分为 $x$ 块，每一块满足前一块的元素均小于后一块的元素，且前一块的元素个数不大于后一块，每一块的元素降序排列。</p>
+<p>也就是尽量将元素往后填充，直到当前元素块构成了最长下降序列。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("In.txt", "r", stdin);</span></span><br><span class="line">    <span class="comment">// freopen("Out.txt", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> T, n, x, y;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;x, &amp;y);</span><br><span class="line">        <span class="keyword">if</span>(x + y &gt; n + <span class="number">1</span>|| <span class="number">1L</span>L * x * y &lt; n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"NO"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"YES"</span>);</span><br><span class="line">        fore(i, <span class="number">1</span>, n) p[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rem = n - x, cnt = (y == <span class="number">1</span>) ? <span class="number">0</span> : rem / (y - <span class="number">1</span>), more = (y == <span class="number">1</span>) ? <span class="number">0</span> : ((rem % (y - <span class="number">1</span>)) != <span class="number">0</span>);</span><br><span class="line">        fore(i, <span class="number">1</span>, cnt)</span><br><span class="line">            p[n - i * y + <span class="number">1</span>] = n - (i - <span class="number">1</span>) * y;</span><br><span class="line">        <span class="keyword">if</span>(more)</span><br><span class="line">            p[n - cnt * y - (rem % (y - <span class="number">1</span>))] = n - cnt * y;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(!p[i])p[i] = i, i++;</span><br><span class="line">        <span class="keyword">while</span>(i &lt;= n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!p[i]) p[i] = p[i - <span class="number">1</span>] - <span class="number">1</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        Fore(j, <span class="number">1</span>, n) <span class="built_in">printf</span>(<span class="string">"%d "</span>, p[j]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, p[n]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-H/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-H/" itemprop="url">2020-多校-7-H</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-05T23:53:59+08:00">
+                2020-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E6%A0%A1-7/" itemprop="url" rel="index">
+                    <span itemprop="name">多校-7</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有21个元素，标号从0到20。现在给定 $n\leq 10^6$ 个组，每个组包含两个数字， $(b)_{10} = (b_0b_1b_2…b_{20})_2$ 其二进制代表是否需要第 $k$ 个元素和 $p$ 代表其贡献。多个组可同时选择当且仅当其需要的元素均不重复（即每个元素最多可以使用一次），同时选择多个组时贡献为 $\prod p_i$</p>
+<p>现有 $m\leq 10^6$ 个询问，每次询问包含一个数字 $(x)_{10} = (x_1x_2…x_{20})_2$ ，问使用完且仅使用当前组的元素可以得到多少种方案，将这些方案的贡献相加后$\mod 998244353$ 输出。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>显然要便利所有的 $2^{21}-1$ 种方案</p>
+<p>朴素的想法是bitmask，其复杂度为 $\sum_{i=0}^{2^{21}-1}\sum_{k\in i}1=\sum_{i=0}^{20}C_{20}^i2^i=3^{21}$</p>
+<p>显然不行（但是其实是有人计划通了的，果然人只要极端愤怒，就没有什么不可能的）</p>
+<h3 id="这里用到子集卷积"><a href="#这里用到子集卷积" class="headerlink" title="这里用到子集卷积"></a>这里用到子集卷积</h3><p>考虑bitmask过程中组合为 $i$ 的最终贡献为 $P_i=\sum_{k\in i}a_kb_{i-k}$（$a,b$ 为组合为 $k,i-k$ 的最终贡献）</p>
+<p>令多项式 $A(x) = \sum a_ix^i, B(x) = \sum b_ix^i$</p>
+<p>则有 $P(x) = \sum_ix^i\sum_{j\in i}a_kb_{i-k}$，满足 $k|(i-k)=i,|k|+|i-k|=|i|,|i|$ 为组合的元素数（集合大小）</p>
+<p>用子集卷积即可。为避免重复计算，应当将初始的 $b$ 分类，按照 $b$ 包含的最高位分类 $A_0,A_1,A_2…$ 依次卷积。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1</span> &lt;&lt; <span class="number">21</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> siz[MAXN + <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fwt</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A, <span class="keyword">int</span> type = <span class="number">1</span>, <span class="keyword">int</span> base = <span class="number">20</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = (<span class="number">1</span> &lt;&lt; base);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; i &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>, t = i &lt;&lt; <span class="number">1</span>; j &lt; len; j += t)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = j, K = j + i; k &lt; K; ++k)</span><br><span class="line">                A[k + i] = (A[k + i] + type * A[k]) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">Merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;B, <span class="keyword">int</span> base)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">1</span> &lt;&lt; base;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ret</span><span class="params">(len)</span></span>;</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; SA(base + 1, vector&lt;int&gt;(len, 0)), SB = SA, SC = SA;</span><br><span class="line">    Fore(i, <span class="number">0</span>, len)</span><br><span class="line">        SA[siz[i]][i] = A[i], SB[siz[i]][i] = B[i];</span><br><span class="line">    fore(i, <span class="number">0</span>, base)</span><br><span class="line">    &#123;</span><br><span class="line">        fwt(SA[i], <span class="number">1</span>, base);</span><br><span class="line">        fwt(SB[i], <span class="number">1</span>, base);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> S = <span class="number">0</span>; S &lt; len; S++)</span><br><span class="line">            fore(j, <span class="number">0</span>, i)</span><br><span class="line">                SC[i][S] = (SC[i][S] + <span class="number">1L</span>L * SA[j][S] * SB[i - j][S] % mod) % mod;</span><br><span class="line">        fwt(SC[i], <span class="number">-1</span>, base);</span><br><span class="line">    &#125;</span><br><span class="line">    Fore(S, <span class="number">0</span>, len) ret[S] = SC[siz[S]][S];</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PRO</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">1</span>, MAXN) siz[i] = siz[i - (i &amp; -i)] + <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;ret(MAXN + <span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">    ret[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    fore(i, <span class="number">0</span>, <span class="number">20</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(ret.begin(), ret.begin() + len);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; B = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(p.begin() + len, p.begin() + (len * <span class="number">2</span>));</span><br><span class="line">        A = Merge(A, B, i);</span><br><span class="line">        Fore(j, <span class="number">0</span>, len) ret[j + len] = A[j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">v</span><span class="params">(MAXN + <span class="number">5</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("H.in", "r", stdin);</span></span><br><span class="line">    <span class="comment">// freopen("Out.txt", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> n = input(), p, b;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        p = input(); b = input();</span><br><span class="line">        v[b] = (v[b] + p) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res = PRO(v);</span><br><span class="line">    <span class="keyword">int</span> m = input();</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q = input();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (res[q] + mod)%mod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/05/2020-%E5%A4%9A%E6%A0%A1-7-D/" itemprop="url">2020-多校-7-D</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-05T23:25:17+08:00">
+                2020-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E6%A0%A1-7/" itemprop="url" rel="index">
+                    <span itemprop="name">多校-7</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个区间 [0,t] ，每次随机取两个数字 $v_1, v_2$ （可以相等）， 给定 $a, c, m$ ，构造一个序列满足</p>
+<script type="math/tex; mode=display">X_0 = v_1+v_2, X_{i+1} = a\cdot X_i + c \mod m(i>=0)</script><p>问 $X_{v_1-v_2}$ 为偶数的概率有多大？</p>
+<p>其中 $1\leq t\leq \frac{m}{2}, m \leq 10^6, a, c\leq m$</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="计算概率"><a href="#计算概率" class="headerlink" title="计算概率"></a>计算概率</h3><p>首先，确定一个 $X_0 = v_1 + v_2$ ，对其而言随机选择到 $X_0$ 的概率为 $P_1 = \frac{min(2 * t - X_0, X_0) + 1}{(t+1)^2}$</p>
+<p>其次，$v_1-v_2$ 的最大值为 $v_m = min(2 \cdot t - X_0, X_0)$，</p>
+<p>则 $v_1 - v_2$ 为 $\{-v_m, -v_m + 2, -v_m + 4,…,v_m - 2, v_m\}$ 中等概率选择的某一个</p>
+<p>对于 $X_m$ 为偶数，则 $｜v_1 - v_2｜ = 0$ 的可能性为 $\frac{1}{(v_m + 1)/2}$ （分母取整）</p>
+<p>=其它值的可能性均为$\frac{2}{(v_m + 1)/2}$ （分母取整）</p>
+<p>而对于 $X_m$ 为奇数，则$｜v_1 - v_2｜$ 的取值的可能性均为$\frac{2}{(v_m + 1)/2}$</p>
+<p>对应的可能性乘以 $P_1$ 乘以在这些 $|v_1-v_2|$ 对应的 $X_{|v_1-v_2|}$ 的偶数的个数再累加即为最终的概率</p>
+<h3 id="计算奇偶的分布"><a href="#计算奇偶的分布" class="headerlink" title="计算奇偶的分布"></a>计算奇偶的分布</h3><p>我们实际上只需要计算 $X_0, X_2, … , X_{v_m}$ 的奇偶的个数即可，每一次步长均为2</p>
+<p>记 $nexnum[x][i]$ 为从 $x$ 出发走 $2^i$ 步到达的数字</p>
+<p>$cnt[x][i]$ 为从 $x$ 出发，一共经过包括 $x$ 在内的 $2^i$ 个数字的偶数的个数，即可利用倍增计算</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">1e6</span> + <span class="number">5</span>, LOGM = <span class="number">22</span>;</span><br><span class="line"><span class="keyword">inline</span> li __gcd(li a, li b)&#123;<span class="keyword">return</span> b == <span class="number">0</span> ? a : __gcd(b, a % b);&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Frac</span> &#123;</span></span><br><span class="line">    li a, b;</span><br><span class="line">    <span class="function">li <span class="title">sign</span><span class="params">(li x)</span> </span>&#123; <span class="keyword">return</span> (x &gt; <span class="number">0</span> ? <span class="number">1</span> : <span class="number">-1</span>); &#125;</span><br><span class="line">    inline Frac() : a(0), b(1) &#123;&#125;</span><br><span class="line">    inline Frac(li x) : a(x), b(1) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">Frac</span><span class="params">(li x, li y)</span> </span>&#123;</span><br><span class="line">        li m = __gcd(<span class="built_in">abs</span>(x), <span class="built_in">abs</span>(y));</span><br><span class="line">        a = x / m * sign(y);</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">0</span>)</span><br><span class="line">            b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            b = <span class="built_in">abs</span>(y / m);</span><br><span class="line">    &#125;</span><br><span class="line">    Frac <span class="keyword">operator</span>+(<span class="keyword">const</span> Frac &amp;f) &#123;</span><br><span class="line">        li m = __gcd(b, f.b);</span><br><span class="line">        <span class="keyword">return</span> Frac(f.b / m * a + b / m * f.a, b / m * f.b);</span><br><span class="line">    &#125;</span><br><span class="line">    Frac <span class="keyword">operator</span>*(<span class="keyword">const</span> Frac &amp;f) &#123;</span><br><span class="line">        li m1 = __gcd(<span class="built_in">abs</span>(a), f.b);</span><br><span class="line">        li m2 = __gcd(b, <span class="built_in">abs</span>(f.a));</span><br><span class="line">        <span class="keyword">return</span> Frac((a / m1) * (f.a / m2), (b / m2) * (f.b / m1));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">li t, a, c, m;</span><br><span class="line">li nexnum[MAXM][LOGM], ji[MAXM][LOGM];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PRO</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">0</span>, m)</span><br><span class="line">    &#123;</span><br><span class="line">        nexnum[i][<span class="number">0</span>] = (a * a * i + a * c + c) % m;</span><br><span class="line">        ji[i][<span class="number">0</span>] = i &amp; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Fore(j, <span class="number">1</span>, LOGM)</span><br><span class="line">    fore(i, <span class="number">0</span>, m)</span><br><span class="line">        &#123;</span><br><span class="line">            nexnum[i][j] = nexnum[nexnum[i][j - <span class="number">1</span>]][j - <span class="number">1</span>];</span><br><span class="line">            ji[i][j] = ji[i][j - <span class="number">1</span>] + ji[nexnum[i][j - <span class="number">1</span>]][j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld%lld"</span>, &amp;t, &amp;a, &amp;c, &amp;m);</span><br><span class="line">        PRO();</span><br><span class="line">        Frac res;</span><br><span class="line">        <span class="keyword">for</span>(li sum = <span class="number">0</span>; sum &lt;= <span class="number">2</span> * t; sum++)</span><br><span class="line">        &#123;</span><br><span class="line">            li mina = <span class="number">0</span>, maxa = (min(<span class="number">2</span>*t - sum, sum) + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            li res_ji, all = (maxa &lt;&lt; <span class="number">1</span>) + ((sum &amp; <span class="number">1</span>) == <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span>(sum &amp; <span class="number">1</span>)</span><br><span class="line">                res_ji = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                res_ji = sum&amp;<span class="number">1</span>;</span><br><span class="line">            li start_num = (sum &amp; <span class="number">1</span>) ? (a * sum + c)%m : nexnum[sum][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LOGM &amp;&amp; maxa; i++)</span><br><span class="line">                <span class="keyword">if</span>(maxa &amp; (<span class="number">1</span> &lt;&lt; i))</span><br><span class="line">                &#123;</span><br><span class="line">                    maxa ^= (<span class="number">1</span> &lt;&lt; i);</span><br><span class="line">                    res_ji += ji[start_num][i] * <span class="number">2</span>;</span><br><span class="line">                    start_num = nexnum[start_num][i];</span><br><span class="line">                &#125;</span><br><span class="line">            Frac posi = Frac(min(<span class="number">2</span>*t - sum, sum) + <span class="number">1</span>, (t + <span class="number">1</span>) * (t + <span class="number">1</span>)) * Frac(res_ji, all);</span><br><span class="line">            res = res + posi;</span><br><span class="line">        &#125;</span><br><span class="line">        res.a = res.b - res.a;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld/%lld\n"</span>, res.a, res.b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/01/%E7%A6%BB%E6%95%A3%E4%B8%8A%E6%9C%BA%E8%87%AA%E9%80%89%E5%8A%A8%E4%BD%9C%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/01/%E7%A6%BB%E6%95%A3%E4%B8%8A%E6%9C%BA%E8%87%AA%E9%80%89%E5%8A%A8%E4%BD%9C%E6%80%9D%E8%B7%AF/" itemprop="url">离散上机自选动作思路</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-01T21:11:36+08:00">
+                2020-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>输入集合A和B，输出A到B上的所有函数/单射函数/双射函数/满射函数。</p>
+<p>相当于求一个映射。</p>
+<p>考虑Dfs（深搜），A集合中的每一个点必定被映射到B集合上某一点，因此我们在Dfs中第i层状态代表A集合中第i个数字映射到B上的哪个数字，那么这颗Dfs数就有|A| 层，每一层的点代表当前状态下选择的是B集合中的哪个数字。</p>
+<p>对于单射，我们只需要对B中的数字的使用情况进行记录(mark)，已经使用过的就不能再使用了。</p>
+<p>对于双射，|A| = |B|必定成立，因此判断同上即可，B中的数字能且仅能使用一次（我还写了个没啥用的Judge函数，实际上没必要）</p>
+<p>对于满射，我们需要用Judge进行判断，在对B中的数字使用情况记录后进行统计，保证B中每个数字都被使用了（对应mark值不为0）</p>
+<p>以输出所有函数为例进行代码的解释</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1005</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取一个数字</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> A[MAXN], B[MAXN], refl[MAXN];</span><br><span class="line"><span class="keyword">int</span> mark[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d -&gt; %d "</span>, A[i], B[refl[i]]);</span><br><span class="line">        <span class="keyword">if</span>(i != n) <span class="built_in">printf</span>(<span class="string">"| "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  	<span class="comment">//当前搜索到第p层</span></span><br><span class="line">  	<span class="comment">//若p大于了理论最大层数，则输出</span></span><br><span class="line">    <span class="keyword">if</span>(p == n + <span class="number">1</span>) print();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        fore(i, <span class="number">1</span>, m)</span><br><span class="line">        <span class="comment">//对B集合中的每一个元素进行枚举，不会产生遗漏</span></span><br><span class="line">            &#123;</span><br><span class="line">         				<span class="comment">//记录对应的映射</span></span><br><span class="line">                refl[p] = i;</span><br><span class="line">          			<span class="comment">//搜索下一层</span></span><br><span class="line">                Dfs(p + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">"In.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    n = input(), m = input();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set A:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, n) A[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; A[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set B:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, m) B[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; B[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    Dfs(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四道题的通用代码（对应注释修改即可）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1005</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>) c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> A[MAXN], B[MAXN], refl[MAXN];</span><br><span class="line"><span class="keyword">int</span> mark[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Judge</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fore(i, <span class="number">1</span>, m) </span><br><span class="line">        <span class="keyword">if</span>(mark[i] == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// if(Judge() == false) return; // 要求满射/双射时开启</span></span><br><span class="line">    fore(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d -&gt; %d "</span>, A[i], B[refl[i]]);</span><br><span class="line">        <span class="keyword">if</span>(i != n) <span class="built_in">printf</span>(<span class="string">"| "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p == n + <span class="number">1</span>) print();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        fore(i, <span class="number">1</span>, m)</span><br><span class="line">            <span class="comment">// if(mark[i] == 0) //要求单射/双射时开启</span></span><br><span class="line">            &#123;</span><br><span class="line">                refl[p] = i;</span><br><span class="line">                <span class="comment">// mark[i]++; //要求单射/双射/满射时开启</span></span><br><span class="line">                Dfs(p + <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// mark[i]--; // 要求单射/双射/满射时开启</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">"In.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    n = input(), m = input();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set A:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, n) A[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; A[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Set B:"</span>);</span><br><span class="line">    fore(i, <span class="number">1</span>, m) B[i] = input(), <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; B[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// if(n &gt; m) &#123;printf("单射不存在"); return 0;&#125; //要求单射时开启</span></span><br><span class="line">    <span class="comment">// if(n &lt; m) &#123;printf("满射不存在"); return 0;&#125; //要求满射时开启</span></span><br><span class="line">    <span class="comment">// if(n != m) &#123;printf("双射不存在"); return 0;&#125; //要求双射时开启</span></span><br><span class="line">    Dfs(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/2020-%E5%A4%9A%E6%A0%A1-2-L/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1191,506 +1984,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/ICPC2015%E6%B2%88%E9%98%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/06/ICPC2015%E6%B2%88%E9%98%B3/" itemprop="url">ICPC 2015 沈阳</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-06T15:10:59+08:00">
-                2020-07-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="E-HDU-5513-Efficient-Tree"><a href="#E-HDU-5513-Efficient-Tree" class="headerlink" title="E: HDU 5513 Efficient Tree"></a>E: HDU 5513 Efficient Tree</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定 $n \times m (1\leq n \leq 800, 1 \leq  m \leq 7)$ 的网格，给定每个网格向上/向左连边的权值。</p>
-<p>1、求该网格图的最小生成树的权值 $sum$</p>
-<p>2、对于每个顶点 $u$ ，$LRDeg(u) = 1$ + 向左/上连边的度数 ，要求统计 $\sum\limits_{V(C)=sum}(\prod\limits_{u\in C}LRDeg(u))$ ，其中 $C$ 是生成树的图，$V(C)$ 是生成树的权值</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><h4 id="插头DP"><a href="#插头DP" class="headerlink" title="插头DP"></a>插头DP</h4><p>由于 $m$ 的值很小，我们逐个对网格进行处理，每次记录最后 $m$ 个网格所在的联通块标号，(图中)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/30/The%202016%20ACM-ICPC%20Asia%20Qingdao%20Regional%20Contest/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/30/The%202016%20ACM-ICPC%20Asia%20Qingdao%20Regional%20Contest/" itemprop="url">ICPC 2016 青岛</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-30T12:10:25+08:00">
-                2020-06-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ICPC2016/" itemprop="url" rel="index">
-                    <span itemprop="name">ICPC2016</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="F-Lambda-Calculus"><a href="#F-Lambda-Calculus" class="headerlink" title="F.Lambda Calculus"></a>F.Lambda Calculus</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>定义一种表达式 lambda(x) ，其中x变量称为自变量，在与lambda同一级括号或更低级的表达式中出现的 x 均受该表达式的中自变量的限制，求出对于一串表达式，其中的非自变量有哪些（字典序输出）</p>
-<p>输入：表达式长度 $n \leq 10^7$ ，表达式中的变量和常量均由<strong>字母</strong>和<strong>连字符-</strong>（长度可能不止为1）组成，且字符串中会有多余的不对结果产生干扰的空格</p>
-<p>例如：</p>
-<p>lambda(   x)(x y) , (x y) 与lambda(x) 在同一级，故括号内的 (x y) 中 x 为自变量， y为非自变量</p>
-<p>lambda(y)(lambda(z)(x y z))中，(lambda(z)(x y z))与 lambda(y)在同一级，而(x y z) 则在更低一级，与lambda(z)同级，故(x y z)中，x为非自变量，y，z均为自变量</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>类似深搜的思想</p>
-<p>只需要按照括号分级即可，对于lamda(x)的括号特殊处理，将其中的值进行记录，而对于其它括号，进入下一级进行处理，处理完当前这一级和更低级之后，将记录的当前级的自变量删除即可</p>
-<h2 id="I-Travel-Brochure"><a href="#I-Travel-Brochure" class="headerlink" title="I.Travel Brochure"></a>I.Travel Brochure</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>给定一串长度为 $n$ 数列 $w_0,w_1,w_2,…,w_{n-1}$ ，若 $sum_i = \sum\limits_{i=0}^i w_i$ ，定义 $a_i = w_i, b_i = sum_i$</p>
-<p>求若 $m\geq 3$ 个点 $p1 ,p2,…,p_m$ 满足 $p_i &lt; p_{i + 1}$ ，使得 $\frac{1}{2}\sum\limits_{i=0}^m (a_{p_{i + 1}}-a_{p_i})\frac{b_{p_{i+1}}b_{p_i}}{a_{p_{i+1}}a_{p_i}}$ 最大，输出最大值</p>
-<h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>将 $(a_{p_{i + 1}}-a_{p_i})\frac{b_{p_{i+1}}b_{p_i}}{a_{p_{i+1}}a_{p_i}}$ 化为 $\frac{b_{p_{i+1}}b_{p_i}}{a_{p_i}} - \frac{b_{p_{i+1}}b_{p_i}}{a_{p_{i+1}}}$ = $(\frac{b_{p_i}}{a_{p_i}}, b_{p_i}) \times (\frac{b_{p_{i + 1}}}{a_{p_{i+1}}}, b_{p_{i+1}})$ （向量叉积）</p>
-<p>乘上 $\frac{1}{2}$ ，即为三角形 $(0,0),(\frac{b_{p_i}}{a_{p_i}}, b_{p_i}),(\frac{b_{p_{i + 1}}}{a_{p_{i+1}}}, b_{p_{i+1}})$的面积</p>
-<p>题目也就变成了求点集 $\{(\frac{b_{p_i}}{a_{p_i}}, b_{p_i})\}$ 中最大凸包的面积</p>
-<p>计算几何</p>
-<h2 id="J-Cliques"><a href="#J-Cliques" class="headerlink" title="J.Cliques"></a>J.Cliques</h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给定一个包含 $n(1 \leq n \leq 100)$ 个点的无向图，每一步操作可以在两点间增加/删除一条边，问能否在10步之内将这张图变为若干个完全子图的集合(即每一个顶点都在一个完全图中)</p>
-<h3 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h3><p><strong>考虑完全图的性质</strong></p>
-<p>对于任一完全图，其顶点 $V$ 集合的任一子集 $v\subseteq V$ 所在子图也为完全图 (显然)</p>
-<p>对于顶点数 $n\leq 2$ 的图，一定为完全图</p>
-<p>对于顶点数 $n \geq 3$ 的图，每次讨论三个顶点。</p>
-<blockquote>
-<p>1、若当前三个顶点在同一完全图中，则三个顶点两两之间一定相连，这种情况不予讨论</p>
-<p>2、若当前三个顶点间只存在两条边，则说明通过增边/删边操作可将当前三点构成的子图变为完全图/完全图集合</p>
-<p>3、若当前三个顶点间只存在1/0条边，则三点构成的子图已经为完全图集合([a,b] + [c] / [a] + [b] + [c])，不予讨论</p>
-</blockquote>
-<p>对于情况2，我们增加/删除一条边，即可将其转化为情况1/3</p>
-<p>也就是说，我们要将所有<strong>三点子图</strong>转化为<strong>完全图</strong>，当所有三点子图均为完全图/完全图集合后，其构成的图一定为完全图/完全图集合</p>
-<p><strong>解法：深搜</strong></p>
-<p>每次搜索不完全三点子图，对增减边情况(三条边依次)分别讨论</p>
-<p><strong>复杂度</strong></p>
-<p>搜索最坏时间复杂度 $O(3^{10})$ </p>
-<p>在搜索过程中处理三元环最坏时间复杂度为 $O(n^3)$ ，总时间复杂度最坏为 $O(n^3\cdot 3^{10})$ ，但是在随机化数据中可以轻松通过</p>
-<p>预处理三元环时间复杂度为 $O(n^3)$ ，在搜索过程中修改边后修改三元环复杂度为 $O(n)$ ，三点非完全子图数量最大为10，时间复杂度为 $O(n^3 + 3^{10}\cdot(10 + n))$ ，时间复杂度可接受，代码复杂度不可接受</p>
-<h2 id="K-Finding-Hotels"><a href="#K-Finding-Hotels" class="headerlink" title="K.Finding Hotels"></a>K.Finding Hotels</h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>二维平面内存在 $N(N\leq 2\cdot 10^5)$ 个点，每个点有一个权值 $C$ </p>
-<p>$m(m\leq 2\cdot 10^4)$ 次询问，每次给定 $x, y, c$ ，求平面内离 $(x,y)$ 最近的权值 $C \in [1,c]$ 的点，距离权值相等时取先出现的点</p>
-<h3 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h3><p><strong>解法一: 在线+三维KD-Tree</strong></p>
-<p>将 $C$ 作为一维，在查询时遇到 $C$ 的最小值大于 $c$ 的区间就直接剪枝，而查询 $x,y$ 时则按照 KD-Tree 的正常查询思路查找即可</p>
-<p>该思路十分卡常，需要优秀的KDTree板子</p>
-<p><strong>解法二: 离线+动态KD-Tree</strong></p>
-<p>按照权值从小到大向KD-Tree中加入节点，加入节点的顺序由按询问中 $c$ 的升序排列决定</p>
-<p>使用<strong>替罪羊树</strong>的思想，对失衡子树重构，保证效率</p>
-<p>该思路显然会更快，但是需要更优秀的可插入节点的KDTree的板子</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/24/CCPC%E6%9D%AD%E5%B7%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Railroad Guerrilla">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/24/CCPC%E6%9D%AD%E5%B7%9E/" itemprop="url">CCPC 杭州</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-24T14:36:23+08:00">
-                2020-06-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CCPC/" itemprop="url" rel="index">
-                    <span itemprop="name">CCPC</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Master-of-Subgraph"><a href="#Master-of-Subgraph" class="headerlink" title="Master of Subgraph"></a>Master of Subgraph</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定一棵树($n\in [1,3000]$)，每个点有权值($v\in[1, 10^5]$)。给定一个值$m\in[0, 10^5]$，问对于所有$i\in[1,m]$，是否存在连通子图，其权值之和等于$i$</p>
-<h3 id="解法：点分治-bitset"><a href="#解法：点分治-bitset" class="headerlink" title="解法：点分治+bitset"></a>解法：点分治+bitset</h3><p>bitset第 $i$ 位存储对于当前点，是否存在包含它的权值之和为 $i$ 的连通子图</p>
-<p>点分治，对于每一次分治过程，当前过程的子树的根必须被包含在方案中，因此从根 $rt$ 向下遍历时，子节点 $i$ 的初始值为 $v[rt] &lt;&lt; w[i]$，表示选择了子节点及包含根的子图后的可行方案。子节点DP完成后，$rt$ 执行 $v[rt] |= v[i]$，将子节点的方案包含进来</p>
-<p>不包含当前子树的根的方案的计算过程在下一层分治中（下一层分治必定不包含当前分治的根）</p>
-<p>最后的结果即为整棵树的根记录的结果</p>
-<h2 id="Marriage"><a href="#Marriage" class="headerlink" title="Marriage"></a>Marriage</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>有 $n\in[1,10^5]$ 个家庭，对于家庭 $i$ ，有儿子 $a_i$ 个， 女儿 $b_i$ 个，满足 $sum = \sum\limits_i a_i = \sum\limits_i b_i \in[1,10^5]$</p>
-<p>现在给这些子女配对（一男配一女），同一家庭的孩子不能配对</p>
-<p>问全部配对完有多少种方案($\mod 998244353$)</p>
-<h3 id="解法：容斥-NTT"><a href="#解法：容斥-NTT" class="headerlink" title="解法：容斥+NTT"></a>解法：容斥+NTT</h3><p>考虑容斥，$V_i$ 表示至少有 $i$ 对不合法配对的方案数，则结果为 $\sum\limits_{i=0}^{sum}(-1)^iV_i$</p>
-<p>对于单独一个家庭，$V_i=C_a^i\cdot C_b^i\cdot i!(i\in[0,min(a,b)])$</p>
-<p>对于两个家庭$V(1)、V(2)$，将其合并为$V_i = \sum[x+y==i]V(1)_{x}\cdot V(2)_{y}$</p>
-<p>对于多个家庭反复两两合并即可</p>
-<p>考虑NTT，对于第 $i$ 个家庭，其方案数用多项式</p>
-<p> $V(i) = V(i)_0\cdot x^0 + V(i)_1\cdot x^1…$</p>
-<p>$x^i$ 的系数表示不合法配对的个数至少为 $i$ 的方案数</p>
-<p>多项式相乘，记得到两个家庭合并的结果</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -1736,7 +2034,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1747,7 +2045,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1758,7 +2056,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1795,7 +2093,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
