@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="A.Adrien and Austin题意$N$ 个石头，标号从1到 $N$ 。每次可以选择不超过 $K$ 个连续标号的石头移除，取走最后一颗的人胜。 题解：博弈特判 $N &#x3D; 0$ 和 $K &#x3D; 1$  的情况，其余情况先手可以通过取中间的石头使得剩余石头被分为相同的两端，后手取啥先手就取啥，先手必胜。 B.TournamentC.Cherry and Chocolate题意给一颗 $n\in[">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICPC-南京-2018">
+<meta property="og:url" content="http://yoursite.com/2021/03/13/ICPC-%E5%8D%97%E4%BA%AC-2018/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="A.Adrien and Austin题意$N$ 个石头，标号从1到 $N$ 。每次可以选择不超过 $K$ 个连续标号的石头移除，取走最后一颗的人胜。 题解：博弈特判 $N &#x3D; 0$ 和 $K &#x3D; 1$  的情况，其余情况先手可以通过取中间的石头使得剩余石头被分为相同的两端，后手取啥先手就取啥，先手必胜。 B.TournamentC.Cherry and Chocolate题意给一颗 $n\in[">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-13T00:14:53.000Z">
+<meta property="article:modified_time" content="2021-03-14T01:29:45.534Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/13/ICPC-南京-2018/"/>
+
+
+
+
+
+  <title>ICPC-南京-2018 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/13/ICPC-%E5%8D%97%E4%BA%AC-2018/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ICPC-南京-2018</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-13T08:14:53+08:00">
+                2021-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ICPC/" itemprop="url" rel="index">
+                    <span itemprop="name">ICPC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="A-Adrien-and-Austin"><a href="#A-Adrien-and-Austin" class="headerlink" title="A.Adrien and Austin"></a>A.Adrien and Austin</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>$N$ 个石头，标号从1到 $N$ 。每次可以选择不超过 $K$ 个连续标号的石头移除，取走最后一颗的人胜。</p>
+<h2 id="题解：博弈"><a href="#题解：博弈" class="headerlink" title="题解：博弈"></a>题解：博弈</h2><p>特判 $N = 0$ 和 $K = 1$  的情况，其余情况先手可以通过取中间的石头使得剩余石头被分为相同的两端，后手取啥先手就取啥，先手必胜。</p>
+<h1 id="B-Tournament"><a href="#B-Tournament" class="headerlink" title="B.Tournament"></a>B.Tournament</h1><h1 id="C-Cherry-and-Chocolate"><a href="#C-Cherry-and-Chocolate" class="headerlink" title="C.Cherry and Chocolate"></a>C.Cherry and Chocolate</h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>给一颗 $n\in[3,10^5]$ 个点的树，A取一个点标记为粉色，B取一个点标记为棕色，A再取一个点标记为粉色。记从棕色出发，需要经过粉色的点才能到达的点的个数为最终分数。A希望使分数最大，B希望使分数最小，问最大分数为多少？</p>
+<h2 id="题解：树的重心"><a href="#题解：树的重心" class="headerlink" title="题解：树的重心"></a>题解：树的重心</h2><p>记 A 选择的第一个点为 $a$ ， B 选择的点为 $b$ ， A 选择的第二个点为 $c$</p>
+<p>那么对于一个确定的点 $a$ ， $b$ 必然选择以 $a$ 为根时树 $tree_a=<V,E>$ 所有子树 $subtree_x=<V',E'>\in tree_a$(以 $x$ 为 $subtree_x$ 的重心) 中某一颗子树的重心，这样才能使得 $c$ 所限制的点尽量少 ， 而 $c$ 也必然选择 $subtree_x$ 的重儿子。每次处理出所有 $subtree_x$ 中得到结果最大的子树，即为 $subtree_b$ 则我们得到了对于 $a$ 的最优解 $(a,b,c)$。</V',E'></V,E></p>
+<p>此时我们换根到 $a’$ ，若 $a’\in tree-subtree_b$ ，也就是选择 $subtree_b$ 以外的点，那么 $b$ 保持不变，结果必不能更优，因此仅能在 $subtree_b$ 内选择 $a’$ 。</p>
+<p>每次可供选择的 $a$ 点的范围都是一个联通的子树，我们选择树的重心，就能使选择范围进一步缩小，最终选择的 $a$ 点的总数目不超过 $logn$ 个，每次在给定 $a$ 点的情况下选择最优解的复杂度为 $O(n)$ ，因此最终复杂度为 $o(nlogn)$</p>
+<h1 id="D-Country-Meow"><a href="#D-Country-Meow" class="headerlink" title="D.Country Meow"></a>D.Country Meow</h1><h2 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h2><p>三维空间内给 $n\leq 100$ 个点 ， 找一个点使得它到所有点的中距离最远的点的距离最小。</p>
+<h2 id="题解：最小球覆盖"><a href="#题解：最小球覆盖" class="headerlink" title="题解：最小球覆盖"></a>题解：最小球覆盖</h2><p>套板子即可，复杂度 $O(n^3)$。</p>
+<p>模拟退火学习失败。</p>
+<h1 id="E-Eva-and-Euro-coins"><a href="#E-Eva-and-Euro-coins" class="headerlink" title="E.Eva and Euro coins"></a>E.Eva and Euro coins</h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><p>有 $n \leq 10^6$ 个硬币，顺序排列，给定它们的初始状态及目标状态。</p>
+<p>每次可以选择 $k$ 个连续的硬币翻面，问能否在有限次翻面的情况下达到目标状态。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>从左到右贪心翻转即可。</p>
+<h1 id="F-Frank"><a href="#F-Frank" class="headerlink" title="F.Frank"></a>F.Frank</h1><h1 id="G-Pyramid"><a href="#G-Pyramid" class="headerlink" title="G.Pyramid"></a>G.Pyramid</h1><h1 id="H-Huge-Discount"><a href="#H-Huge-Discount" class="headerlink" title="H.Huge Discount"></a>H.Huge Discount</h1><h1 id="I-Magic-Potion"><a href="#I-Magic-Potion" class="headerlink" title="I.Magic Potion"></a>I.Magic Potion</h1><h2 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h2><p>有 $n$ 个英雄，$m$ 个怪兽，$k$ 瓶药水。不同的英雄能够杀死的怪兽不同，每个英雄都能杀死能够杀死的怪兽中的一个，如果给他一瓶药水，能够多杀一个，但每个英雄只能喝一瓶药水。</p>
+<p>问最多能够杀死多少怪兽。</p>
+<h2 id="题解：网络流"><a href="#题解：网络流" class="headerlink" title="题解：网络流"></a>题解：网络流</h2><p>分两个源点，分别连向每一个英雄，每个英雄连向其对应的怪兽。第一个源点的流量限制为 $n$ ，第二个限制为 $k$ ，每个源点与单个英雄间流量限制为1。</p>
+<h1 id="J-Prime-Game"><a href="#J-Prime-Game" class="headerlink" title="J.Prime Game"></a>J.Prime Game</h1><h2 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h2><p>有 $n$ 个数，定义 $mul(l, r) = \prod$</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/14/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="next" title="斜率优化">
+                <i class="fa fa-chevron-left"></i> 斜率优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/13/CF-1503/" rel="prev" title="CF_1503">
+                CF_1503 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-Adrien-and-Austin"><span class="nav-number">1.</span> <span class="nav-text">A.Adrien and Austin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：博弈"><span class="nav-number">1.2.</span> <span class="nav-text">题解：博弈</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Tournament"><span class="nav-number">2.</span> <span class="nav-text">B.Tournament</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Cherry-and-Chocolate"><span class="nav-number">3.</span> <span class="nav-text">C.Cherry and Chocolate</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：树的重心"><span class="nav-number">3.2.</span> <span class="nav-text">题解：树的重心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-Country-Meow"><span class="nav-number">4.</span> <span class="nav-text">D.Country Meow</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-2"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：最小球覆盖"><span class="nav-number">4.2.</span> <span class="nav-text">题解：最小球覆盖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-Eva-and-Euro-coins"><span class="nav-number">5.</span> <span class="nav-text">E.Eva and Euro coins</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">5.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">5.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-Frank"><span class="nav-number">6.</span> <span class="nav-text">F.Frank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-Pyramid"><span class="nav-number">7.</span> <span class="nav-text">G.Pyramid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H-Huge-Discount"><span class="nav-number">8.</span> <span class="nav-text">H.Huge Discount</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-Magic-Potion"><span class="nav-number">9.</span> <span class="nav-text">I.Magic Potion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-4"><span class="nav-number">9.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：网络流"><span class="nav-number">9.2.</span> <span class="nav-text">题解：网络流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#J-Prime-Game"><span class="nav-number">10.</span> <span class="nav-text">J.Prime Game</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-5"><span class="nav-number">10.1.</span> <span class="nav-text">题意</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

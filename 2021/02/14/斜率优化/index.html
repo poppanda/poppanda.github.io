@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="动态规划,贪心,斜率优化," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ZJOI 2007 仓库建设题意自理题解：斜率优化设 $s_i$ 为 $p_i\cdot x_i$ 的前缀和， $cnt_i$ 为 $p_i$ 的前缀和 ， $f_i$ 为在 $i$ 点建仓的最小代价，其余均为题目中的含义。 转移方程 $i\to j$ : $f_j &#x3D; f_i + s_i - s_j + (cnt_j-cnt_i)\cdot d_j$ 对于 $i\leq j\leq k$ ，当前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斜率优化">
+<meta property="og:url" content="http://yoursite.com/2021/02/14/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="ZJOI 2007 仓库建设题意自理题解：斜率优化设 $s_i$ 为 $p_i\cdot x_i$ 的前缀和， $cnt_i$ 为 $p_i$ 的前缀和 ， $f_i$ 为在 $i$ 点建仓的最小代价，其余均为题目中的含义。 转移方程 $i\to j$ : $f_j &#x3D; f_i + s_i - s_j + (cnt_j-cnt_i)\cdot d_j$ 对于 $i\leq j\leq k$ ，当前">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-14T09:45:41.000Z">
+<meta property="article:modified_time" content="2021-03-13T00:14:11.062Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="斜率优化">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/02/14/斜率优化/"/>
+
+
+
+
+
+  <title>斜率优化 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/14/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">斜率优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-14T17:45:41+08:00">
+                2021-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%83%E4%B9%A0%E9%A2%98%E9%9B%86/" itemprop="url" rel="index">
+                    <span itemprop="name">练习题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ZJOI-2007-仓库建设"><a href="#ZJOI-2007-仓库建设" class="headerlink" title="ZJOI 2007 仓库建设"></a><a href="https://www.luogu.com.cn/problem/P2120" target="_blank" rel="noopener">ZJOI 2007 仓库建设</a></h1><h2 id="题意自理"><a href="#题意自理" class="headerlink" title="题意自理"></a>题意自理</h2><h2 id="题解：斜率优化"><a href="#题解：斜率优化" class="headerlink" title="题解：斜率优化"></a>题解：斜率优化</h2><p>设 $s_i$ 为 $p_i\cdot x_i$ 的前缀和， $cnt_i$ 为 $p_i$ 的前缀和 ， $f_i$ 为在 $i$ 点建仓的最小代价，其余均为题目中的含义。</p>
+<p>转移方程 $i\to j$ : $f_j = f_i + s_i - s_j + (cnt_j-cnt_i)\cdot d_j$</p>
+<p>对于 $i\leq j\leq k$ ，当前要在 $k$ 点建厂，假设从 $j$ 点转移过来比 $i$ 点转移更优，则<br>$f_i-s_k+s_i+(cnt_k-cnt_i)\cdot d_k + c_k &gt; f_j-s_k+s_j+(cnt_k-cnt_j)\cdot d_k + c_k$<br>整理得到 $\frac{f_i-f_j+s_i-s_j}{cnt_i-cnt_j}&gt;x_k$</p>
+<p>以 $ (cnt_i, f_i+s_i)$ 为坐标维护一个上凸包转移即可</p>
+<h1 id="HDU-3507-Print-Article"><a href="#HDU-3507-Print-Article" class="headerlink" title="HDU 3507 Print Article"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3507" target="_blank" rel="noopener">HDU 3507 Print Article</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个数列 $\{C_i\}$ 和一个数字 $M$，将其分为若干段，使得 $\sum((\sum_iC_i^2)+M)$ 最小</p>
+<h2 id="题解：斜率优化-1"><a href="#题解：斜率优化-1" class="headerlink" title="题解：斜率优化"></a>题解：斜率优化</h2><p>$f_i$ 为规划到第 $i$ 个数字为止的最小花费，$s_i$ 为前缀和</p>
+<p>从第 $i$ 个数字转移到第 $j$ 个数字有 $f_j = f_i + (s_j - s_i)^2+M$</p>
+<p>则最小花费为 $f_j = \min_{i&lt;j}(f_i+(s_j - s_i)^2+M)$</p>
+<p>令 $i&lt;j&lt;k$ ，若此时要转移到 $k$ 点，$j$ 比 $i$ 更优，则有</p>
+<p>$f_i+(s_k-s_i)^2+M&lt;f_j+(s_k-s_j)^2+M$</p>
+<p>整理得到 $\frac{(f_i+s_i^2)-(f_j+s_j^2)}{2(s_i-s_j)}&lt;s_k$</p>
+<p>由于 $s_i$ 单增，因此我们维护一个下凸包，以 $s_i$为横坐标， $f_i+s_i^2$ 为纵坐标，每次找到那个最优决策点即可</p>
+<h1 id="NOI-2016-国王饮水记"><a href="#NOI-2016-国王饮水记" class="headerlink" title="NOI 2016 国王饮水记"></a><a href="https://uoj.ac/problem/223" target="_blank" rel="noopener">NOI 2016 国王饮水记</a></h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>有 $n\leq 8000$ 个水桶，存水量互不相同，每次可以选若干个水桶，将其水量均分，问在 $k\leq 10^9$ 次操作之后，第一个桶里最多有多少水，结果保留 $p\leq 3000$ 位小数。</p>
+<h2 id="题解：贪心-动态规划-斜率优化"><a href="#题解：贪心-动态规划-斜率优化" class="headerlink" title="题解：贪心+动态规划+斜率优化"></a>题解：贪心+动态规划+斜率优化</h2><hr>
+<p>① 水位低于第一个桶里的水的桶都没用。</p>
+<blockquote>
+<p>显然</p>
+</blockquote>
+<hr>
+<p>②每次与第一个水桶均分的水位是单调递增的。</p>
+<blockquote>
+<p>首先举个极端的例子感性理解一下：1 2 5，如果1和5先混2就没作用了</p>
+<p>然后理性证明，$s_i$ 为第 $i$ 次混合的水位之和， $c_i$ 为第 $i$ 次混合的水桶数<br>现在有 $s_1&lt;s_2&lt;s_3$ ， $s_1$ 为第一桶水的水位<br>从小到大混合结果为 $\frac{\frac{s_1+s_2}{1+c_2}+s_3}{1+c_3}$<br>从大到小混合结果为 $\frac{\frac{s_1+s_3}{1+c_3}+s_2}{1+c_2}$<br>比较一下就会发现从小到大混合更优</p>
+</blockquote>
+<hr>
+<p>通过这两个性质可以得到 $O(n^2kp)$ 的解法，没错这个高精度小数复杂度非常恐怖</p>
+<hr>
+<p>③最终选择的结果除第一个桶之外，必然为连续到末尾的一段</p>
+<blockquote>
+<p>如果当中存在某一个桶不选的话，那么这个桶左边的决策整体右移一格必然更优</p>
+</blockquote>
+<hr>
+<p>根据这个性质我们写一下转移方程<br>$f_{i,j}$ 表示以第 $i$ 个点作为第 $j$ 个决策的终点时的最优结果<br>则 $f_{i,k}=max_{j&lt;i}\frac{f_{j,k-1}+s_i-s_j}{i - j + 1}$ ， 其中 $s_i$ 为前缀和<br>以 $j$ 作为横坐标 ， $-f_{j,k-1}+s_j$ 作为纵坐标，这个决策便有了单调性，维护一个下凸包即可将复杂度优化到 $O(nkp)$</p>
+<blockquote>
+<p>关于这个单调性成立的原因：<br>注意到上式中的格式并不工整，但我们在决策时以 $(i+1,s_i)$ 作为决策点的坐标，做决策相当于是过这个决策点作凸包切线，当我们维护一个凸包时，显然切线唯一（切点就不知道了）。因此我们只需要使凸包维护时每个点格式工整，决策点与被转移点能够利用单调性即可。</p>
+</blockquote>
+<hr>
+<p>但是这样仍然无法得到满分，需要利用到题解里的一个不等式优化，这个优化的结论是转移过程中整段的转移（选择桶的个数超过2个的转移）不超过14个，其余均为单个桶的转移，证明可以翻翻官方题解。最终复杂度 $O(nplogn)$</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><h2 id="HDU3507-Print-Article"><a href="#HDU3507-Print-Article" class="headerlink" title="HDU3507 Print Article"></a>HDU3507 Print Article</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pii pair<span class="meta-string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EP emplace_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">5e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o; <span class="keyword">bool</span> f = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>)</span><br><span class="line">        f |= (c == <span class="string">'-'</span>), c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> f ? -o : o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">li A[MAXN], sum[MAXN], f[MAXN];</span><br><span class="line"><span class="keyword">int</span> Q[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Judge</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, li nsum)</span></span>&#123;<span class="keyword">return</span> <span class="number">1.0</span> * (f[j] - f[i] + sum[j] * sum[j] - sum[i] * sum[i]) &lt;= nsum * (sum[j] - sum[i]);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">li <span class="title">UP</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;<span class="keyword">return</span> (f[j] - f[i] + sum[j] * sum[j] - sum[i] * sum[i]);&#125;</span><br><span class="line"><span class="function">li <span class="title">DOWN</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;<span class="keyword">return</span> sum[j] - sum[i];&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">JU2</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> UP(i, j) * DOWN(j, k) &gt;= UP(j, k) * DOWN(i, j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// freopen("In.txt", "r" ,stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, m, he, ta;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m) != EOF)&#123;</span><br><span class="line">        fore(i, <span class="number">1</span>, n) A[i] = input(), sum[i] = A[i] + sum[i - <span class="number">1</span>];</span><br><span class="line">        Q[he = ta = <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        fore(i, <span class="number">1</span>, n)&#123;</span><br><span class="line">            <span class="comment">// double k = slope(Q[he], Q[he + 1]);</span></span><br><span class="line">            <span class="keyword">while</span>(he &lt; ta &amp;&amp; Judge(Q[he], Q[he + <span class="number">1</span>], sum[i] * <span class="number">2</span>)) he++;</span><br><span class="line">            <span class="keyword">int</span> j = Q[he];</span><br><span class="line">            f[i] = f[j] + (sum[i] - sum[j]) * (sum[i] - sum[j]) + m;</span><br><span class="line">            <span class="keyword">while</span>(he &lt; ta &amp;&amp; JU2(Q[ta - <span class="number">1</span>], Q[ta], i)) ta--;</span><br><span class="line">            Q[++ta] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, f[n]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="NOI2016-国王饮水记-不含高精度模板"><a href="#NOI2016-国王饮水记-不含高精度模板" class="headerlink" title="NOI2016 国王饮水记(不含高精度模板)"></a>NOI2016 国王饮水记(不含高精度模板)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pii pair<span class="meta-string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pdd pair<span class="meta-string">&lt;double, double&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pdi pair<span class="meta-string">&lt;double, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">8e3</span> + <span class="number">5</span>, MAXK = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o; <span class="keyword">bool</span> f = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>)</span><br><span class="line">        f |= (c == <span class="string">'-'</span>), c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> f ? -o : o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> A[MAXN], pre[MAXN][MAXK], Q[MAXN], s[MAXN];</span><br><span class="line"><span class="keyword">double</span> f[MAXN][MAXK];</span><br><span class="line">pdd t[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">slope</span><span class="params">(pdd A, pdd B)</span></span>&#123;<span class="keyword">return</span> (A.fi - B.fi) / (A.se - B.se);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Decimal <span class="title">Solve</span><span class="params">(<span class="keyword">int</span> pos, <span class="keyword">int</span> nk)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(nk == <span class="number">0</span>) <span class="keyword">return</span> A[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> (Solve(pre[pos][nk], nk - <span class="number">1</span>) + s[pos] - s[pre[pos][nk]])/(pos - pre[pos][nk] + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = input(), k = input(), p = input();</span><br><span class="line">    fore(i, <span class="number">1</span>, n) A[i] = input();</span><br><span class="line">    <span class="keyword">int</span> mk = A[<span class="number">1</span>];</span><br><span class="line">    sort(A + <span class="number">1</span>, A + n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> pos = lower_bound(A + <span class="number">1</span>, A + n + <span class="number">1</span>, mk) - A;</span><br><span class="line">    n = n - pos + <span class="number">1</span>;</span><br><span class="line">    fore(i, <span class="number">1</span>, n) A[i] = A[pos + i - <span class="number">1</span>];</span><br><span class="line">	fore(i, <span class="number">1</span>, n) f[i][<span class="number">0</span>] = A[<span class="number">1</span>], s[i] = s[i - <span class="number">1</span>] + A[i];</span><br><span class="line">	<span class="keyword">int</span> he, ta;</span><br><span class="line">	pdd tp;</span><br><span class="line">	k = min(k, n); <span class="keyword">int</span> lim = min(<span class="number">14</span>, k), m = n - k + lim;</span><br><span class="line">	fore(nk, <span class="number">1</span>, lim)&#123;</span><br><span class="line">		Q[he = ta = <span class="number">1</span>] = nk;</span><br><span class="line">		fore(i, nk, n) t[i] = MP(s[i] - f[i][nk - <span class="number">1</span>], i - <span class="number">1</span>);</span><br><span class="line">		fore(i, nk + <span class="number">1</span>, n)&#123;</span><br><span class="line">			tp = MP(s[i], i);</span><br><span class="line">			<span class="keyword">while</span>(he &lt; ta &amp;&amp; slope(t[Q[he]], tp) &lt; slope(t[Q[he + <span class="number">1</span>]], tp)) he++;</span><br><span class="line">			f[i][nk] = slope(t[Q[he]], tp);</span><br><span class="line">			<span class="comment">// cout &lt;&lt; i &lt;&lt; " " &lt;&lt; Q[he] &lt;&lt; endl;</span></span><br><span class="line">			pre[i][nk] = Q[he];</span><br><span class="line">			<span class="keyword">while</span>(he &lt; ta &amp;&amp; slope(t[Q[ta]], t[Q[ta - <span class="number">1</span>]]) &gt; slope(t[Q[ta]], t[i])) ta--;</span><br><span class="line">			Q[++ta] = i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// cout &lt;&lt; f[1][0] &lt;&lt; " " &lt;&lt; f[2][1] &lt;&lt; endl;</span></span><br><span class="line">	Decimal ans = Decimal(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">double</span> mx = <span class="number">0</span>; pos = <span class="number">0</span>;</span><br><span class="line">	fore(i, <span class="number">0</span>, lim)</span><br><span class="line">		<span class="keyword">if</span>(f[m][i] &gt; mx)</span><br><span class="line">			mx = f[m][i], pos = i;</span><br><span class="line">	ans = Solve(m, pos);</span><br><span class="line">	fore(i, m + <span class="number">1</span>, n)</span><br><span class="line">		ans = (ans + A[i]) / <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; ans.to_string(p &lt;&lt; <span class="number">1</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ZJOI2007-仓库建设"><a href="#ZJOI2007-仓库建设" class="headerlink" title="ZJOI2007 仓库建设"></a>ZJOI2007 仓库建设</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fore(i, a, b) for(int i = a; i &lt;= b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Fore(i, a, b) for(int i = a; i &lt; b; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pii pair<span class="meta-string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EP emplace_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> li long long</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); <span class="keyword">int</span> o; <span class="keyword">bool</span> f = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(c &gt; <span class="number">57</span> || c &lt; <span class="number">48</span>)</span><br><span class="line">        f |= (c == <span class="string">'-'</span>), c = getchar();</span><br><span class="line">    <span class="keyword">for</span>(o = <span class="number">0</span>; c &gt; <span class="number">47</span> &amp;&amp; c &lt; <span class="number">58</span>; c = getchar())</span><br><span class="line">        o = (o &lt;&lt; <span class="number">1</span>)+(o &lt;&lt; <span class="number">3</span>)+(c - <span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> f ? -o : o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">li x[MAXN], p[MAXN], f[MAXN], s[MAXN], c[MAXN], co[MAXN];</span><br><span class="line"><span class="keyword">int</span> he, ta, Q[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function">li <span class="title">DOWN</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;<span class="keyword">return</span> c[i] - c[j];&#125;</span><br><span class="line"><span class="function">li <span class="title">UP</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;<span class="keyword">return</span> f[i] - f[j] + s[i] - s[j];&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = input();</span><br><span class="line">    fore(i, <span class="number">1</span>, n)&#123;</span><br><span class="line">        x[i] = input();</span><br><span class="line">        p[i] = input();</span><br><span class="line">        c[i] = c[i - <span class="number">1</span>] + p[i];</span><br><span class="line">        s[i] = s[i - <span class="number">1</span>] + x[i] * p[i];</span><br><span class="line">        co[i] = input();</span><br><span class="line">    &#125;</span><br><span class="line">    Q[he = ta = <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    fore(i, <span class="number">1</span>, n)&#123;</span><br><span class="line">        <span class="keyword">while</span>(he &lt; ta &amp;&amp; DOWN(Q[he], Q[he + <span class="number">1</span>]) * x[i] &lt; UP(Q[he], Q[he + <span class="number">1</span>])) he++;</span><br><span class="line">        <span class="keyword">int</span> j = Q[he];</span><br><span class="line">        <span class="comment">// cout &lt;&lt; j &lt;&lt; " \n"[i == n];</span></span><br><span class="line">        f[i] = f[j] - s[i] + s[j] + (c[i] - c[j]) * x[i] + co[i];</span><br><span class="line">        <span class="keyword">while</span>(he &lt; ta &amp;&amp; UP(Q[ta - <span class="number">1</span>], Q[ta]) * DOWN(Q[ta], i) &gt; UP(Q[ta], i) * DOWN(Q[ta - <span class="number">1</span>], Q[ta]))ta--;</span><br><span class="line">        Q[++ta] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// fore(i, 1, n) cout &lt;&lt; f[i] &lt;&lt; " \n"[i == n];</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld"</span>, f[n]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          
+            <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># 贪心</a>
+          
+            <a href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/" rel="tag"># 斜率优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/08/2020-%E5%A4%9A%E6%A0%A1-10/" rel="next" title="2020-多校-10">
+                <i class="fa fa-chevron-left"></i> 2020-多校-10
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/13/ICPC-%E5%8D%97%E4%BA%AC-2018/" rel="prev" title="ICPC-南京-2018">
+                ICPC-南京-2018 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ZJOI-2007-仓库建设"><span class="nav-number">1.</span> <span class="nav-text">ZJOI 2007 仓库建设</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意自理"><span class="nav-number">1.1.</span> <span class="nav-text">题意自理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：斜率优化"><span class="nav-number">1.2.</span> <span class="nav-text">题解：斜率优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDU-3507-Print-Article"><span class="nav-number">2.</span> <span class="nav-text">HDU 3507 Print Article</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：斜率优化-1"><span class="nav-number">2.2.</span> <span class="nav-text">题解：斜率优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NOI-2016-国王饮水记"><span class="nav-number">3.</span> <span class="nav-text">NOI 2016 国王饮水记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：贪心-动态规划-斜率优化"><span class="nav-number">3.2.</span> <span class="nav-text">题解：贪心+动态规划+斜率优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Code"><span class="nav-number">4.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDU3507-Print-Article"><span class="nav-number">4.1.</span> <span class="nav-text">HDU3507 Print Article</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NOI2016-国王饮水记-不含高精度模板"><span class="nav-number">4.2.</span> <span class="nav-text">NOI2016 国王饮水记(不含高精度模板)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZJOI2007-仓库建设"><span class="nav-number">4.3.</span> <span class="nav-text">ZJOI2007 仓库建设</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

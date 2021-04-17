@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="A.Déjà Vu显然只有全 $a$ 字符串才不能被构造，否则找一个非 $a$ 字符，在它的对称位置上插入 $a$。 B.Flip the Bits从前往后翻转，以前缀中01数量相等的字符串为分割点将字符串分割为许多段。分开讨论每一段能否翻转为目标即可。 C.Balance the Bits题意给一个长度为 $n\leq 2\times 10^5$ 01序列 $\{s_i\}$ 要求构造两个长度为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF_1503">
+<meta property="og:url" content="http://yoursite.com/2021/04/13/CF-1503/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="A.Déjà Vu显然只有全 $a$ 字符串才不能被构造，否则找一个非 $a$ 字符，在它的对称位置上插入 $a$。 B.Flip the Bits从前往后翻转，以前缀中01数量相等的字符串为分割点将字符串分割为许多段。分开讨论每一段能否翻转为目标即可。 C.Balance the Bits题意给一个长度为 $n\leq 2\times 10^5$ 01序列 $\{s_i\}$ 要求构造两个长度为">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-13T06:15:17.000Z">
+<meta property="article:modified_time" content="2021-04-14T10:16:09.218Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/13/CF-1503/"/>
+
+
+
+
+
+  <title>CF_1503 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/13/CF-1503/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CF_1503</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-13T14:15:17+08:00">
+                2021-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="A-Deja-Vu"><a href="#A-Deja-Vu" class="headerlink" title="A.Déjà Vu"></a>A.Déjà Vu</h1><p>显然只有全 $a$ 字符串才不能被构造，否则找一个非 $a$ 字符，在它的对称位置上插入 $a$。</p>
+<h1 id="B-Flip-the-Bits"><a href="#B-Flip-the-Bits" class="headerlink" title="B.Flip the Bits"></a>B.Flip the Bits</h1><p>从前往后翻转，以前缀中01数量相等的字符串为分割点将字符串分割为许多段。分开讨论每一段能否翻转为目标即可。</p>
+<h1 id="C-Balance-the-Bits"><a href="#C-Balance-the-Bits" class="headerlink" title="C.Balance the Bits"></a>C.Balance the Bits</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个长度为 $n\leq 2\times 10^5$ 01序列 $\{s_i\}$ 要求构造两个长度为 $n$ 括号序列 $\{a_i\}, \{b_i\}$，使得这两个括号序列满足</p>
+<blockquote>
+<p>$s_i=1\to a_i=b_i$</p>
+<p>$s_i=0\to a_i \neq b_i$</p>
+</blockquote>
+<p>且两个括号序列合法</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>考虑将括号序列转化为 $+1 -1$ 序列，显然有合法序列任意前缀和都不小于0且最终的和等于0。</p>
+<p>对于 $s_i=1$ ，两个序列的前缀和同加同减<br>对于 $s_i=0$ ，一个序列+1，一个序列-1</p>
+<p>如果最终两个序列都合法，那么两个序列最终的和均为0，所以我们显然要使得两个序列的前缀和尽量接近。对于 $s_i = 1$，两个序列的前缀和差值不会发生变化，但是 $s_i=0$，两个序列的前缀和会变化1，那么此时我们只需要两个序列分别交替进行+1-1操作即可。</p>
+<p>为了保证操作始终合法，对于$s_i=1$的操作，我们要让前缀和的平均值 $\frac{A+B}{2}$ 不低于1。为了让最终的序列的合法化尽量简单，应有 $\frac{A+B}{2}\leq2$。贪心构造即可。</p>
+<h1 id="D-3-Coloring"><a href="#D-3-Coloring" class="headerlink" title="D.3-Coloring"></a>D.3-Coloring</h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>交互题，给一个 $n\times n$ 的格子填色，有三种颜色可选，每次由交互方决定填充时不能填充哪种颜色，由我们决定填充哪种颜色，填到哪个格子，要求相邻格子不同色。</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>首先贪心，将格子分为 $A(x_i+y_i=1\mod2)$ 和 $B(x_i+y_i=0\mod 2)$ 两类，每次必定能够填充颜色1或者2，能填充1时均填到A中，反之则填到B中。当某一类的格子被填满后，遇到无法仅用1、2填充剩余格子时，选择填充颜色3到剩余格子中。</p>
+<h1 id="E-Travelling-Salesman-Problem"><a href="#E-Travelling-Salesman-Problem" class="headerlink" title="E. Travelling Salesman Problem"></a>E. Travelling Salesman Problem</h1><h2 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h2><p>有 $n\leq 10^5$ 个城市，现在要从1号城市出发，每个城市都经过且仅经过一次。<br>对于每个城市有两个值 $a_i,c_i$，从 $i$ 城市到 $j$ 城市的代价为 $max(c_i, a_j-a_i)$。</p>
+<p>问最小代价。</p>
+<h2 id="题解：最短路-贪心"><a href="#题解：最短路-贪心" class="headerlink" title="题解：最短路/贪心"></a>题解：最短路/贪心</h2><p>首先出发的点不重要，因为是一个循环，每个点都可以看作起点。</p>
+<p>其次对于 $a_j\geq a_i$，代价恒为 $c_i$ ，因此我们可以将所有点按照 $a_i$ 从大到小排序，当我们从 $a_i$ 更大的点往下走是，代价一定最小，为 $c_i$。</p>
+<p>那么我们需要考虑的问题是从 $a_i$ 最小的点走到 $a_i$ 最大的点最小代价为多少？</p>
+<h3 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h3><p>假设当前 $a_i$ 是按照从小到大排列的，那么 $n$ 点的值最大，它为终点。</p>
+<p>如果考虑类似最短路的做法，我们提前将 $c_i$ 累加，这样走到 $n$ 点后我们无需考虑剩余没有走的点，因为它们产生的额外代价为 $0$ 。</p>
+<p>1、当 $a_j\leq a_i$ 时，代价不一定比 $c_i$ 更大，因此从 $i\to j$ 不一定会产生额外代价。那么贪心地讲，对于所有满足 $a_j-a_i\leq c_i$ 的 $j$ ，我们只需要连一条长度为 $0$ 的边到最大的 $j$，其余满足条件的 $j$ 都不会更优 。</p>
+<p>2、当会产生额外代价时，我们希望这个额外代价尽量小，因为此时产生的是“额外代价”，因此我们连一条边到最小的满足 $a_j-a_i\geq c_i$ 的 $j$ ，长度为 $a_j-a_i-c_i$。</p>
+<p>跑最短路即可。</p>
+<h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><p>同样假设 $a_i$ 已经排序。</p>
+<p>在最短路做法中，分别考虑两类边的目的：第一类边是为了以最小的代价增加所在点的 $a_i$ 值，什么时候 $a_i$ 值增加有可能不是最优解呢？ $a_i$ 增加而 $a_i+c_i$ 不增加时。第二类边实际上可以看作以最小的代价跑到 $n$ 点，当我们需要跑第二类边时，实际上是额外代价无法避免的时候，此时我们希望通过尽量增大 $a_i+c_i$ 值以减少额外代价。</p>
+<p>综上，实际上我们是希望路径上的 $a_i+c_i$ 值最大。那么据此我们可以遍历 $1$ 到 $n$ ，对于点 $i$ ，我们增加代价为 $max(a_i-max_{j&lt;i}(a_j+c_j), 0)$。</p>
+<p>算法正确性：当 $a_i-max_{j<i}(a_j+b_j)>0$ 时，必然有 $a_i+c_i&gt;a_j+c_j$ ，此时 $max_{j\leq i} (a_j+b_j)$ 的点必定为 $i$ ，可以视为最大值点更新。由于上述性质，最大值点的更新路径唯一，其余无法更新最大值的点可以视为额外代价为0。</i}(a_j+b_j)></p>
+<p>最终解为 $\sum c_i+\sum_{i=1}^nmax(a_i-max_{j&lt;i}(a_j+c_j),0)$</p>
+<h1 id="F-Flip-the-Cards"><a href="#F-Flip-the-Cards" class="headerlink" title="F.Flip the Cards"></a>F.Flip the Cards</h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><p>有 $n\leq 2\cdot 10^5$ 张卡片，每张卡片正反面有两个数字，$1-2n$ 的所有数字出现且仅出现一次，将正面的数字记为 $a_i$ ，反面记为 $b_i$。现在能翻转并重新排列所有卡片，问最少翻转多少次能够使得重新排列后的卡片满足</p>
+<p>$a_1<a_2<...<a_n$ $b_1>b_2&gt;…&gt;b_n$</a_2<...<a_n$></p>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/13/ICPC-%E5%8D%97%E4%BA%AC-2018/" rel="next" title="ICPC-南京-2018">
+                <i class="fa fa-chevron-left"></i> ICPC-南京-2018
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-Deja-Vu"><span class="nav-number">1.</span> <span class="nav-text">A.Déjà Vu</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Flip-the-Bits"><span class="nav-number">2.</span> <span class="nav-text">B.Flip the Bits</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Balance-the-Bits"><span class="nav-number">3.</span> <span class="nav-text">C.Balance the Bits</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">3.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-3-Coloring"><span class="nav-number">4.</span> <span class="nav-text">D.3-Coloring</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-1"><span class="nav-number">4.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-Travelling-Salesman-Problem"><span class="nav-number">5.</span> <span class="nav-text">E. Travelling Salesman Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-2"><span class="nav-number">5.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解：最短路-贪心"><span class="nav-number">5.2.</span> <span class="nav-text">题解：最短路&#x2F;贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最短路"><span class="nav-number">5.2.1.</span> <span class="nav-text">最短路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪心"><span class="nav-number">5.2.2.</span> <span class="nav-text">贪心</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-Flip-the-Cards"><span class="nav-number">6.</span> <span class="nav-text">F.Flip the Cards</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">6.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-2"><span class="nav-number">6.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
