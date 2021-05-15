@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="动态规划,贪心,数学," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="A.Array and Peaks题解:贪心对于长度为 $n$ 的序列，最多有 $\lfloor\frac{n-1}{2}\rfloor$ 个极大值点，贪心构造即可 B.AND Sequence题解:数学求出整个序列的与值 $v$，满足条件的序列必然是以 $v$ 开头和结尾的，统计序列中 $v$ 的个数 $c$ 答案为 $A_c^2\times A_{n-2}^{n-2}$ C.Add One题意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF-1513">
+<meta property="og:url" content="http://yoursite.com/2021/05/04/CF-1513/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="A.Array and Peaks题解:贪心对于长度为 $n$ 的序列，最多有 $\lfloor\frac{n-1}{2}\rfloor$ 个极大值点，贪心构造即可 B.AND Sequence题解:数学求出整个序列的与值 $v$，满足条件的序列必然是以 $v$ 开头和结尾的，统计序列中 $v$ 的个数 $c$ 答案为 $A_c^2\times A_{n-2}^{n-2}$ C.Add One题意">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-04T07:00:42.000Z">
+<meta property="article:modified_time" content="2021-05-05T03:53:14.910Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/05/04/CF-1513/"/>
+
+
+
+
+
+  <title>CF-1513 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/04/CF-1513/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CF-1513</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-04T15:00:42+08:00">
+                2021-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="A-Array-and-Peaks"><a href="#A-Array-and-Peaks" class="headerlink" title="A.Array and Peaks"></a><a href="https://codeforces.com/contest/1513/problem/A" target="_blank" rel="noopener">A.Array and Peaks</a></h1><h2 id="题解-贪心"><a href="#题解-贪心" class="headerlink" title="题解:贪心"></a>题解:贪心</h2><p>对于长度为 $n$ 的序列，最多有 $\lfloor\frac{n-1}{2}\rfloor$ 个极大值点，贪心构造即可</p>
+<h1 id="B-AND-Sequence"><a href="#B-AND-Sequence" class="headerlink" title="B.AND Sequence"></a><a href="https://codeforces.com/contest/1513/problem/B" target="_blank" rel="noopener">B.AND Sequence</a></h1><h2 id="题解-数学"><a href="#题解-数学" class="headerlink" title="题解:数学"></a>题解:数学</h2><p>求出整个序列的与值 $v$，满足条件的序列必然是以 $v$ 开头和结尾的，统计序列中 $v$ 的个数 $c$</p>
+<p>答案为 $A_c^2\times A_{n-2}^{n-2}$</p>
+<h1 id="C-Add-One"><a href="#C-Add-One" class="headerlink" title="C.Add One"></a><a href="https://codeforces.com/contest/1513/problem/C" target="_blank" rel="noopener">C.Add One</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>对于一个数字，定义一次操作为将该数字的每一位加一，问 $1\leq m\leq 2\cdot 10^5$ 次操作后， $1\leq n\leq 10^9$ 为多少位数字</p>
+<h2 id="题解-动态规划"><a href="#题解-动态规划" class="headerlink" title="题解:动态规划"></a>题解:动态规划</h2><p>因为对于每一位数字是独立的，所以我们考虑每一位数字单独处理。</p>
+<p>因为每一位都小于10，因此我们考虑将 10 操作 $m$ 次后的位数。<br>那么对于每一位数字而言，我们先将其操作到 $10$ ，再将剩余次数一次性操作完。</p>
+<p>接下来考虑 $10$ 操作 $m$ 次后的位数。<br>定义 $dp[m][k]$ 为10操作 $m$ 次后含有的 $k$ 的个数，那么10操作 $m$ 次后的位数为 $\sum_k dp[m][k]$</p>
+<p>转移方程</p>
+<script type="math/tex; mode=display">dp[m][k] = 
+\begin{cases}
+dp[m][(k + 9)\mod 10] & k\neq1\\
+dp[m][0] + dp[m][9] & k=1
+\end{cases}</script><h1 id="D-GCD-and-MST"><a href="#D-GCD-and-MST" class="headerlink" title="D.GCD and MST"></a><a href="https://codeforces.com/contest/1513/problem/D" target="_blank" rel="noopener">D.GCD and MST</a></h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>对于一个数列 $\{a_i\}$ ，在数字之间连边。</p>
+<ul>
+<li>若$gcd(a_i,a_{i+1},a_{i+2},…,a_j)=min(a_i,a_{i+1},a_{i+2},…,a_j)$ ，则在 $i,j$ 间连一条权为 $min(a_i,a_{i+1},…,a_j)$ 的边</li>
+<li>若 $i+1=j$ ，则在 $i,j$ 间连一条权为 $p$ 的边</li>
+</ul>
+<p>问最终生成图的最小生成树权值多大</p>
+<h2 id="题解-贪心-1"><a href="#题解-贪心-1" class="headerlink" title="题解:贪心"></a>题解:贪心</h2><p>若 $min(a_k,…,a_i,…,a_j) = gcd(a_k,…,a_i,…,a_j)=a_i$，则 $a_k,…,a_j$ 之间所有点必然能够以 $a_i$ 大小的权连通</p>
+<p>故我们从小到大枚举 $a_i&lt;p$ ，让它分别向左向右拓展（若有 $gcd(a_j,…,a_i,…,a_k)=a_i$，则有 $gcd(a_k,…,a_i)=gcd(a_i,…,a_k)=a_i$，最小值同理），用并查集维护点与点之间的联通关系。当维护到一个已经与其他点联通的点时，停止拓展（因为已经有更小的 $a_i$ 将即将拓展的点覆盖了，当前点不可能有更优覆盖）。</p>
+<p>最后未与其它点联通的点用 $p$ 边连接。</p>
+<h1 id="E-Cost-Equilibrium"><a href="#E-Cost-Equilibrium" class="headerlink" title="E.Cost Equilibrium"></a><a href="https://codeforces.com/contest/1513/problem/E" target="_blank" rel="noopener">E.Cost Equilibrium</a></h1><h1 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h1><p>给一个序列 $\{a_i\}$，每个点可以被当作源点或汇点（指定后不能改变类型），由源点 $u$ 分配 $k$ 至汇点 $v$ ，代价为 $|u-v|\cdot k$ ，分配后 $a_u\to a_u-k,a_v\to a_v+k$</p>
+<p>现在要使得分配后得到的新序列的元素均相等，问有多少种构成序列 $\{a_i\}$ 的方式是的分配的代价唯一。</p>
+<h1 id="题解-数学-1"><a href="#题解-数学-1" class="headerlink" title="题解:数学"></a>题解:数学</h1><p>令 $aver=\frac{\sum a_i}{n}$，序列中小于 $aver$ 的数字个数为 $a$，等于 $aver$ 的数字个数为 $b$ ，大于 $aver$  的数字个数为 $c$ 。</p>
+<ul>
+<li><p>相同的数字视为相同，令 $a_i$ 的个数为 $c_i$ ，则结果应当除以 $C=\prod{c_i!}$</p>
+</li>
+<li><p>若 $a=1$ 或者 $c = 1$ ， 则无论怎么排序，所有分配的方向唯一，结果为 $A_n^n\cdot\frac{1}{C}$</p>
+</li>
+<li>否则源点和汇点不能够相互交错，源点之间的顺序无关，汇点之间的顺序无关，等于 $aver$ 的数字的位置无关，故结果为 $2\cdot A_a^a\cdot A_b^b\cdot A_n^b\cdot\frac{1}{C}$</li>
+</ul>
+<h1 id="F-Swapping-Problem"><a href="#F-Swapping-Problem" class="headerlink" title="F.Swapping Problem"></a><a href="https://codeforces.com/contest/1513/problem/F" target="_blank" rel="noopener">F.Swapping Problem</a></h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><p>给两个数列 $\{a_i\}$ 和 $\{b_i\}$ ，现在可以交换一对 $\{b_i\}$ 中的元素，使得$\sum\limits_i|a_i-b_i|$ 最小，问最小值为多少</p>
+<h2 id="题解-贪心-2"><a href="#题解-贪心-2" class="headerlink" title="题解:贪心"></a>题解:贪心</h2><h3 id="建议用图解法对照题解进行理解"><a href="#建议用图解法对照题解进行理解" class="headerlink" title="建议用图解法对照题解进行理解"></a>建议用图解法对照题解进行理解</h3><p>仅考虑对于 $a_i&lt;b_i$ 的情况（反之则对称处理即可）</p>
+<p>要使得代价变小，则必然有与 $b_i$ 交换的数字 $b_j$ 满足 $a_j&gt;b_j$ 且 $a_i<a_j，b_i>b_j$</a_j，b_i></p>
+<p>此处仅考虑 $j$ 满足 $b_j\leq a_i$ 的情况（对于 $b_j &gt; a_j$ 的情况，可以在 $a_i&gt;b_i$ 的情况中用相同的办法处理）</p>
+<p>此时我们希望 $a_j$ 越大越好，这样才能够使得减少的代价尽量大。</p>
+<p>故我们对于每一个 $b_j$ 记录一个最大的 $a_k$ 满足 $b_k\leq b_j$ （因为满足该条件的 $k$ 必然满足 $b_k\leq a_i$)</p>
+<p>则对于该情况，最大的减少代价为 $2\cdot(min(a_k,b_i)-a_i)$</p>
+<p><a href="https://codeforces.com/contest/1513/my" target="_blank" rel="noopener">Code</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          
+            <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># 贪心</a>
+          
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/20/ICPC-%E4%B8%8A%E6%B5%B7-2019/" rel="next" title="ICPC-上海-2019">
+                <i class="fa fa-chevron-left"></i> ICPC-上海-2019
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/12/%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86-minmax%E5%AE%B9%E6%96%A5/" rel="prev" title="容斥原理+minmax容斥">
+                容斥原理+minmax容斥 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-Array-and-Peaks"><span class="nav-number">1.</span> <span class="nav-text">A.Array and Peaks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-贪心"><span class="nav-number">1.1.</span> <span class="nav-text">题解:贪心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-AND-Sequence"><span class="nav-number">2.</span> <span class="nav-text">B.AND Sequence</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-数学"><span class="nav-number">2.1.</span> <span class="nav-text">题解:数学</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Add-One"><span class="nav-number">3.</span> <span class="nav-text">C.Add One</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-动态规划"><span class="nav-number">3.2.</span> <span class="nav-text">题解:动态规划</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-GCD-and-MST"><span class="nav-number">4.</span> <span class="nav-text">D.GCD and MST</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-贪心-1"><span class="nav-number">4.2.</span> <span class="nav-text">题解:贪心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-Cost-Equilibrium"><span class="nav-number">5.</span> <span class="nav-text">E.Cost Equilibrium</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题意-2"><span class="nav-number">6.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解-数学-1"><span class="nav-number">7.</span> <span class="nav-text">题解:数学</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-Swapping-Problem"><span class="nav-number">8.</span> <span class="nav-text">F.Swapping Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">8.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-贪心-2"><span class="nav-number">8.2.</span> <span class="nav-text">题解:贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建议用图解法对照题解进行理解"><span class="nav-number">8.2.1.</span> <span class="nav-text">建议用图解法对照题解进行理解</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DP,数位DP,对称转化,三分," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="B.Mine Sweeper II题意$n\times m$ 的方格中有若干个地雷，每一个非地雷格子上有一个数字，表示以它为中心的九个方格内地雷的数量。现在给定两个 $n\times m$ 的方格 A、B，一次操作可以将一个格子翻转，要求在 $\frac{n\cdot m}{2}$ 次操作内将B的所有数字之和变为和A内的一致。 题解:对称转化我们可以认为任意两个相邻（包括对角相邻）的格子之间有一条">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICPC-上海-2019">
+<meta property="og:url" content="http://yoursite.com/2021/04/20/ICPC-%E4%B8%8A%E6%B5%B7-2019/index.html">
+<meta property="og:site_name" content="Railroad Guerrilla">
+<meta property="og:description" content="B.Mine Sweeper II题意$n\times m$ 的方格中有若干个地雷，每一个非地雷格子上有一个数字，表示以它为中心的九个方格内地雷的数量。现在给定两个 $n\times m$ 的方格 A、B，一次操作可以将一个格子翻转，要求在 $\frac{n\cdot m}{2}$ 次操作内将B的所有数字之和变为和A内的一致。 题解:对称转化我们可以认为任意两个相邻（包括对角相邻）的格子之间有一条">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-20T05:59:24.000Z">
+<meta property="article:modified_time" content="2021-04-21T12:50:34.113Z">
+<meta property="article:author" content="潘曲阳 朱霖淇 刘浩钊">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="数位DP">
+<meta property="article:tag" content="对称转化">
+<meta property="article:tag" content="三分">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/20/ICPC-上海-2019/"/>
+
+
+
+
+
+  <title>ICPC-上海-2019 | Railroad Guerrilla</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Railroad Guerrilla</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录竞赛生涯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/20/ICPC-%E4%B8%8A%E6%B5%B7-2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="潘曲阳 朱霖淇 刘浩钊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Railroad Guerrilla">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ICPC-上海-2019</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-20T13:59:24+08:00">
+                2021-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="B-Mine-Sweeper-II"><a href="#B-Mine-Sweeper-II" class="headerlink" title="B.Mine Sweeper II"></a><a href="https://codeforces.com/gym/102900/problem/B" target="_blank" rel="noopener">B.Mine Sweeper II</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>$n\times m$ 的方格中有若干个地雷，每一个非地雷格子上有一个数字，表示以它为中心的九个方格内地雷的数量。现在给定两个 $n\times m$ 的方格 A、B，一次操作可以将一个格子翻转，要求在 $\frac{n\cdot m}{2}$ 次操作内将B的所有数字之和变为和A内的一致。</p>
+<h2 id="题解-对称转化"><a href="#题解-对称转化" class="headerlink" title="题解:对称转化"></a>题解:对称转化</h2><p>我们可以认为任意两个相邻（包括对角相邻）的格子之间有一条边，当格子的类型不同时，这条边权值为1，否则为0。原图里的权值就是边的权值之和。</p>
+<p>当我们将图里的点权转化为边权之后，权值就与每个格子是哪一类点无关，只与这些点是不是同一类点有关。</p>
+<p>因此贪心求解，优先将B转化为A，如果操作数超了，则将B转化为A的反。</p>
+<h1 id="Sum-of-Log"><a href="#Sum-of-Log" class="headerlink" title="Sum of Log"></a><a href="https://codeforces.com/gym/102900/problem/C" target="_blank" rel="noopener">Sum of Log</a></h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>对 $0\leq X,Y\leq 10^9$ 求</p>
+<script type="math/tex; mode=display">\sum\limits_{i=0}^{X}\sum\limits_{j=[i=0]}^{Y}[i\&j=0]\lfloor log_2(i+j)+1\rfloor\mod 10^9+7</script><h2 id="题解-数位DP"><a href="#题解-数位DP" class="headerlink" title="题解:数位DP"></a>题解:数位DP</h2><p>状态设置为  $dp[n][lim_x][lim_y]$ 表示当前到第 $n$ 位，$x$ 是否达到上限， $y$ 是否达到上限。</p>
+<p>对于 $lim_x=0$ 或 $lim_y = 0$，其取值范围有 $X,Y$ 的第 $n$ 位决定。<br>否则可以随遇取值01。</p>
+<p>具体看代码</p>
+<h1 id="D-Walker"><a href="#D-Walker" class="headerlink" title="D.Walker"></a><a href="https://codeforces.com/gym/102900/problem/D" target="_blank" rel="noopener">D.Walker</a></h1><h2 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h2><p>在长度为 $n$ 的区间上有两个点，给定其初始位置和速度，每个点会将经过的区间染色，且可以在任意时刻转向。问最少需要多少时间才能将整个区间染色。</p>
+<h2 id="题解-三分"><a href="#题解-三分" class="headerlink" title="题解:三分"></a>题解:三分</h2><p>三分区间的分割点 $P$ ，左边的点染色 $[0,P]$，右边的点染色 $[P,n]$。</p>
+<h1 id="E-The-Journey-of-Geor-Autumn"><a href="#E-The-Journey-of-Geor-Autumn" class="headerlink" title="E.The Journey of Geor Autumn"></a><a href="https://codeforces.com/gym/102900/problem/E" target="_blank" rel="noopener">E.The Journey of Geor Autumn</a></h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><p>对于 $1\leq n \leq 10^7, 1\leq k \leq 10^7$，计算有多少序列 $\{a_i\}$ 满足对于任意 $k<i\leq n$，$a_i>min(a_{i-k},…,a_{i-1})$，且$1～n$ 均出现且仅出现一次。</i\leq></p>
+<h2 id="题解-DP"><a href="#题解-DP" class="headerlink" title="题解:DP"></a>题解:DP</h2><p>对于这类问题，我们一般考虑将新的数字插入原本的合法序列中。</p>
+<p>首先考虑将一个新的最大的数字 $n$ 插入 $n-1$  的合法序列中，发现无法对插入位置进行限制。</p>
+<p>那么反过来，将一个最小的数字插入原本的序列的第 $i\in[1,k]$ 位。</p>
+<p>考虑插入新数字对序列造成的影响。</p>
+<p>对于第 $j\in[1,i-1]$ 位数字而言没有任何影响，对于第 $j\in[i + 1,n]$ 位数字，它们与 $a_i$ 可以构成一个长度为 $n-i+1$ 的合法序列。</p>
+<p>因此我们可以将原本的 $n - 1$ 的序列分为两段，前 $i-1$ 位随意取，后 $n-i+1$ 位为长度为 $n - i$ 的合法序列前面插入最小数字。</p>
+<p>$dp[n] = \sum\limits_{i=1}^{min(n, k)}C_{n-1}^i\cdot A_i^i\cdot dp[n-i]$</p>
+<p>显然 $O(nk)$ 复杂度是不行的，我们对方程进行化简</p>
+<script type="math/tex; mode=display">dp[n]=\sum\limits_{i=1}^{min(n,k)}\frac{n-1!}{i!n-i-1!}\cdot i!\cdot dp[n - i - 1]\\
+=n-1!\sum\limits_{i=1}^{min(n,k)}\frac{dp[n - i - 1]}{n-i-1!}</script><p>存一个 $\frac{dp[i]}{i!}$ 的前缀和就能 $O(1)$ 转移</p>
+<p>最终复杂度 $O(n)$</p>
+<h1 id="G-Fibonacci"><a href="#G-Fibonacci" class="headerlink" title="G.Fibonacci"></a><a href="https://codeforces.com/gym/102900/problem/G" target="_blank" rel="noopener">G.Fibonacci</a></h1><h2 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h2><p>对长度为 $n\leq 10^9$ 的 Fibonacci 数列 $\{f_i\}$ 计算</p>
+<p>$\sum_{i=1}^n\sum_{j=i+1}^ng(f_i,f_j)$</p>
+<p>其中 $g(x,y)$ 在 $x\cdot y$ 为偶数时为1， $x\cdot y$ 为奇数时为0</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>数列转化为01序列以表示奇偶 $1,1,0,1,1,0,…$</p>
+<p>然后随便算算就行了</p>
+<h1 id="H-Rive-Arrangement"><a href="#H-Rive-Arrangement" class="headerlink" title="H.Rive Arrangement"></a><a href="https://codeforces.com/gym/102900/problem/H" target="_blank" rel="noopener">H.Rive Arrangement</a></h1><h2 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h2><p>$1\leq k\leq min(1000,n)$ 碗饭不等距分布在被等分为 $1\leq n\leq 10^9$ 段的圆周上。有 $k$ 个人坐在桌子的四周。每次操作可以顺时针或逆时针地转动桌子 $\frac{2\pi}{n}$ 的弧度，当一碗饭到一个人面前时，他可以选择拿走或不拿。问至少要多少次操作才可以让每个人拿到一碗饭。</p>
+<h2 id="题解-贪心"><a href="#题解-贪心" class="headerlink" title="题解:贪心"></a>题解:贪心</h2><p>首先 $O(k)$ 枚举第一个人吃第 $i$ 碗饭，那么第 $j$ 个人肯定是吃顺序的第 $i + j - 1$ 碗饭。</p>
+<p>然后考虑转桌子的问题。假设一个人需要顺时针转 $a$ 次桌子能吃到饭，那么逆时针他需要转动 $n-a$ 次桌子才能吃到饭。显然我们只需要知道顺时针转动吃饭的人的最大转动次数 $a$ 和逆时针转动吃饭的人的最大次数 $b$ 就能计算出当前情况下最少的转动次数为 $a+b+min(a,b)$。</p>
+<p>因此我们按照每个人的顺时针转动次数从小到大排序，枚举第 $i$ 个人为最大顺时针转动的人，那么第 $i+1$ 个人为最大逆时针转动的人，当前的结果即为 $a_i+n-a_{i+1}+min(a_i,n-a_{i+1})$。用每一种情况更新答案即可，最终复杂度 $O(n^2logn)$</p>
+<h1 id="I-Sky-Garden"><a href="#I-Sky-Garden" class="headerlink" title="I.Sky Garden"></a><a href="https://codeforces.com/gym/102900/problem/I" target="_blank" rel="noopener">I.Sky Garden</a></h1><h2 id="题意-6"><a href="#题意-6" class="headerlink" title="题意"></a>题意</h2><p>对于 $n\leq 500$ 个半径分别为 $r_i=i$ 的同心圆，作 $m\leq 500$ 条过直径的直线，将其均分为 $2m$ 等份。对所有交点，求其两两相互到达的最短路径之和。</p>
+<h2 id="题解-分类讨论"><a href="#题解-分类讨论" class="headerlink" title="题解:分类讨论"></a>题解:分类讨论</h2><p>首先对于同一层圆上的焦点，两个点之间有两种路径可以走，一种是走到圆心再走出来，另一种是直接走两点之间的弧（其余情况均不可能更优），那么走弧的情况应该满足对于两点间的圆心角 $\phi=k\cdot\frac{\pi}{m}$ 有</p>
+<p>$\phi\cdot r\leq 2*r\\k\leq\frac{2m}{\pi}\\\to k=\lfloor\frac{2m}{\pi}\rfloor$</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------Stay hungry, stay foolish.------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DP/" rel="tag"># DP</a>
+          
+            <a href="/tags/%E6%95%B0%E4%BD%8DDP/" rel="tag"># 数位DP</a>
+          
+            <a href="/tags/%E5%AF%B9%E7%A7%B0%E8%BD%AC%E5%8C%96/" rel="tag"># 对称转化</a>
+          
+            <a href="/tags/%E4%B8%89%E5%88%86/" rel="tag"># 三分</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/13/CF-1503/" rel="next" title="CF_1503">
+                <i class="fa fa-chevron-left"></i> CF_1503
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/04/CF-1513/" rel="prev" title="CF-1513">
+                CF-1513 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">潘曲阳 朱霖淇 刘浩钊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Mine-Sweeper-II"><span class="nav-number">1.</span> <span class="nav-text">B.Mine Sweeper II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-对称转化"><span class="nav-number">1.2.</span> <span class="nav-text">题解:对称转化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sum-of-Log"><span class="nav-number">2.</span> <span class="nav-text">Sum of Log</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-数位DP"><span class="nav-number">2.2.</span> <span class="nav-text">题解:数位DP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-Walker"><span class="nav-number">3.</span> <span class="nav-text">D.Walker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-2"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-三分"><span class="nav-number">3.2.</span> <span class="nav-text">题解:三分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-The-Journey-of-Geor-Autumn"><span class="nav-number">4.</span> <span class="nav-text">E.The Journey of Geor Autumn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-DP"><span class="nav-number">4.2.</span> <span class="nav-text">题解:DP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-Fibonacci"><span class="nav-number">5.</span> <span class="nav-text">G.Fibonacci</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-4"><span class="nav-number">5.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">5.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H-Rive-Arrangement"><span class="nav-number">6.</span> <span class="nav-text">H.Rive Arrangement</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-5"><span class="nav-number">6.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-贪心"><span class="nav-number">6.2.</span> <span class="nav-text">题解:贪心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-Sky-Garden"><span class="nav-number">7.</span> <span class="nav-text">I.Sky Garden</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-6"><span class="nav-number">7.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-分类讨论"><span class="nav-number">7.2.</span> <span class="nav-text">题解:分类讨论</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">潘曲阳 朱霖淇 刘浩钊</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a>HAHA  </a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script async src="/js/cursor/explosion.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
